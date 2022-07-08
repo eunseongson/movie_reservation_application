@@ -17,7 +17,7 @@ public class MovieDetailDao {
 	private static MovieDetailDao dao = new MovieDetailDao();
 	
 	private MovieDetailDao() {
-		
+		DBConnection.initConnection();
 	}
 	
 	public static MovieDetailDao getInstance() {
@@ -58,8 +58,8 @@ public class MovieDetailDao {
 		return result;
 	}
 	
-	public List<MovieDetailDto> getMovieDetail(String title) {
-		List<MovieDetailDto> list = new ArrayList<MovieDetailDto>();
+	public MovieDetailDto getMovieDetail(String title) {
+		MovieDetailDto dto = null;
 
 		String sql = "SELECT * FROM movie WHERE seq = (SELECT seq FROM movie WHERE title = ?)";
 		
@@ -75,8 +75,8 @@ public class MovieDetailDao {
 			System.out.println("2/4 getMovieDetail success");
 			rs = psmt.executeQuery();
 			System.out.println("3/4 getMovieDetail success");
-			while (rs.next()) {
-				MovieDetailDto dto = new MovieDetailDto(rs.getString(2), 
+			if(rs.next()) {
+				dto = new MovieDetailDto(rs.getString(2), 
 														rs.getInt(3),
 														rs.getString(4), 
 														rs.getString(5), 
@@ -90,7 +90,6 @@ public class MovieDetailDao {
 														rs.getInt(13),
 														rs.getInt(14)
 														);
-				list.add(dto);
 			}
 
 			System.out.println("4/4 getMovieDetail success");
@@ -101,6 +100,6 @@ public class MovieDetailDao {
 		} finally {
 			DBClose.close(conn, psmt, rs);
 		}
-		return list;
+		return dto;
 	}
 }
