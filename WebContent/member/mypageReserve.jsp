@@ -22,9 +22,9 @@ mem = (MemberDto)obj;
 String id = request.getParameter("id");
 	
 %>   
-
+    
 <!DOCTYPE html>
-<html lang="ko">
+<html>
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -37,7 +37,7 @@ String id = request.getParameter("id");
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="../css/footer.css">
+  <link rel="stylesheet" href="../css/footer.css?ver=3.0">
   <link rel="stylesheet" href="../css/mypage.css">
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js" integrity="sha512-WFN04846sdKMIP5LKNphMaWzU7YpMyCU245etK3g/2ARYbPK9Ub18eG+ljU96qKRCWh+quCY7yefSmlkQw1ANQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -117,6 +117,7 @@ String id = request.getParameter("id");
 
     </div>
   </footer>
+
 
 </body>
 </html>
