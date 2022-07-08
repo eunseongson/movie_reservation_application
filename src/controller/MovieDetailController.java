@@ -10,6 +10,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
 import dao.MovieDetailDao;
+import dto.MovieDetailDto;
 import net.sf.json.JSONObject;
 
 @WebServlet("/movieDetail")
@@ -41,9 +42,25 @@ public class MovieDetailController extends HttpServlet {
 			MovieDetailDao dao = MovieDetailDao.getInstance();
 			//crawlingMovieDetail("http://www.cgv.co.kr/movies/detail-view/?midx=82120");
 			//test 더미데이터
-			dao.getMovieDetail("test");
+			MovieDetailDto dto = dao.getMovieDetail("test");
+			String destination = "movie/moviedetail.jsp";
+			String parameter = "?title=" + dto.getTitle() + ""
+					+ "&reservation=" + dto.getReservation()
+					+ "&img=" + dto.getImg()
+					+ "&rdate=" + dto.getRdate()
+					+ "&readcount=" + dto.getReadcount()
+					+ "&actor=" + dto.getActor()
+					+ "&author=" + dto.getAuthor()
+					+ "&genre=" + dto.getGenre()
+					+ "&ageLimit=" + dto.getAge_limit()
+					+ "&country=" + dto.getCountry()
+					+ "&movieDescription=" + dto.getMovie_description()
+					+ "&previousExpectations=" + dto.getPrevious_expectations()
+					+ "&realReview=" + dto.getReal_review();
+	
+			resp.sendRedirect(destination + parameter);
 			//moviedetail.jsp
-			resp.sendRedirect("moviedetail.jsp");
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
