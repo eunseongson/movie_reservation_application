@@ -35,7 +35,7 @@ class MovieDetailControllerTest {
 //	
 	@Test
 	void test() throws IOException {
-		MovieDetailDao dao = new MovieDetailDao();
+		MovieDetailDao dao = MovieDetailDao.getInstance();
 		dao.getMovieDetail(null);
 	}
 }

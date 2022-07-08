@@ -22,9 +22,9 @@ mem = (MemberDto)obj;
 String id = request.getParameter("id");
 	
 %>   
-
+    
 <!DOCTYPE html>
-<html lang="ko">
+<html>
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -39,6 +39,7 @@ String id = request.getParameter("id");
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="../css/footer.css">
   <link rel="stylesheet" href="../css/mypage.css">
+  <link rel="stylesheet" href="../css/mypageInfo.css">
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js" integrity="sha512-WFN04846sdKMIP5LKNphMaWzU7YpMyCU245etK3g/2ARYbPK9Ub18eG+ljU96qKRCWh+quCY7yefSmlkQw1ANQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   
@@ -78,12 +79,27 @@ String id = request.getParameter("id");
       	</div>
       	
       	<div class="contents">
-	      		<span>콘텐츠입니다</span>
-	     </div>
+      		<table>
+				<tr>
+					<th>아이디:</th>
+					<td><%=mem.getId() %></td>
+				</tr>
+				<tr>
+					<th>이름:</th>
+					<td><%=mem.getName() %></td>
+				</tr>
+				<tr>
+					<th>이메일:</th>
+					<td><%=mem.getEmail() %></td>
+				</tr>
+				<tr>
+					<th>전화번호:</th>
+					<td><%=mem.getPhone() %></td>
+				</tr>
+			</table>
+    	 </div>
 	</div>
 </div>
-
-
 
   <footer>
     <div class="inner">
@@ -117,6 +133,20 @@ String id = request.getParameter("id");
 
     </div>
   </footer>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
 
 </body>
 </html>
