@@ -1,16 +1,12 @@
 @charset "UTF-8";
 
 body{
-  background: linear-gradient( #eb529d 50%, #f96302 50% );
+  background: linear-gradient( #eb529d 10%, #fff 90% );
   color: #333;
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 1.4;
-  font-family: 'Nanum Gothic', sans-serif;
-
 }
 
 .content-wrapper {
+	
 	font-family: Times, serif, Georgia;
     width: 55%;
     margin: 0 auto;
@@ -22,7 +18,7 @@ body{
 }
 
 .content-wrapper .top{
-	background-color: #fff5bf;
+	background-color: #fff;
 	height: 300px;
 	margin-bottom: 50px;
 	padding: 35px 20px;
