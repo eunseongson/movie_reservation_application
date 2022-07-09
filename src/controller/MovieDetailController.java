@@ -17,6 +17,7 @@ import org.jsoup.select.Elements;
 import dao.MovieDetailDao;
 import dao.MovieStillcutDao;
 import dao.ReviewDao;
+import dto.MovieDetailDto;
 import dto.ReviewDto;
 import net.sf.json.JSONObject;
 
@@ -179,7 +180,7 @@ public class MovieDetailController extends HttpServlet {
 		MovieStillcutDao msDao = MovieStillcutDao.getInstance();
 		ReviewDao rDao = ReviewDao.getInstance();
 		// 테스트
-		crawlingMovieDetail("http://www.cgv.co.kr/movies/detail-view/?midx=85999", mdDao, msDao, rDao);
+//		crawlingMovieDetail("http://www.cgv.co.kr/movies/detail-view/?midx=85999", mdDao, msDao, rDao);
 		try {
 
 			MovieDetailDao dao = MovieDetailDao.getInstance();
