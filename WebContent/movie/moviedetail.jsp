@@ -37,7 +37,7 @@ List<ReviewDto> reviews = (List<ReviewDto>) request.getAttribute("reviews");
 <script src="https://kit.fontawesome.com/079869d0a6.js"
 	crossorigin="anonymous"></script>
 <link rel="icon" href="./favicon.png">
-<link rel="stylesheet" n
+<link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -120,9 +120,7 @@ List<ReviewDto> reviews = (List<ReviewDto>) request.getAttribute("reviews");
 						for (int i = 0; i < stillCut.size(); i++) {
 						%>
 						<div class="swiper-slide">
-							<img id="slideimg"
-								src="<%= stillCut.get(i)%>"
-								alt="no_image">
+							<img id="slideimg" src="<%=stillCut.get(i)%>" alt="no_image">
 						</div>
 						<%
 						}
@@ -145,126 +143,15 @@ List<ReviewDto> reviews = (List<ReviewDto>) request.getAttribute("reviews");
 				<i class="fa-regular fa-face-smile"></i>실시간 후기
 			</div>
 			<table id="table">
-					<%-- <td class="td">
-						<div id="tdDiv">
-							<div id="revLeft">
-								<img alt="../img/default_profile.gif"
-									src="${pageContext.request.contextPath}/img/second.jpg">
-							</div>
-							<div id="revRight">
-								<div id="revId">
-									<div id="revTop">
-										<div id="id">dmstjd3256</div>
-										<div>2022.07.28</div>
-									</div>
-									<br>
-									점점마블영화가김빠진콜라같은느낌은무엇인지...좀허전한데,주연,스토리라인모두재정비해야할거같아요~~ㅠㅠ
-								</div>
-							</div>
-						</div>
-					</td>
-					<td class="td">
-						<div id="tdDiv">
-							<div id="revLeft">
-								<img alt="../img/default_profile.gif"
-									src="${pageContext.request.contextPath}/img/second.jpg">
-							</div>
-							<div id="revRight">
-								<div id="revId">
-									<div id="revTop">
-										<div id="id">dmstjd3256</div>
-										<div>2022.07.28</div>
-									</div>
-									<br>
-									점점마블영화가김빠진콜라같은느낌은무엇인지...좀허전한데,주연,스토리라인모두재정비해야할거같아요~~ㅠㅠ
-								</div>
-							</div>
-						</div>
-					</td>
-				</tr>
+				<%
+				for (int i = 0; i < reviews.size(); i += 2) {
+				%>
 				<tr>
 					<td class="td">
 						<div id="tdDiv">
 							<div id="revLeft">
-								<img alt="../img/default_profile.gif"
-									src="${pageContext.request.contextPath}/img/second.jpg">
-							</div>
-							<div id="revRight">
-								<div id="revId">
-									<div id="revTop">
-										<div id="id">dmstjd3256</div>
-										<div>2022.07.28</div>
-									</div>
-									<br>
-									점점마블영화가김빠진콜라같은느낌은무엇인지...좀허전한데,주연,스토리라인모두재정비해야할거같아요~~ㅠㅠ
-								</div>
-							</div>
-						</div>
-					</td>
-					<td class="td">
-						<div id="tdDiv">
-							<div id="revLeft">
-								<img alt="../img/default_profile.gif"
-									src="${pageContext.request.contextPath}/img/second.jpg">
-							</div>
-							<div id="revRight">
-								<div id="revId">
-									<div id="revTop">
-										<div id="id">dmstjd3256</div>
-										<div>2022.07.28</div>
-									</div>
-									<br>
-									점점마블영화가김빠진콜라같은느낌은무엇인지...좀허전한데,주연,스토리라인모두재정비해야할거같아요~~ㅠㅠ
-								</div>
-							</div>
-						</div>
-					</td>
-				</tr>
-				<tr>
-					<td class="td">
-						<div id="tdDiv">
-							<div id="revLeft">
-								<img alt="../img/default_profile.gif"
-									src="${pageContext.request.contextPath}/img/second.jpg">
-							</div>
-							<div id="revRight">
-								<div id="revId">
-									<div id="revTop">
-										<div id="id">dmstjd3256</div>
-										<div>2022.07.28</div>
-									</div>
-									<br>
-									점점마블영화가김빠진콜라같은느낌은무엇인지...좀허전한데,주연,스토리라인모두재정비해야할거같아요~~ㅠㅠ
-								</div>
-							</div>
-						</div>
-					</td>
-					<td class="td">
-						<div id="tdDiv">
-							<div id="revLeft">
-								<img alt="../img/default_profile.gif"
-									src="${pageContext.request.contextPath}/img/second.jpg">
-							</div>
-							<div id="revRight">
-								<div id="revId">
-									<div id="revTop">
-										<div id="id">dmstjd3256</div>
-										<div>2022.07.28</div>
-									</div>
-									<br>
-									점점마블영화가김빠진콜라같은느낌은무엇인지...좀허전한데,주연,스토리라인모두재정비해야할거같아요~~ㅠㅠ
-								</div>
-							</div>
-						</div>
-					</td> --%>
-					<%
-					for (int i = 0; i < reviews.size(); i+=2) {
-					%>
-					<tr>
-					<td class="td">
-						<div id="tdDiv">
-							<div id="revLeft">
-								<img alt="${pageContext.request.contextPath}/img/default_profile.gif"
+								<img
+									alt="${pageContext.request.contextPath}/img/default_profile.gif"
 									src="${pageContext.request.contextPath}/img/second.jpg">
 							</div>
 							<div id="revRight">
@@ -282,7 +169,8 @@ List<ReviewDto> reviews = (List<ReviewDto>) request.getAttribute("reviews");
 					<td class="td">
 						<div id="tdDiv">
 							<div id="revLeft">
-								<img alt="${pageContext.request.contextPath}/img/default_profile.gif"
+								<img
+									alt="${pageContext.request.contextPath}/img/default_profile.gif"
 									src="${pageContext.request.contextPath}/img/second.jpg">
 							</div>
 							<div id="revRight">
@@ -298,9 +186,9 @@ List<ReviewDto> reviews = (List<ReviewDto>) request.getAttribute("reviews");
 						</div>
 					</td>
 				</tr>
-					<%
-					}
-					%>
+				<%
+				}
+				%>
 			</table>
 		</div>
 	</div>
