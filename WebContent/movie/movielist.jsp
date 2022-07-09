@@ -67,30 +67,39 @@
         
         <!-- MovieList -->
         <table class="movielist">
-        	<% for(int i=0; i<10; i=i+3) {
+        	<% for(int i=0; i<9; i=i+3) {
         	%>
 	        	<tr>
 		        	<td>
-		        		<div>hello</div>
-		        		<div><img src="../images/git.png"></div>
-		        		<div>bye</div>
+		        		<div style="background-color:red; padding:5px;"><strong class="rank" style="color:white">No.<%=i+1 %></strong></div>
+		        		<div><img src="../images/git.png" width="100%" height="100%"></div>
+		        		<div><p class="bottom_title" style="text-align:left">제목</p>
+		        			<p class="bottom_detail" style="text-align:left">상세정보</p>
+		        			<p style="text-align:left"><input type="button" value="예매하기" id="reservation" name="reservation"></p>
+		        		</div>
 		        	</td>
 		        	<td>
-		        		<div>hello</div>
-		        		<div><img src="../images/git.png"></div>
-		        		<div>bye</div>
+		        		<div style="background-color:red; padding:5px;"><strong class="rank" style="color:white">No.<%=i+2 %></strong></div>
+		        		<div><img src="../images/git.png" width="100%" height="100%"></div>
+		        		<div><p class="bottom_title" style="text-align:left">제목</p>
+		        			<p class="bottom_detail" style="text-align:left">상세정보</p>
+		        			<p style="text-align:left"><input type="button" value="예매하기" id="reservation" name="reservation"></p>
+		        		</div>
 		        	</td>
 		        	<td>
-						<div>hello</div>
-		        		<div><img src="../images/git.png"></div>
-		        		<div>bye</div>	
+						<div style="background-color:red; padding:5px;"><strong class="rank" style="color:white">No.<%=i+3 %></strong></div>
+		        		<div><img src="../images/git.png" width="100%" height="100%"></div>
+		        		<div><p class="bottom_title" style="text-align:left">제목</p>
+		        			<p class="bottom_detail" style="text-align:left">상세정보</p>
+		        			<p style="text-align:left"><input type="button" value="예매하기" id="reservation" name="reservation"></p>
+		        		</div>	
 					</td>
 	        	</tr>
         	<%
         	}
         	%>
         </table>
-        <!-- //Sorting -->
+        <!-- //MovieList -->
      </div>
      
      
