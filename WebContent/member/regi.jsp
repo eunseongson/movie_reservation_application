@@ -3,8 +3,23 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Starbucks Coffee JIHUN</title>
+
+  <link rel="icon" href="./favicon.png">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="../css/bootstrap.min.css">
+<link rel="stylesheet" href="../css/account.css">
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js" integrity="sha512-WFN04846sdKMIP5LKNphMaWzU7YpMyCU245etK3g/2ARYbPK9Ub18eG+ljU96qKRCWh+quCY7yefSmlkQw1ANQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  
+<title>BITBOX</title>
 
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -24,10 +39,10 @@
 
 </head>
 <body>
+<jsp:include page="../main/header.jsp"></jsp:include>
 
 	<div class="center">
 		<h2>회원가입</h2>
-
 
 		<form action="<%=request.getContextPath()%>/member" method="post">
 			<input type="hidden" name="param" value="regiAf">
@@ -36,7 +51,8 @@
 				<tr>
 					<th>아이디</th>
 					<td><input type="text" id="id" name="id" size="30" required><br>
-						<p id="idcheck" style="font-size: 8px"></p> <input type="button"
+						<p id="idcheck" style="font-size: 8px"></p> 
+						<input type="button"
 						id="idBtn" value="아이디확인"></td>
 				</tr>
 				<tr>
@@ -97,6 +113,8 @@
 
 		});
 	</script>
+
+ <jsp:include page="../main/footer.jsp"></jsp:include>
 
 </body>
 </html>
