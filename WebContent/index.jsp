@@ -5,4 +5,3 @@
 <%
 response.sendRedirect("main?param=start");
 %>
-

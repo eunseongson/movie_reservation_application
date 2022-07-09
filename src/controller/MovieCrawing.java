@@ -30,7 +30,6 @@ public class MovieCrawing {
 			Elements a=doc.select("div.box-contents a");
 			for(Element e:a) {
 				String aa=e.attr("href");
-				System.out.println(aa);
 			}
 		
 			List<MovieDto>list=new ArrayList<>();
