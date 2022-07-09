@@ -1,6 +1,9 @@
 package controller;
 
+
 import javax.servlet.RequestDispatcher;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -8,22 +11,19 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import dao.MovieDetailDao;
-import dto.MovieDetailDto;
+import dao.MovieStillcutDao;
+import dao.ReviewDao;
+import dto.ReviewDto;
 import net.sf.json.JSONObject;
 
 @WebServlet("/movieDetail")
 public class MovieDetailController extends HttpServlet {
-	public JSONObject getMovieDetail() {
-		JSONObject result = new JSONObject();
-		// result.put(result, result)
-		return result;
-	}
 
-	public void crawlingMovieDetail(String url, MovieDetailDao mdDao, MovieStillcutDao msDao, ReviewDao rDao)
-			throws Exception {
+	public void crawlingMovieDetail(String url, MovieDetailDao mdDao, MovieStillcutDao msDao, ReviewDao rDao) throws Exception {
 		Document doc = Jsoup.connect(url).get();
 		String movie = null, author = null, actor = null, genre = null, age_limit = null, running_time = null,
 				country = null, movie_description = null, movie_descriptionTitle = null, previous_expectations = null,
@@ -54,9 +54,6 @@ public class MovieDetailController extends HttpServlet {
 		String modiGenre = gen.text().replace("장르 : ", "");
 		genre = modiGenre;
 		update_detail.add(modiGenre);
-//		      for(Element e: genres) {
-//		         System.out.println(e.text());
-//		      }
 
 		// 나이제한, 상영시간, 나라
 		String specDir = "div.spec dl dd.on";
@@ -69,10 +66,6 @@ public class MovieDetailController extends HttpServlet {
 		update_detail.add(age_limit);
 		update_detail.add(running_time);
 		update_detail.add(country);
-//		      for(Element e: specs) {
-//		         //12세, 119분, 미국
-//		         System.out.println(e.text());
-//		      }
 
 		// 영화 설명 제목
 		String movieDescriptionTitle = "div.sect-story-movie strong";
@@ -95,30 +88,31 @@ public class MovieDetailController extends HttpServlet {
 		}
 
 		// 대기
-//		      String sexDistribution = "div.chart";
-//		      Elements sexs = doc.select(sexDistribution);
-//		      Elements sex = doc.select("script");
-//		      System.out.println(sex.toString());
+
+//		String sexDistribution = "div.chart";
+//		Elements sexs = doc.select(sexDistribution);
+//		Elements sex = doc.select("script");
+//		System.out.println(sex.toString());
 
 		// Elements sexValues =
 		// sexs.select("span.jqplot-donut-series.jqplot-data-label");
-//		      Elements sexValues = doc.select("span.jqplot-donut-series");
-//		      System.out.println(sexs.toString());
-//		      for(int i=0;i<sexValues.size();i++) {
-//		         System.out.println("들어옴");
-//		         String sex = sexValues.get(i).text();
-//		         System.out.println(sex);
-//		      }
+//		Elements sexValues = doc.select("span.jqplot-donut-series");
+//		System.out.println(sexs.toString());
+//		for(int i=0;i<sexValues.size();i++) {
+//			System.out.println("들어옴");
+//			String sex = sexValues.get(i).text();
+//			System.out.println(sex);
+//		}
 
 		// 대기
-//		      String ageDistribution = "span.jqplot-series-0";
-//		      Elements ages = doc.select(ageDistribution);
-//		      System.out.println(ages.toString());
-//		      for(int i=0;i<ages.size();i++) {
-//		         System.out.println("들어옴");
-//		         String age = ages.get(i).text();
-//		         System.out.println(age);
-//		      }
+//		String ageDistribution = "span.jqplot-series-0";
+//		Elements ages = doc.select(ageDistribution);
+//		System.out.println(ages.toString());
+//		for(int i=0;i<ages.size();i++) {
+//			System.out.println("들어옴");
+//			String age = ages.get(i).text();
+//			System.out.println(age);
+//		}
 
 		// 사전기대지수
 		String before = "div.rating div.box span.percent";
@@ -152,32 +146,32 @@ public class MovieDetailController extends HttpServlet {
 			String srcs = imgs.get(i).attr("data-src");
 			still_cut.add(srcs);
 		}
-
-		// 리뷰내용
-		// String reviewTit = "div.box-contents ul.writerinfo li.writer-name";//
-		// a.commentMore
+		
+		//리뷰내용
+		//String reviewTit = "div.box-contents ul.writerinfo li.writer-name";// a.commentMore
 		String reviewCon = "div.box-comment";// p
 		Elements reviews = doc.select(reviewCon);
 		System.out.println("review 내용 : " + reviews.toString());
+		
+//		String reviewTit = "li.writer-name a.commentMore";
+//		String reviewCon = "div.box-comment";
+//		String reviewDate = "li.writer-etc span.day";
+//		String[] reviewDir = {reviewTit, reviewCon, reviewDate}; 
+//		for(int i=0;i<reviewDir.length;i++) {
+//			Elements reviews = doc.select(reviewDir[i]);
+//			System.out.println("reviews 길이 - " + reviews.size());
+//			if(reviews.size()!=0)
+//			System.out.println("reviews 내용 - " + reviews.get(0).text());
+//			for (int j = 0; j < reviews.size(); j++) {
+//				String sReview = reviews.get(0).text();
+//				System.out.println("review 내용 : " + sReview);
+//			}
+//		}
 
-//		      String reviewTit = "li.writer-name a.commentMore";
-//		      String reviewCon = "div.box-comment";
-//		      String reviewDate = "li.writer-etc span.day";
-//		      String[] reviewDir = {reviewTit, reviewCon, reviewDate}; 
-//		      for(int i=0;i<reviewDir.length;i++) {
-//		         Elements reviews = doc.select(reviewDir[i]);
-//		         System.out.println("reviews 길이 - " + reviews.size());
-//		         if(reviews.size()!=0)
-//		         System.out.println("reviews 내용 - " + reviews.get(0).text());
-//		         for (int j = 0; j < reviews.size(); j++) {
-//		            String sReview = reviews.get(0).text();
-//		            System.out.println("review 내용 : " + sReview);
-//		         }
-//		      }
 
 		mdDao.addMovieDetail(update_detail);
 		msDao.addMovieStillCut(still_cut, tt.get(0).text());
-		// rDao.addReview(title);
+		//rDao.addReview(title);
 	}
 
 	@Override
@@ -188,6 +182,7 @@ public class MovieDetailController extends HttpServlet {
 		// 테스트
 		crawlingMovieDetail("http://www.cgv.co.kr/movies/detail-view/?midx=85999", mdDao, msDao, rDao);
 		try {
+
 			MovieDetailDao dao = MovieDetailDao.getInstance();
 			String title = req.getParameter("title");
 			MovieDetailDto dto = dao.getMovieDetail(title);
@@ -211,6 +206,7 @@ public class MovieDetailController extends HttpServlet {
 
 			RequestDispatcher requestDispatcher = req.getRequestDispatcher("/movie/moviedetail.jsp");
 			requestDispatcher.forward(req, resp);
+
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
