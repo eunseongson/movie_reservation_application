@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import db.DBClose;
@@ -24,10 +25,14 @@ public class MovieDetailDao {
 		return dao;
 	}
 	
-	public boolean addMovieDetail(String title) {
+	public boolean addMovieDetail(List<String> update_detail) {
+		System.out.println("update_detail size : " + update_detail.size());
 		boolean result = false;
-		String sql = "UPDATE MOVIE SET actor = ?, author = ?, genre = ?, age_limit = ?, country = ?, movie_description = ?, previous_expectations = ?, real_review = ?) "
-				+ "WHERE title = " + title;
+		String sql = "UPDATE MOVIE SET actor = ?, author = ?, genre = ?, "
+				+ "age_limit = ?, running_time = ?, country = ?, "
+				+ "movie_description_title = ?, movie_description = ?, "
+				+ "previous_expectations = ?, real_review = ? "
+				+ "WHERE title = ?";
 		
 		Connection conn = null;
 		PreparedStatement psmt = null;
@@ -37,6 +42,9 @@ public class MovieDetailDao {
 			conn = DBConnection.getConnection();
 			System.out.println("1/4 addMovieDetail success");
 			psmt = conn.prepareStatement(sql);
+			for(int i=0;i<update_detail.size();i++) {
+				psmt.setString(i+1, update_detail.get(i));	
+			}
 			
 			//크롤링한 결과 주입
 			//psmt.setString(1, "test");

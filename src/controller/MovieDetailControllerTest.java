@@ -1,7 +1,12 @@
 package controller;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.io.IOException;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 import org.junit.jupiter.api.Test;
 
 import dao.MovieDetailDao;
@@ -33,9 +38,31 @@ class MovieDetailControllerTest {
 //		assertEquals(actors[0], "톰 크루즈");
 //	}
 //	
+//	@Test
+//	void test() throws IOException {
+//		MovieDetailDao dao = MovieDetailDao.getInstance();
+//		dao.getMovieDetail(null);
+//	}
+	
 	@Test
 	void test() throws IOException {
 		MovieDetailDao dao = MovieDetailDao.getInstance();
-		dao.getMovieDetail(null);
+		Document doc = Jsoup.connect("http://www.cgv.co.kr/movies/detail-view/?midx=82120").get();
+		
+//		String find = "div.cgvwrap div.container div.contents div.wrap-movie-detail ";
+		String movieDescription = "div.sect-story-movie ";
+		Elements test = doc.select(movieDescription);
+		assertEquals(test.get(0).text(), "");
+		
+		//String movieDescriptionTitle = "div.sect-story-movie strong";
+		//assertEquals(test.get(0).text(), "");
+//		String img = "div.item-wrap div.item img";
+//		
+//		Elements test = doc.select(img);
+//		assertEquals(test.attr("data-src"), "");
+		
 	}
+	
+	
+	
 }
