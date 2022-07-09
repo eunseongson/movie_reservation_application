@@ -14,4 +14,4 @@
 
 	<button type="button" onclick="location.href = '../location'">location보내기</button>
 </body>
-</html>
+</html> 
