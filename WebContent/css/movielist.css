@@ -162,15 +162,14 @@
 	height : 500px;
 	padding : 30px;
 	text-align : center;
-	border : 3px solid red;
 }
 
 .movielist td:nth-child(1){
 	height : 30px;
 }
 .movielist td:nth-child(2){
-	height:90px;
+	height : 90px;
 }
 .movielist td:nth-child(3){
-	height:60px;
+	height : 60px;
 }
