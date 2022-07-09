@@ -31,7 +31,7 @@ public class MemberController extends HttpServlet {
 
 		String param = req.getParameter("param");
 
-		if (param.equals("login")) { // member?param=login
+		if (param.equals("login")) {
 			resp.sendRedirect("member/login.jsp");
 		} else if (param.equals("regi")) {
 			resp.sendRedirect("member/regi.jsp");
