@@ -1,19 +1,16 @@
 <%@page import="java.util.ArrayList"%>
-<%@page import="java.util.Collections"%>
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="dto.MovieDto"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<% 
-List<MovieDto> list = (List)request.getAttribute("movie");
-%>	
 <!DOCTYPE html>
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="wScheduleidth=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Movie List</title>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   
@@ -26,7 +23,7 @@ List<MovieDto> list = (List)request.getAttribute("movie");
 	<div class="content">
         <!-- Heading Map Multi -->
         <div class="tit-heading-wrap">
-            <div class="tit-movielist-header">무비차트</div>
+            <div class="tit-movielist-header">상영예정작</div>
            
             <div class="submenu">
 				<a href="Movielist?param=movielist">
@@ -50,23 +47,12 @@ List<MovieDto> list = (List)request.getAttribute("movie");
         <!-- Sorting -->
         <div class="sect-sorting">
             <div class="nowshow">
-            	<%
-            	int division = (int)request.getAttribute("division");
-            	if(division == 1){
-            	%>
-            		<input type="checkbox" id="chk_nowshow"  title="선택되지 않음" onclick='is_checked()'/>
-            	<%
-            	}else{
-            	%>
-            		<input type="checkbox" id="chk_nowshow"  title="현재 선택됨" onclick='is_checked()' checked/>
-            	<%
-            	}
-            	%>
-                <label for="chk_nowshow">현재 상영작만 보기</label>                
+                <label for="chk_nowshow">상영예정작</label>                
             </div>
             <div class="movielist-sort">
 	            <select id="order_type" name="order-type"">
-		            <option value="1">예매율순</option>
+	            
+					<option value="1">예매율순</option>
 	                <option title="현재 선택됨" selected value="2">제목순</option>
 	                <option value="3">개봉일순</option>
 	            </select>
@@ -76,16 +62,9 @@ List<MovieDto> list = (List)request.getAttribute("movie");
             function sortclick(){
             	var selectedElement = document.getElementById("order_type");
             	var optionVal = selectedElement.options[selectedElement.selectedIndex].value;
-                var chk_nowshow = document.getElementById("chk_nowshow").checked;
-                
-                if(chk_nowshow){
-                	var division = 3;
-                }else{
-                	var division = 1;
-                }
-
+            	
                 // 선택한 option의 value, 텍스트
-                location.href = "Movielist?param=sortMovielist&sort="+optionVal+"&division="+division;
+                location.href = "Movielist?param=Schedule&sort="+optionVal;
             }
             </script>
         </div>
@@ -93,27 +72,12 @@ List<MovieDto> list = (List)request.getAttribute("movie");
         
         <!-- MovieList -->
         <table class="movielist">
-        	<script>
-	        	function is_checked() {
-	        		  
-	        		  // 1. checkbox element를 찾습니다.
-	        		  const checkbox = document.getElementById('chk_nowshow');
-	
-	        		  // 2. checked 속성을 체크합니다.
-	        		  const is_checked = checkbox.checked;
-	        		  
-	        		  if(is_checked){
-	        			  location.href = "Movielist?param=nowMovielist";
-	        			  checkbox.checked;
-	        		  }else{
-	        			  location.href = "Movielist?param=movielist";
-	        		  }
-	        	}
-	        	
-        	</script>
-        	
-        		<%
+        	<% 
+        		List<MovieDto> list = (List)request.getAttribute("movie");
+               
         		for(int i=0; i<list.size(); i++) {
+        	%>	
+        		<%
         		if(i%4==0){
         		%> <tr>
         		<%

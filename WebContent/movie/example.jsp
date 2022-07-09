@@ -8,8 +8,8 @@
 </head>
 <body>
 <form action="../movieDetail">
-<input type="hidden" id="title" name="title" value="test">
-<button type="submit">보내기</button>   
+<input type="hidden" id="title" name="title" value="thor">
+<button type="submit">보내기</button>
 </form>
  
 </body>

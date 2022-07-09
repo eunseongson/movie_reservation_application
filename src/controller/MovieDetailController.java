@@ -1,8 +1,9 @@
 package controller;
 
+
+import javax.servlet.RequestDispatcher;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -21,12 +22,6 @@ import net.sf.json.JSONObject;
 
 @WebServlet("/movieDetail")
 public class MovieDetailController extends HttpServlet {
-	public JSONObject getMovieDetail() {
-		JSONObject result = new JSONObject();
-		// result.put(result, result)
-
-		return result;
-	}
 	public void crawlingMovieDetail(String url, MovieDetailDao mdDao, MovieStillcutDao msDao, ReviewDao rDao) throws Exception {
 		Document doc = Jsoup.connect(url).get();
 		String movie = null, author = null, actor = null, genre = null, age_limit = null, running_time = null,
@@ -58,9 +53,6 @@ public class MovieDetailController extends HttpServlet {
 		String modiGenre = gen.text().replace("장르 : ", "");
 		genre = modiGenre;
 		update_detail.add(modiGenre);
-//		for(Element e: genres) {
-//			System.out.println(e.text());
-//		}
 
 		// 나이제한, 상영시간, 나라
 		String specDir = "div.spec dl dd.on";
@@ -73,10 +65,6 @@ public class MovieDetailController extends HttpServlet {
 		update_detail.add(age_limit);
 		update_detail.add(running_time);
 		update_detail.add(country);
-//		for(Element e: specs) {
-//			//12세, 119분, 미국
-//			System.out.println(e.text());
-//		}
 
 		// 영화 설명 제목
 		String movieDescriptionTitle = "div.sect-story-movie strong";
@@ -99,6 +87,7 @@ public class MovieDetailController extends HttpServlet {
 		}
 
 		// 대기
+
 //		String sexDistribution = "div.chart";
 //		Elements sexs = doc.select(sexDistribution);
 //		Elements sex = doc.select("script");
@@ -148,7 +137,7 @@ public class MovieDetailController extends HttpServlet {
 		String tit = "div.title strong";
 		Elements tt = doc.select(tit);
 		update_detail.add(tt.get(0).text());
-		
+
 		// 스틸컷
 		String img = "div.item-wrap div.item img";
 		Elements imgs = doc.select(img);
@@ -186,36 +175,41 @@ public class MovieDetailController extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
+		MovieDetailDao mdDao = MovieDetailDao.getInstance();
+		MovieStillcutDao msDao = MovieStillcutDao.getInstance();
+		ReviewDao rDao = ReviewDao.getInstance();
+		// 테스트
+		crawlingMovieDetail("http://www.cgv.co.kr/movies/detail-view/?midx=85999", mdDao, msDao, rDao);
 		try {
-			MovieDetailDao mdDao = MovieDetailDao.getInstance();
-			MovieStillcutDao msDao = MovieStillcutDao.getInstance();
-			ReviewDao rDao = ReviewDao.getInstance();
-			// 테스트
-			crawlingMovieDetail("http://www.cgv.co.kr/movies/detail-view/?midx=85999", mdDao, msDao, rDao);
 
-//			MovieDetailDto dto = dao.getMovieDetail("test");
-//			String destination = "movie/moviedetail.jsp";
-//			String parameter = "?title=" + dto.getTitle() + ""
-//					+ "&reservation=" + dto.getReservation()
-//					+ "&img=" + dto.getImg()
-//					+ "&rdate=" + dto.getRdate()
-//					+ "&readcount=" + dto.getReadcount()
-//					+ "&actor=" + dto.getActor()
-//					+ "&author=" + dto.getAuthor()
-//					+ "&genre=" + dto.getGenre()
-//					+ "&ageLimit=" + dto.getAge_limit()
-//					+ "&country=" + dto.getCountry()
-//					+ "&movieDescription=" + dto.getMovie_description()
-//					+ "&previousExpectations=" + dto.getPrevious_expectations()
-//					+ "&realReview=" + dto.getReal_review();
-//	
-//			resp.sendRedirect(destination + parameter);
-			// moviedetail.jsp
+			MovieDetailDao dao = MovieDetailDao.getInstance();
+			String title = req.getParameter("title");
+			MovieDetailDto dto = dao.getMovieDetail(title);
+			req.setAttribute("title", dto.getTitle());
+			req.setAttribute("reservation", dto.getReservation());
+			req.setAttribute("img", dto.getImg());
+			req.setAttribute("rdate", dto.getRdate());
+			req.setAttribute("readcount", dto.getReadcount());
+			req.setAttribute("actor", dto.getActor());
+			req.setAttribute("author", dto.getAuthor());
+			req.setAttribute("genre", dto.getGenre());
+			req.setAttribute("ageLimit", dto.getAge_limit());
+			req.setAttribute("runningTime", dto.getRunning_time());
+			req.setAttribute("country", dto.getCountry());
+			req.setAttribute("movieDescription", dto.getMovie_description());
+			req.setAttribute("movieDescriptionTitle", dto.getMovie_description_title());
+			req.setAttribute("previousExpectations", dto.getPrevious_expectations());
+			req.setAttribute("realReview", dto.getReal_review());
+			req.setAttribute("stillCut", dto.getStill_cut());
+			req.setAttribute("reviews", dto.getReviews());
+
+			RequestDispatcher requestDispatcher = req.getRequestDispatcher("/movie/moviedetail.jsp");
+			requestDispatcher.forward(req, resp);
+
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-
 }
