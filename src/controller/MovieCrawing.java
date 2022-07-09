@@ -17,7 +17,7 @@ public class MovieCrawing {
 		MovieDao dao=new MovieDao();
 		Document doc;
 		try {
-			doc=Jsoup.connect("http://www.cgv.co.kr/movies/").get();
+			doc=Jsoup.connect("http://www.cgv.co.kr/movies/?lt=1&ft=0").get();
 			
 			//Elements ranks=doc.select(".rank");
 			Elements imgs=doc.select(".thumb-image > img");
@@ -27,11 +27,10 @@ public class MovieCrawing {
 			Elements a=doc.select("div.box-contents a");
 			for(Element e:a) {
 				String aa=e.attr("href");
-				System.out.println(aa);
 			}
 			List<MovieDto>list=new ArrayList<>();
 			for(int i=0;i<movieTitles.size();i++) {
-				String img=imgs.get(i).text();
+				String img=imgs.get(i).attr("src");
 				String movieTitle=movieTitles.get(i).text();
 				Double movieRate=Double.parseDouble(movieRates.get(i).text().replace("%",""));
 				String movieOpenDate[]=movieOpenDates.get(i).text().split(" ");

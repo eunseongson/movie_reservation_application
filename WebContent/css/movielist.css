@@ -15,7 +15,18 @@
 	font-weight : bold;
 	float :left;
 }
- 	 	
+
+#sortclick{
+	width: 50px;
+	background: rgba(255,67,87);
+	height: 30px;
+	color: white;
+	line-height: 25px;
+	text-align: center;
+	font-size:15px;
+	border: solid 2px #ffffff;
+	border-radius: 8px;
+} 	 	
 
 .submenu {
 	position : absolute;
@@ -172,4 +183,17 @@
 }
 .movielist td:nth-child(3){
 	height : 60px;
+}
+
+
+#reservation{
+	width: 100px;
+	background: rgba(255,67,87);
+	height: 30px;
+	color: white;
+	line-height: 25px;
+	text-align: center;
+	font-size:15px;
+	border: solid 2px #ffffff;
+	border-radius: 8px;
 }
