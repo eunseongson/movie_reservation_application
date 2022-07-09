@@ -9,6 +9,8 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import com.google.gson.Gson;
+
 import dao.MovieDao;
 import dto.MovieDto;
 
@@ -16,6 +18,7 @@ public class MovieCrawing {
 	public static void getData() {
 		MovieDao dao=new MovieDao();
 		Document doc;
+		String gson="";
 		try {
 			doc=Jsoup.connect("http://www.cgv.co.kr/movies/?lt=1&ft=0").get();
 			
@@ -28,6 +31,7 @@ public class MovieCrawing {
 			for(Element e:a) {
 				String aa=e.attr("href");
 			}
+		
 			List<MovieDto>list=new ArrayList<>();
 			for(int i=0;i<movieTitles.size();i++) {
 				String img=imgs.get(i).attr("src");
@@ -38,12 +42,15 @@ public class MovieCrawing {
 				MovieDto cgv=new MovieDto(movieTitle,movieRate,img,open);
 				list.add(cgv);
 			}
+			for(MovieDto d:list) {
+				System.out.println(d.toString());
+			}
 			dao.insertData(list);
-			
+			gson=new Gson().toJson(list);
 		}catch(IOException e) {
 			e.printStackTrace();
 		}
-		
+	
 	}
 
 	

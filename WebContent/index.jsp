@@ -3,6 +3,5 @@
 	pageEncoding="UTF-8"%>
 
 <%
-response.sendRedirect("Movielist?param=movielist");
+response.sendRedirect("main?param=start");
 %>
-

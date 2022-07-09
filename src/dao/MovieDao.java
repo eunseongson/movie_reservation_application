@@ -1,6 +1,5 @@
 package dao;
 
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,6 +12,9 @@ import db.DBConnection;
 import dto.MovieDto;
 
 public class MovieDao {
+	static Connection conn=null;
+	static PreparedStatement psmt=null;
+	static ResultSet rs=null;
 	private static MovieDao dao=new MovieDao();
 	
 	public MovieDao() {
@@ -25,10 +27,11 @@ public class MovieDao {
 	
 	public void insertData(List<MovieDto> list) {
 		String sql=" INSERT INTO MOVIE(title,reservation,img,rdate,readcount) "
-	            + " values(?,?,?,?,0) on duplicate key update reservation = ? ";
-
+				+ " values(?,?,?,?,0) on duplicate key update reservation = ? ";
+	
 		Connection conn=null;
 		PreparedStatement psmt=null;
+
 		
 		try {
 			conn=DBConnection.getConnection();
@@ -48,7 +51,27 @@ public class MovieDao {
 		}finally {
 			DBClose.close(conn, psmt, null);
 		}
+	}
+	
+	public List<MovieDto> SelectTopFive(){
+		String sql=" select * from movie order by reservation desc limit 5";
+		List<MovieDto>list=new ArrayList<>();
+		try {
+			conn=DBConnection.getConnection();
+			psmt=conn.prepareStatement(sql);
+			rs=psmt.executeQuery();
 		
+			while(rs.next()) {
+				MovieDto dto=new MovieDto(rs.getString(2),rs.getDouble(3),rs.getString(4),rs.getString(5));
+				list.add(dto);
+			}
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			DBClose.close(conn, psmt, rs);
+		}
+		return list;
 	}
 	
 	public List<MovieDto> getMovie(int division) {

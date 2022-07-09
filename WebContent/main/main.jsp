@@ -22,7 +22,7 @@
 </style>
 
 
-<%
+<%-- <%
 if(session.getAttribute("login") == null){
 %>
 <a class = "newp" id = "login" href="<%=request.getContextPath() %>/member?param=login">로그인</a>
@@ -38,4 +38,53 @@ if(session.getAttribute("login") == null){
 <a  class = "newp" id = "withdraw" href="<%=request.getContextPath() %>/member?param=withdraw">회원탈퇴</a>
 <% 
 }
-%>
+%> --%>
+
+<script type="text/javascript">
+$(function(){
+	$('#mbtn1').click(function(){
+		$.ajax({
+			url:"../main?param=ajax",
+			type:"get",
+			datatype:'json',
+			error:function(xhr,status,msg){
+				alert(xhr+"상태값 :"+status+"http에러메세지: "+msg)
+			},
+			success:function(data){
+				alert(data.list[0].title);
+				console.log(data.list.length);
+				
+			for(let i=0;i<data.list.length;i++){
+					/*
+					$("<div>")
+					.append((('<img>').attr('src',list[i].img))
+					.appendTo('#movieChart_list');
+					*/
+					
+					$("#movieChart_list").append($("<div>")
+							.append($('<img>').attr('src',data.list[i].img)));
+				}
+	
+				
+			}
+		})
+	});
+});
+</script>
+
+<body>
+<div>
+	<div class="contents">
+		<video autoplay muted>
+			<source src="https://adimg.cgv.co.kr/images/202206/Contorted/1080x608_contorted.mp4" type="video/mp4">
+		</video>
+		
+	</div>
+</div>
+<div>
+	<div><button id="mbtn1">무비차트</button> | <button id="mbtn2" onclick="mfchartbtn()">상영예정작</button></div>
+	<div id="movieChart_list" style="display:block;">
+		
+	</div>
+</div>
+</body>
