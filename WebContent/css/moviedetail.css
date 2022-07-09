@@ -160,6 +160,9 @@ i {
 }
 
 #revRight{
+	margin-top:50px;
+	margin-right:20px;
+	width: 500px;
 	height: 150px;
 	display:flex;
 	flex-direction:column;
