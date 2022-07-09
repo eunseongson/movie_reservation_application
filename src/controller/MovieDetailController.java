@@ -22,7 +22,6 @@ import net.sf.json.JSONObject;
 
 @WebServlet("/movieDetail")
 public class MovieDetailController extends HttpServlet {
-
 	public void crawlingMovieDetail(String url, MovieDetailDao mdDao, MovieStillcutDao msDao, ReviewDao rDao) throws Exception {
 		Document doc = Jsoup.connect(url).get();
 		String movie = null, author = null, actor = null, genre = null, age_limit = null, running_time = null,

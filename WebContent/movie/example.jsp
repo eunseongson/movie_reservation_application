@@ -11,6 +11,6 @@
 <input type="hidden" id="title" name="title" value="thor">
 <button type="submit">보내기</button>
 </form>
-
+ 
 </body>
-</html>
+</html> 

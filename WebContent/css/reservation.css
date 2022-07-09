@@ -1,0 +1,69 @@
+body {
+    text-align: center;
+}
+
+ul {
+    width:200px;
+}
+
+ul:hover {
+    border: 1px solid black;
+    
+}
+
+.reservation-area {
+margin-top: 10%;
+background-color: antiquewhite;
+}
+
+.city {
+    float: left;
+    background-color: aliceblue; 
+}
+
+.city ul {
+    height:50px; 
+    top:50%;
+}
+
+.city-detail { 
+    float: left;
+    background-color: red;
+}
+
+.city-detail ul {
+    height:50px;
+    top:50%;
+}
+
+.movie-list {
+    float: left;
+    background-color: blue;
+}
+
+.movie-list ul {
+    height:50px;
+    top:50%;
+}
+
+.movie-time-detail {
+    float: left;
+    background-color: violet;
+}
+.movie-time {
+    background-color: yellow;
+}
+
+.movie-time ul {
+    height:50px;
+    top:50%;
+}
+
+.movie-detail-time {
+    background-color: green;
+}
+
+.movie-detail-time ul {
+    height:50px;
+    top:50%;
+}
