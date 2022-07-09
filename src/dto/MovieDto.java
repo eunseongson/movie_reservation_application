@@ -1,7 +1,8 @@
 package dto;
 
 public class MovieDto {
-   private String title;
+
+ private String title;
    private double reservation;
    private String img;
    private String rdate;
@@ -37,5 +38,5 @@ public class MovieDto {
 	public String toString() {
 		return "MovieDto [title=" + title + ", reservation=" + reservation + ", img=" + img + ", rdate=" + rdate + "]";
 	}
-    
+	
 }
