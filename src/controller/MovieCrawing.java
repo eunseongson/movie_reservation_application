@@ -16,6 +16,7 @@ import dto.MovieDto;
 
 public class MovieCrawing {
 	public static void getData() {
+		MovieDetailCrawling detail=new MovieDetailCrawling();
 		MovieDao dao=new MovieDao();
 		Document doc;
 		String gson="";
@@ -30,7 +31,8 @@ public class MovieCrawing {
 			Elements movieOpenDates=doc.select(".txt-info strong");
 			Elements a=doc.select("div.box-contents a");
 			for(Element e:a) {
-				String aa=e.attr("href");
+				String url=e.attr("href");
+				detail.crawlingMovieDetail("www.cgv.co.kr"+url);
 			}
 			List<MovieDto>list=new ArrayList<>();
 			for(int i=0;i<movieTitles.size();i++) {
@@ -49,6 +51,11 @@ public class MovieCrawing {
 			Elements movieRates2=doc.select(".percent span");//영화 예매율
 			Elements movieOpenDates2=doc.select(".txt-info strong");
 			Elements a2=doc.select("div.box-contents a");
+			for(Element e: a2) {
+				String url=e.attr("href");
+				detail.crawlingMovieDetail("www.cgv.co.kr"+url);
+			}
+			
 			for(int i=0;i<movieTitles.size();i++) {
 				String img=imgs2.get(i).attr("src");
 				String movieTitle=movieTitles2.get(i).text();
@@ -66,6 +73,9 @@ public class MovieCrawing {
 			gson=new Gson().toJson(list);
 		}catch(IOException e) {
 			e.printStackTrace();
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
 		}
 	
 	}
