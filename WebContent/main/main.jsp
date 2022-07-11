@@ -51,8 +51,8 @@ if(session.getAttribute("login") == null){
 </div>
 <% 
 }
+%>
 
-</script>
 <script type="text/javascript">
 $(function(){
 	$.ajax({
