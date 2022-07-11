@@ -47,12 +47,12 @@ public class LocationController extends HttpServlet {
 		StringTokenizer st;
 
 		for (int i = 0; i < regionList.size(); i++) {
-			System.out.println(regionList.get(i));
+		
 			st = new StringTokenizer(theaterList.get(i), "/");
 			while (st.hasMoreTokens()) {
 				dao.addRegion(regionList.get(i), st.nextToken());
 			}
-			System.out.println();
+		
 		}
 	}
 
@@ -63,13 +63,13 @@ public class LocationController extends HttpServlet {
 		LocationDao ldao = LocationDao.getInstance();
 		if(params.equals("city")) {
 			String region = req.getParameter("region");
-			System.out.println(region + "aaaaaaaaaaaaaaa");	
+	
 			
 			List<String> theater = ldao.getTheaterList(region);
 			
 			JSONObject obj = new JSONObject();
 			obj.put("theater", theater);
-			System.out.println(obj);
+			
 
 			resp.setContentType("application/x-json; charset=utf-8");
 			resp.getWriter().print(obj);

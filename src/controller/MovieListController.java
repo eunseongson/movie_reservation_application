@@ -52,12 +52,12 @@ public class MovieListController extends HttpServlet{
 			forward("movie/movielist.jsp",req,resp);
 		}else if(param.equals("movieSe")) {
 			String movieSearch = (String)req.getParameter("movieSearch");
-			System.out.println("movieSearch : " + movieSearch);
+		
 			
 			MovieDao dao = new MovieDao();
 			dao = dao.getInstance();
 			boolean check = dao.isExists(movieSearch);
-			System.out.println("movieSearch check : " + check);
+			
 			
 			if(check) {
 				MovieDto dto = dao.getObject(movieSearch);
@@ -83,7 +83,7 @@ public class MovieListController extends HttpServlet{
         //정렬처리
         if(req.getParameter("sort") != null) {
         	String sort = (String) req.getParameter("sort");
-        	System.out.println("정렬 go : " + sort);
+        	
         	if(sort.equals("1")) {
 				 list = dao.getMovie(1);
 			}else if(sort.equals("2")) {
