@@ -32,9 +32,7 @@ public class MovieDetailController extends HttpServlet {
 		try {
 			
 			MovieDetailDao dao = MovieDetailDao.getInstance();
-			
 			String rowTitle = req.getParameter("rowtitle");
-			System.out.println(rowTitle);
 			MovieDetailDto dto = dao.getMovieDetail(rowTitle);
 			
 			System.out.println(dto.getTitle());
