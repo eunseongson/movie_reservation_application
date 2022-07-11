@@ -11,7 +11,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Starbucks Coffee JIHUN</title>
 
-<link rel="icon" href="../favicon.png">
+<link rel="icon" href="<%=request.getContextPath() %>/favicon.png">
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -23,7 +23,7 @@
 	href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
 <!-- Bootstrap core CSS -->
-<link href="../css/bootstrap.min.css" rel="stylesheet">
+<link href="<%=request.getContextPath() %>/css/bootstrap.min.css" rel="stylesheet">
 
 <!-- Custom styles for this template -->
 <!-- <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/footers/"> -->
@@ -39,9 +39,9 @@
 					<div class="container d-flex flex-wrap">
 						<ul class="nav me-auto">
 							<li class="nav-item" style="font-size: 60px;"><a
-								href="../main/main.jsp"
+								href="<%=request.getContextPath() %>/main/main.jsp"
 								class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
-									<img alt="" src="../images/logo.png">
+									<img alt="" src="<%=request.getContextPath() %>/images/logo.png">
 							</a></li>
 						</ul>
 
@@ -49,16 +49,16 @@
 						if (session.getAttribute("login") == null) {
 						%>
 
-						<li class="nav-item"><a href="../member/login.jsp"
+						<li class="nav-item"><a href="<%=request.getContextPath() %>/member/login.jsp"
 							class="nav-link link-dark px-2"> <img alt=""
-								src="../images/loginPassword.png"
+								src="<%=request.getContextPath() %>/images/loginPassword.png"
 								class="bi d-block mx-auto mb-1" class="bi d-block mx-auto mb-1"
-								width="48" height="48" href="../member?param=login"> 로그인
+								width="48" height="48" href="<%=request.getContextPath() %>/member?param=login"> 로그인
 						</a></li>
-						<li class="nav-item"><a href="../member/regi.jsp"
+						<li class="nav-item"><a href="<%=request.getContextPath() %>/member/regi.jsp"
 							class="nav-link link-dark px-2"> <img alt=""
-								src="../images/loginJoin.png" class="bi d-block mx-auto mb-1"
-								width="48" height="48" href="../member?param=regi"> 회원가입
+								src="<%=request.getContextPath() %>/images/loginJoin.png" class="bi d-block mx-auto mb-1"
+								width="48" height="48" href="<%=request.getContextPath() %>/member?param=regi"> 회원가입
 						</a></li>
 
 						<%
@@ -66,23 +66,23 @@
 						MemberDto dto = (MemberDto) session.getAttribute("login");
 						%>
 
-						<li class="nav-item"><a href="../member/mypage.jsp"
+						<li class="nav-item"><a href="<%=request.getContextPath() %>/member/mypage.jsp"
 							class="nav-link link-dark px-2"> <img alt=""
-								src="../images/loginMember.png" class="bi d-block mx-auto mb-1"
-								width="48" height="48" href="../member?param=mypage">
+								src="<%=request.getContextPath() %>/images/loginMember.png" class="bi d-block mx-auto mb-1"
+								width="48" height="48" href="<%=request.getContextPath() %>/member?param=mypage">
 								마이페이지
 						</a></li>
 
-						<li class="nav-item"><a href="../member?param=logout.jsp"
+						<li class="nav-item"><a href="<%=request.getContextPath() %>/member?param=logout.jsp"
 							class="nav-link link-dark px-2"> <img alt=""
-								src="../images/loginMember.png" class="bi d-block mx-auto mb-1"
-								width="48" height="48" href="../member?param=logout"> 로그아웃
+								src="<%=request.getContextPath() %>/images/loginMember.png" class="bi d-block mx-auto mb-1"
+								width="48" height="48" href="<%=request.getContextPath() %>/member?param=logout"> 로그아웃
 						</a></li>
 
-						<li class="nav-item"><a href="../member?param=withdraw.jsp"
+						<li class="nav-item"><a href="<%=request.getContextPath() %>/member?param=withdraw.jsp"
 							class="nav-link link-dark px-2"> <img alt=""
-								src="../images/loginMember.png" class="bi d-block mx-auto mb-1"
-								width="48" height="48" href="../member?param=withdraw">
+								src="<%=request.getContextPath() %>/images/loginMember.png" class="bi d-block mx-auto mb-1"
+								width="48" height="48" href="<%=request.getContextPath() %>/member?param=withdraw">
 								회원탈퇴
 						</a></li>
 						<%
