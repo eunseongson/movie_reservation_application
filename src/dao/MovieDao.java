@@ -26,8 +26,8 @@ public class MovieDao {
 	}
 	
 	public void insertData(List<MovieDto> list) {
-		String sql=" INSERT INTO MOVIE(title,reservation,img,rdate,readcount) "
-				+ " values(?,?,?,?,0) on duplicate key update reservation = ? ";
+		String sql=" INSERT INTO MOVIE(title,rowtitle,reservation,img,rdate,readcount) "
+				+ " values(?,?,?,?,?,0) on duplicate key update reservation = ? ";
 	
 		Connection conn=null;
 		PreparedStatement psmt=null;
@@ -39,10 +39,11 @@ public class MovieDao {
 				
 				psmt=conn.prepareStatement(sql);
 				psmt.setString(1, d.getTitle());
-				psmt.setDouble(2, d.getReservation());
-				psmt.setString(3, d.getImg());
-				psmt.setString(4, d.getRdate());
-				psmt.setDouble(5, d.getReservation());
+				psmt.setString(2, d.getRowtitle());
+				psmt.setDouble(3, d.getReservation());
+				psmt.setString(4, d.getImg());
+				psmt.setString(5, d.getRdate());
+				psmt.setDouble(6, d.getReservation());
 				psmt.executeUpdate();
 			}
 			
@@ -62,7 +63,7 @@ public class MovieDao {
 			rs=psmt.executeQuery();
 		
 			while(rs.next()) {
-				MovieDto dto=new MovieDto(rs.getString(2),rs.getDouble(3),rs.getString(4),rs.getString(5));
+				MovieDto dto=new MovieDto(rs.getString(2), rs.getString(3),rs.getDouble(4),rs.getString(5),rs.getString(6));
 				list.add(dto);
 			}
 			
@@ -83,7 +84,7 @@ public class MovieDao {
 			rs=psmt.executeQuery();
 		
 			while(rs.next()) {
-				MovieDto dto=new MovieDto(rs.getString(2),rs.getDouble(3),rs.getString(4),rs.getString(5));
+				MovieDto dto=new MovieDto(rs.getString(2),rs.getString(3),rs.getDouble(4),rs.getString(5),rs.getString(6));
 				list.add(dto);
 			}
 			
@@ -97,7 +98,7 @@ public class MovieDao {
 	
 	public List<MovieDto> getMovie(int division) {
 		
-		String sql = " select title, reservation, img, rdate "
+		String sql = " select title, rowtitle, reservation, img, rdate "
 				   + " from movie ";
 		String order = "";
 		if(division == 1) {
@@ -128,10 +129,11 @@ public class MovieDao {
 			System.out.println("3/4 getMovie success");
 			
 			while(rs.next()) {
-				MovieDto dto = new MovieDto(rs.getString(1), 
-										rs.getDouble(2), 
-										rs.getString(3), 
-										rs.getString(4));
+				MovieDto dto = new MovieDto(rs.getString(1),
+										rs.getString(2),
+										rs.getDouble(3), 
+										rs.getString(4), 
+										rs.getString(5));
 				
 				list.add(dto);
 			}
@@ -145,5 +147,81 @@ public class MovieDao {
 		}
 		
 		return list;
+	}
+	
+	public boolean isExists(String movieSearch) {
+		
+		String sql = " select count(*) "
+				   + " from movie where rowtitle like '%" + movieSearch + "%' limit 1 " ;
+				   
+		Connection conn = null;
+		PreparedStatement psmt = null;
+		ResultSet rs = null;
+		int count = 0;
+		
+		try {
+			conn = DBConnection.getConnection();
+			System.out.println("1/4 getMovie success");
+				
+			psmt = conn.prepareStatement(sql);
+			System.out.println("2/4 getMovie success");
+			
+			rs = psmt.executeQuery();
+			System.out.println("3/4 getMovie success");
+			
+			if(rs.next()) {
+				count = Integer.parseInt(rs.getString(1));
+			}
+			
+			System.out.println("4/4 getBbslist success");
+			
+		} catch (SQLException e) {
+			System.out.println("getMovie fail");
+			e.printStackTrace();
+		} finally {
+			DBClose.close(conn, psmt, rs);
+		}
+		
+		return count>0?true:false;
+	}
+	
+	public MovieDto getObject(String movieSearch) {
+		
+		String sql = " select title, rowtitle, reservation, img, rdate "
+				   + " from movie where rowtitle like '%" + movieSearch + "%' limit 1 " ;
+				   
+		Connection conn = null;
+		PreparedStatement psmt = null;
+		ResultSet rs = null;
+		MovieDto dto = null;
+		
+		try {
+			conn = DBConnection.getConnection();
+			System.out.println("1/4 getMovie success");
+				
+			psmt = conn.prepareStatement(sql);
+			System.out.println("2/4 getMovie success");
+			
+			rs = psmt.executeQuery();
+			System.out.println("3/4 getMovie success");
+			
+			if(rs.next()) {
+				dto = new MovieDto(rs.getString(1),
+										rs.getString(2),
+										rs.getDouble(3), 
+										rs.getString(4), 
+										rs.getString(5));
+			}
+			
+			System.out.println("4/4 getBbslist success");
+			
+		} catch (SQLException e) {
+			System.out.println("getMovie fail");
+			e.printStackTrace();
+		} finally {
+			DBClose.close(conn, psmt, rs);
+		}
+		
+		return dto;
 	}
 }

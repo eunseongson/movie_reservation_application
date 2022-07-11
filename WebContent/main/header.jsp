@@ -74,7 +74,17 @@ i {
 							<form action="/something">
 							 <input type="text"
 									id="searchbar" name="searchbar">
-								<i class="fa-solid fa-magnifying-glass" style="cursor:pointer; font-size: 18px;"></i>
+								<i class="fa-solid fa-magnifying-glass" onclick="movieSearch() style="cursor:pointer; font-size: 18px;"></i>
+								<script type="text/javascript">
+								function movieSearch(){
+									let moviesr = document.getElementById("searchbar").value.trim();
+									if(moviesr == null || moviesr.trim()==""){
+										alert("검색어를 입력하세요.");
+									}else{
+										location.href = "<%=request.getContextPath() %>/Movielist?param=movieSe&movieSearch="+moviesr;	
+									}
+								}
+								</script>
 							</form>
 						</li>
 						<%

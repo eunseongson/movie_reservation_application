@@ -50,11 +50,28 @@ public class MovieListController extends HttpServlet{
 			movieCommon(req, resp, div);
 			
 			forward("movie/movielist.jsp",req,resp);
+		}else if(param.equals("movieSe")) {
+			String movieSearch = (String)req.getParameter("movieSearch");
+			System.out.println("movieSearch : " + movieSearch);
+			
+			MovieDao dao = new MovieDao();
+			dao = dao.getInstance();
+			boolean check = dao.isExists(movieSearch);
+			System.out.println("movieSearch check : " + check);
+			
+			if(check) {
+				MovieDto dto = dao.getObject(movieSearch);
+				req.setAttribute("movie", dto);
+				forward("movie/moviedetail.jsp",req,resp);
+			}else {
+				movieCommon(req, resp, 1);
+				req.setAttribute("checking","fail");
+				forward("movie/movielist.jsp",req,resp);
+			}
 		}
 	}
 	
 	private void movieCommon(HttpServletRequest req, HttpServletResponse resp, int division) {
-		MovieCrawing.getData();
 		MovieDao dao = new MovieDao();
 		dao = dao.getInstance();
 		
