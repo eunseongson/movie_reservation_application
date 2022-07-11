@@ -80,13 +80,13 @@
 								마이페이지
 						</a></li>
 
-						<li class="nav-item"><a href="<%=request.getContextPath() %>/member?param=logout.jsp"
+						<li class="nav-item"><a href="<%=request.getContextPath() %>/member?param=logout"
 							class="nav-link link-dark px-2"> <img alt=""
 								src="<%=request.getContextPath() %>/images/loginMember.png" class="bi d-block mx-auto mb-1"
 								width="48" height="48" href="<%=request.getContextPath() %>/member?param=logout"> 로그아웃
 						</a></li>
 
-						<li class="nav-item"><a href="<%=request.getContextPath() %>/member?param=withdraw.jsp"
+						<li class="nav-item"><a href="<%=request.getContextPath() %>/member?param=withdraw"
 							class="nav-link link-dark px-2"> <img alt=""
 								src="<%=request.getContextPath() %>/images/loginMember.png" class="bi d-block mx-auto mb-1"
 								width="48" height="48" href="<%=request.getContextPath() %>/member?param=withdraw">

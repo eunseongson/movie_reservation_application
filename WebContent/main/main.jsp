@@ -107,9 +107,7 @@ $(function(){
 });
 </script>
 
-<body style="background-image: url('../images/background.png')">
-
-	<jsp:include page="../main/header.jsp"></jsp:include>
+<body>
 
 <!-- HEADER -->
 <jsp:include page="../main/header.jsp"></jsp:include>
