@@ -27,8 +27,8 @@ String sort = String.valueOf(request.getAttribute("sort"));
   
 </head>
 <body style="background-image: url('<%=request.getContextPath() %>/img/nf.png'); background-size:cover; opacity:0.7;">
-  <!-- HEADER -->
-  <jsp:include page="../main/header.jsp"></jsp:include>
+<!-- HEADER -->
+<jsp:include page="../main/header.jsp"></jsp:include>
   
   <!-- CONTENT -->
 	<div class="content">
