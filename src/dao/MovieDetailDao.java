@@ -48,9 +48,6 @@ public class MovieDetailDao {
 				psmt.setString(i + 1, update_detail.get(i));
 			}
 
-			// 크롤링한 결과 주입
-			// psmt.setString(1, "test");
-
 			System.out.println("2/4 addMovieDetail success");
 			count = psmt.executeUpdate();
 			System.out.println("3/4 addMovieDetail success");

@@ -3,20 +3,12 @@ package controller;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.select.Elements;
 import org.junit.jupiter.api.Test;
 
-import dao.MovieDetailDao;
-import dao.ReservationDao;
-import db.DBClose;
-import db.DBConnection;
+import dao.MovieStillcutDao;
 
 class MovieDetailControllerTest {
 
@@ -70,9 +62,9 @@ class MovieDetailControllerTest {
 //		
 //	}
 	
-	@Test
-	void test() throws IOException {
-		ReservationDao dao = ReservationDao.getInstance();
+//	@Test
+//	void test() throws IOException {
+//		ReservationDao dao = ReservationDao.getInstance();
 		
 //		String movieTime = dao.getMovieTime(1, 1);
 //		assertEquals(movieTime, "2022-07-10 07:30:00");
@@ -84,32 +76,42 @@ class MovieDetailControllerTest {
 //		assertEquals(reservationResult, true);
 //		boolean userReservationLocationResult = dao.addUserReservationLocation(1, 1, "test");
 //		assertEquals(userReservationLocationResult, true);
-		String sql =  "INSERT INTO location_movie(location_seq, movie_seq, movie_time) VALUES(?, ?, '2022-07-10 07:30:00')";
-		
-		Connection conn = null;
-		PreparedStatement psmt = null;
-		ResultSet rs = null;
-		
-		try {
-			// review 받아오기
-			conn = DBConnection.getConnection();
-			for (int i = 1; i <= 24; i++) {
-				for (int j = 5; j <= 22; j++) {
-					psmt = conn.prepareStatement(sql);
-					psmt.setInt(1, i);
-					psmt.setInt(2, j);
-					psmt.executeUpdate();
-					System.out.println(i + " " + j + "성공");
-					psmt.clearParameters();
-				}
-			}
-		} catch (SQLException e) {
-			System.out.println("getMovieTime fail");
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			DBClose.close(conn, psmt, rs);
-		}
-		
+//		String sql =  "INSERT INTO location_movie(location_seq, movie_seq, movie_time) VALUES(?, ?, '2022-07-10 07:30:00')";
+//		
+//		Connection conn = null;
+//		PreparedStatement psmt = null;
+//		ResultSet rs = null;
+//		
+//		try {
+//			// review 받아오기
+//			conn = DBConnection.getConnection();
+//			for (int i = 1; i <= 24; i++) {
+//				for (int j = 5; j <= 22; j++) {
+//					psmt = conn.prepareStatement(sql);
+//					psmt.setInt(1, i);
+//					psmt.setInt(2, j);
+//					psmt.executeUpdate();
+//					System.out.println(i + " " + j + "성공");
+//					psmt.clearParameters();
+//				}
+//			}
+//		} catch (SQLException e) {
+//			System.out.println("getMovieTime fail");
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} finally {
+//			DBClose.close(conn, psmt, rs);
+//		}
+//		
+//	}
+	
+	@Test
+	void test() throws IOException {
+		MovieStillcutDao dao = MovieStillcutDao.getInstance();
+		List<String> list = new ArrayList<String>();
+		list.add("https://img.cgv.co.kr/Movie/Thumbnail/StillCut/000085/85999/85999204177_727.jpg");
+		list.add("https://img.cgv.co.kr/Movie/Thumbnail/StillCut/000085/85999/85999204176_727.jpg");
+		boolean result = dao.addMovieStillCut(list, "thor");
+		assertEquals(result, false);
 	}
 }
