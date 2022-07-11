@@ -7,26 +7,34 @@
 
 <% 
 List<MovieDto> list = (List)request.getAttribute("movie");
+String division = String.valueOf(request.getAttribute("division"));
+String sort = String.valueOf(request.getAttribute("sort"));
 %>	
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="wScheduleidth=device-width, initial-scale=1.0">
-  <title>Movie List</title>
+  <title>무비 차트</title>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="<%=request.getContextPath() %>/css/bootstrap.min.css">
   
   <link rel="stylesheet" href="<%=request.getContextPath() %>/css/movielist.css?ver=0">
   
 </head>
-<body>
+<body style="background-image: url('<%=request.getContextPath() %>/img/nf.png'); background-size:cover; opacity:0.7;">
+  <!-- HEADER -->
+  <jsp:include page="../main/header.jsp"></jsp:include>
   
   <!-- CONTENT -->
 	<div class="content">
         <!-- Heading Map Multi -->
         <div class="tit-heading-wrap">
-            <div class="tit-movielist-header">무비차트</div>
+            <div class="tit-movielist-header" style="color:white; font-weight:bold;">무비차트</div>
            
             <div class="submenu">
 				<a href="Movielist?param=movielist">
@@ -45,14 +53,13 @@ List<MovieDto> list = (List)request.getAttribute("movie");
 			    </a>
             </div>
         </div>
-         <br><hr style="border: double 7px black;"><br>
+         <br><hr style="border: double 7px black; color:white;"><br>
         
         <!-- Sorting -->
-        <div class="sect-sorting">
+        <div class="sect-sorting" style="padding : 20px;">
             <div class="nowshow">
             	<%
-            	int division = (int)request.getAttribute("division");
-            	if(division == 1){
+            	if(division.equals("1")){
             	%>
             		<input type="checkbox" id="chk_nowshow"  title="선택되지 않음" onclick='is_checked()'/>
             	<%
@@ -62,14 +69,45 @@ List<MovieDto> list = (List)request.getAttribute("movie");
             	<%
             	}
             	%>
-                <label for="chk_nowshow">현재 상영작만 보기</label>                
+                <label for="chk_nowshow" style="color:white;">현재 상영작만 보기</label>                
             </div>
             <div class="movielist-sort">
-	            <select id="order_type" name="order-type"">
-		            <option value="1">예매율순</option>
-	                <option title="현재 선택됨" selected value="2">제목순</option>
-	                <option value="3">개봉일순</option>
-	            </select>
+            	<%
+            		if(sort.equals("1")){
+         		%>
+           			<select id="order_type" name="order-type">
+    		            <option title="현재 선택됨" selected value="1">예매율순</option>
+    	                <option value="2">제목순</option>
+    	                <option value="3">개봉일순</option>
+    	            </select>
+    	        <%		
+            		}else if(sort.equals("2")){
+				%>
+           			<select id="order_type" name="order-type">
+    		            <option value="1">예매율순</option>
+    	                <option title="현재 선택됨" selected value="2">제목순</option>
+    	                <option value="3">개봉일순</option>
+    	            </select>
+				<%
+            		}else if(sort.equals("3")){
+            	%>
+           			<select id="order_type" name="order-type">
+    		            <option value="1">예매율순</option>
+    	                <option value="2">제목순</option>
+    	                <option title="현재 선택됨" selected value="3">개봉일순</option>
+    	            </select>
+            	<%
+            		}else{
+            	%>
+        	        <select id="order_type" name="order-type">
+    		            <option value="1">예매율순</option>
+    	                <option title="현재 선택됨" selected value="2">제목순</option>
+    	                <option value="3">개봉일순</option>
+    	            </select>
+            	<%
+            		}
+            	%>
+            	
 	            <button type="button" class="round gray" onclick="sortclick()" id="sortclick">GO</button>
             </div>
             <script type="text/javascript">
@@ -78,9 +116,9 @@ List<MovieDto> list = (List)request.getAttribute("movie");
             	var optionVal = selectedElement.options[selectedElement.selectedIndex].value;
                 var chk_nowshow = document.getElementById("chk_nowshow").checked;
                 
-                if(chk_nowshow){
+                if(chk_nowshow){ //상영중
                 	var division = 3;
-                }else{
+                }else{ //전체
                 	var division = 1;
                 }
 
@@ -122,26 +160,35 @@ List<MovieDto> list = (List)request.getAttribute("movie");
 	        	<td class="movie_td">
 	        		<div style="background-color:red; padding:5px;"><strong class="rank" style="color:white">No.<%=i+1 %></strong></div>
 	        		<div><img src="<%=list.get(i).getImg() %>" width="100%" height="292px"></div>
-	        		<div><p class="bottom_title" style="text-align:left"><b><%=list.get(i).getTitle() %></b></p>
-	        			<p class="bottom_detail" style="text-align:left">예매율 <%=list.get(i).getReservation() %> %<br>
+	        		<div><p class="bottom_title<%=i+1 %>" id="bottom_title<%=i+1 %>" style="text-align:left; color:white; font-weight: bold; margin:5px 0 0 0;"><%=list.get(i).getTitle() %></p>
+	        			<p class="bottom_detail" style="text-align:left; color:white; font-weight: lighter; margin:5px 0;">예매율 <%=list.get(i).getReservation() %> %<br>
 	        			<%=list.get(i).getRdate().substring(0, 4) + "." + list.get(i).getRdate().substring(4, 6) + "." + list.get(i).getRdate().substring(6, 8) %> 개봉</p>
-	        			<p style="text-align:left"><input type="button" value="예매하기" id="reservation" name="reservation"></p>
+	        			<p style="text-align:left"><input type="button" value="예매하기" id="reservation" name="reservation" onclick="detailsubmit('<%=list.get(i).getTitle() %>')"></p>
 	        		</div>
+	        		
+	        		<script>
+					function detailsubmit(title){
+						location.href = "movieDetail?title="+title;
+					}
+					</script>
 	        	</td>
 	        	<%
         		if(i%4==3 || i==list.size()-1){
         		%> </tr>
         		<%
         		}
-        		%>
+
+	        	%>
+	        	
         	<%
         	}
         	%>
         </table>
         <!-- //MovieList -->
      </div>
-    
-<body>
+     
+     <!-- FOOTER -->
+     <jsp:include page="../main/footer.jsp"></jsp:include>
 
 </body>
 </html>
