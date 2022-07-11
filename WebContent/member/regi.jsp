@@ -86,7 +86,7 @@
 						<label for="pswd1">전화번호</label>
 					</h3>
 					<span class="ps_box int_pass" id="pswd1Img"> <input
-						type="password" id="phone" name="phone" class="int" title="비밀번호 입력"
+						type="text" id="phone" name="phone" class="int" title="비밀번호 입력"
 						aria-describedby="pswd1Msg" maxlength="20"> <span
 						class="lbl"> <span id="pswd1Span" class="step_txt" required></span>
 					</span>

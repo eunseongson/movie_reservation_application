@@ -12,6 +12,7 @@ import dao.MovieDao;
 import net.sf.json.JSONObject;
 @WebServlet("/main")
 public class MovieController extends HttpServlet{
+	static int count=0;
 	MovieDao dao=new MovieDao();
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -27,7 +28,11 @@ public class MovieController extends HttpServlet{
 		
 	}
 	 public void doProcess(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
-		 MovieCrawing.getData();
+
+		 if(count==0) {
+			 MovieCrawing.getData();
+			 count++;
+		 }
 		 String param = req.getParameter("param");
 		 if(param.equals("start")) {
 			 resp.setContentType("application/x-json; charset=utf-8");

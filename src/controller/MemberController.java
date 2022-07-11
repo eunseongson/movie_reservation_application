@@ -50,7 +50,7 @@ public class MemberController extends HttpServlet {
 			
 		} else if (param.equals("idcheck")) {
 			String id = req.getParameter("id");
-			System.out.println("id:" + id);
+		
 
 			MemberDao dao = MemberDao.getInstance();
 			boolean b = dao.getId(id);
@@ -83,7 +83,7 @@ public class MemberController extends HttpServlet {
 			if (!b) {
 				msg = "regiNO";
 			}
-			System.out.println(msg);
+		
 			resp.sendRedirect("message.jsp?msg=" + msg);
 			
 		} else if (param.equals("loginAf")) {
@@ -111,7 +111,7 @@ public class MemberController extends HttpServlet {
 			MemberDto dto = (MemberDto)req.getSession().getAttribute("login");
 			String withdrawId = dto.getId();
 			
-			System.out.println("~~~~~~withdrawAf");
+		
 
 			// 진짜 탈퇴할꺼면 비번 누르고 탈퇴 승인
 			String pwd = req.getParameter("pwd");
@@ -121,7 +121,7 @@ public class MemberController extends HttpServlet {
 
 			JSONObject obj = new JSONObject();
 			
-			System.out.println("~~~~~~isTrue:" + isTrue);
+		
 			if (isTrue) { // 회원탈퇴 성공
 				msg = "withdrawOK";
 				req.getSession().invalidate();

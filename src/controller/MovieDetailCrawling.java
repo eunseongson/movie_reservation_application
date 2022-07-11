@@ -15,7 +15,7 @@ import dto.ReviewDto;
 
 public class MovieDetailCrawling {
 	public void crawlingMovieDetail(String url) throws Exception {
-		System.out.println("들어온 url " + url);
+	
 		MovieDetailDao mdDao = MovieDetailDao.getInstance();
 		MovieStillcutDao msDao = MovieStillcutDao.getInstance();
 		ReviewDao rDao = ReviewDao.getInstance();
@@ -36,8 +36,7 @@ public class MovieDetailCrawling {
 		}else {
 			author = "없음";
 		}
-		
-		System.out.println("author" + author);
+	
 		actor = "없음";
 		int index = -1;
 		for (Element e : AAs) {
@@ -62,7 +61,7 @@ public class MovieDetailCrawling {
 			modiGenre = gen.text().replace("장르 : ", "");	
 		}
 		genre = modiGenre;
-		System.out.println("genre" + genre);
+		
 		update_detail.add(modiGenre);
 
 		// 나이제한, 상영시간, 나라
@@ -208,9 +207,7 @@ public class MovieDetailCrawling {
 //				System.out.println("review 내용 : " + sReview);
 //			}
 //		}
-		for(int i=0;i<11;i++) {
-			System.out.println("결과값 : " + i + " " + update_detail.get(i));	
-		}
+		
 		
 
 		mdDao.addMovieDetail(update_detail);

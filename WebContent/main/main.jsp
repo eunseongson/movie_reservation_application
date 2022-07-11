@@ -8,8 +8,7 @@
 // 로그인 되어있으면 로그인, 회원가입 버튼 숨김 + "..."님 마이페이지(링크)
 // 로그인 되어있지 않으면 로그아웃, 
 %>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 <style type="text/css">
 #container{
@@ -44,7 +43,7 @@ $(function(){
 			for(let i=0;i<data.list.length;i++){
 				
 				$("#movieChart_list").append($("<div class='poster'>")
-						.append($('<a >').attr('href','${pageContext.request.contextPath}/movieDetail?title='+data.list[i].title)
+						.append($('<a >').attr('href','${pageContext.request.contextPath}/movieDetail?rowtitle='+data.list[i].rowtitle)
 						.append($('<img>').css('width','170.4px').css('height','240px').attr('src',data.list[i].img)))
 						.append($('<div>')
 						.append($('<span>').text("평점: "+data.list[i].reservation+"%").css('color','#fff')).append($('<br>')).append($('<strong>').text(data.list[i].title).css('color','#fff'))));

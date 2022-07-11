@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dao.ReservationDao;
 import dto.MemberDto;
@@ -20,14 +21,16 @@ public class ReservationController extends HttpServlet{
 		ReservationDao dao = ReservationDao.getInstance();
 		
 		String city = req.getParameter("city");
-		String cityDetail = req.getParameter("citydetail");
-		String title = req.getParameter("title");
+		String cityDetail = req.getParameter("cityDetail");
+		String rowtitle = req.getParameter("rowtitle");
 		String movieTime = req.getParameter("movieTime");
 		//연결 안되어 있으니 임의값 넣기
 		//MemberDto dto = (MemberDto)req.getSession().getAttribute("login");
 		//String userId = dto.getId();
-		String userId = "test";
+		HttpSession session = req.getSession();
+		MemberDto dto =(MemberDto)session.getAttribute("login");
+		String userId = dto.getId();
 		
-		boolean result = dao.reservationStart(city, cityDetail, title, userId, movieTime);
+		boolean result = dao.reservationStart(city, cityDetail, rowtitle, userId, movieTime);
 	}
 }
