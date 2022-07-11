@@ -10,6 +10,8 @@
 	pageEncoding="UTF-8"%>
 <%
 LocationDao dao = LocationDao.getInstance();
+String title = request.getParameter("title");
+title = "토오르";
 List<String> region = dao.getRegionList();
 List<String> theater = dao.getTheaterList("서울특별시");
 %>
@@ -142,7 +144,7 @@ List<String> theater = dao.getTheaterList("서울특별시");
 
 		function reservationBtn() {
 			let nowDate = document.getElementById('selectDate').value;
-			console.log(nowRegion, nowTheater, nowDate);
+			location.href="../reservation?city=" + nowRegion + "&cityDetail=" + nowTheater + "&title=<%=title%>" + "&movieTime=" + nowDate;
 		}
 	</script>
 </body>

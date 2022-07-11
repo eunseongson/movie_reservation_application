@@ -93,7 +93,9 @@ List<String> stillCut = (List<String>) request.getAttribute("stillCut");
 					<div id="mlbottom"></div>
 				</div>
 				<div id="mainRight">
-					<div id="poster"></div>
+					<div id="poster">
+						<img alt="" src="<%=img%>">
+					</div>
 					<div id="resvbtn">
 						<input type="button" onclick="moveReservation(<%=title %>, <%=img %>)" value="예매하기">
 					</div>
@@ -102,7 +104,7 @@ List<String> stillCut = (List<String>) request.getAttribute("stillCut");
 		</div>
 		<div id="contentWrapper">
 			<div id="contentBlock">
-				<div class="title">"신을 죽이는 자, 신이 상대한다!"</div>
+				<div class="title"><%=title %></div>
 				<div id="content">
 					<%=movieDescription%>
 				</div>
@@ -125,12 +127,19 @@ List<String> stillCut = (List<String>) request.getAttribute("stillCut");
 					}
 					%>
 				</ul>
+				
+				<%
+				if(stillCut.size() != 0) {
+					%>
+					<!-- The slideshow -->
+					<div class="carousel-inner">
+						<div class="carousel-item active">
+							<img src="<%=stillCut.get(0)%>" alt="Chicago">
+						</div>
+					<%
+				}
+				%>
 
-				<!-- The slideshow -->
-				<div class="carousel-inner">
-					<div class="carousel-item active">
-						<img src="<%=stillCut.get(0)%>" alt="Chicago">
-					</div>
 					<%
 					for (int i = 1; i < stillCut.size(); i++) {
 					%>
