@@ -46,8 +46,8 @@ $(function(){
 				$("#movieChart_list").append($("<div class='poster'>")
 						.append($('<a >').attr('href','${pageContext.request.contextPath}/movieDetail?title='+data.list[i].title)
 						.append($('<img>').css('width','170.4px').css('height','240px').attr('src',data.list[i].img)))
-						.append($('<div>').append($('<strong>').text(data.list[i].title))
-						.append($('<span>').text(data.list[i].reservation))));
+						.append($('<div>')
+						.append($('<span>').text("평점: "+data.list[i].reservation+"%").css('color','#fff')).append($('<br>')).append($('<strong>').text(data.list[i].title).css('color','#fff'))));
 					}	
 				
 
@@ -70,8 +70,8 @@ $(function(){
 					$("#movieChart_list").append($("<div class='poster'>")
 							.append($('<a >').attr('href','${pageContext.request.contextPath}/movieDetail?title='+data.list[i].title)
 							.append($('<img>').css('width','170.4px').css('height','240px').attr('src',data.list[i].img)))
-							.append($('<div>').append($('<strong>').text(data.list[i].title))
-							.append($('<span>').text(data.list[i].reservation))));
+							.append($('<div>')
+							.append($('<span>').text("평점: "+data.list[i].reservation+"%").css('color','#fff')).append($('<br>')).append($('<strong>').text(data.list[i].title).css('color','#fff'))));
 						
 				}
 
@@ -96,8 +96,8 @@ $(function(){
 					$("#movieChart_list").append($("<div class='poster'>")
 							.append($('<a>').attr('href','/movieDetail?title='+data.list[i].title)
 							.append($('<img>').css('width','170.4px').css('height','240px').attr('src',data.list[i].img)))
-							.append($('<div>').append($('<strong>').text(data.list[i].title))
-							.append($('<span>').text(data.list[i].reservation))));
+							.append($('<div>')
+							.append($('<span>').text("평점: "+data.list[i].reservation+"%").css('color','#fff')).append($('<br>')).append($('<strong>').text(data.list[i].title).css('color','#fff'))));
 						
 				}
 			}
@@ -131,7 +131,8 @@ $(function(){
 
 <!-- Custom styles for this template -->
 <!-- <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/footers/"> -->
-
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/main.css">
 </head>
 
 <body style="background-image: url('../images/background.png'); background-size: cover;">
@@ -153,9 +154,12 @@ $(function(){
 			</div>
 			
 			<div style="margin-top: 10px">
-				<div style="float:left;"><a href="#none" id="mbtn1" style="text-decoration: none;font-size: 26px;">무비차트</a>  <a href="#none" id="mbtn2" style="text-decoration: none;font-size: 26px;">| 상영예정작</a>
+				<div style="float:left;">
+					<a class="mfchart" href="#none" id="mbtn1" style="text-decoration: none;font-size: 26px; color: #fff"">무비차트</a>
+					<span style="font-size: 26px; color: #fff">|</span>
+					<a class="mfchart" href="#none" id="mbtn2" style="text-decoration: none;font-size: 26px; color: #fff"">상영예정작</a>
 				</div>
-				<div><a href="<%=request.getContextPath() %>/Movielist?param=movielist" >전체 보기</a></div>
+				<div><a id="btn_allView_Movie" class="btn_allView" href="<%=request.getContextPath() %>/Movielist?param=movielist" >전체 보기</a></div>
 				<br><br>
 				<div id="movieChart_list" style="display: flex"></div>
 			</div>
