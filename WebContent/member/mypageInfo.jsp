@@ -49,9 +49,18 @@ String id = request.getParameter("id");
   <link rel="stylesheet" href="../css/footer.css" >
   
   <style type="text/css">
-  	.content-wrapper .bottom .sub-menu .menu .menu__name .info {
-	  color: #000;
-	  text-decoration: none;
+  	.content-wrapper .top .top_right .top_myinfoDown .sub-menu .menu .menu__name .info {
+  		color: #fff;
+  	}
+  
+  	.content-wrapper .bottom .inner {
+	  color: #fff;
+	}
+	
+	.tb {
+	  color: #fff;
+	  border-collapse: separate;
+	  border-spacing: 0 20px;
 	}
   </style>
   
@@ -67,36 +76,39 @@ String id = request.getParameter("id");
 	<div class="top">
 		<div class="top_left">
 			<div class="top_myinfoUp">
-				<span class="username"><%=mem.getName() %>님</span>&nbsp;반가워요!
-			</div>
-			<div class="top_myinfoDown">
-				MY POINT
+				<img alt="" src="../images/default_profile.gif">
 			</div>
 		</div>
 		<div class="top_right">
-			MY 영화관
+			<div class="top_myinfoUp">
+				<span class="username"><%=mem.getName() %>님</span>&nbsp;반가워요!
+			</div>
+			<div class="top_myinfoDown">
+				<ul class="sub-menu">
+			        <li class="menu">
+			        	<div class="menu__name">
+			        		<a href="./mypageReserve.jsp">예매내역</a>
+			        	</div>
+			        </li>
+			        <li class="menu">
+			          <div class="menu__name">
+			          	<a href="./mypageInfo.jsp" class="info">MY 정보 보기</a>
+			          </div>
+			        </li>
+		      	</ul>  	
+			</div>
 		</div>
 	</div>
 	
 	
 	<div class="bottom">
 		<div class="inner">
-			<ul class="sub-menu">
-		        <li class="menu">
-		        	<div class="menu__name">
-		        		<a href="mypageReserve.jsp?id=" class="reserve">예매내역</a>
-		        	</div>
-		        </li>
-		        <li class="menu">
-		          <div class="menu__name">
-		          	<a href="mypageInfo.jsp?id=<%=mem.getId() %>" class="info">MY 정보 관리</a>
-		          </div>
-		        </li>
-	      	</ul>  	
+          	MY 정보 보기
       	</div>
       	
       	<div class="contents">
-      		<table>
+      		<table class="tb" style="margin-top: 40px; margin-left: 180px; font-size: 20px;">
+      		<col width="150px"><col width="300px">
 				<tr>
 					<th>아이디:</th>
 					<td><%=mem.getId() %></td>
@@ -114,9 +126,6 @@ String id = request.getParameter("id");
 					<td><%=mem.getPhone() %></td>
 				</tr>
 			</table>
-			<div>
-				<input type="button" name="editMyinfo" value="정보 수정" >
-			</div>
     	 </div>
 	</div>
 </div>

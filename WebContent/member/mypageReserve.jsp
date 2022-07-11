@@ -55,11 +55,19 @@ String id = request.getParameter("id");
   <link rel="stylesheet" href="../css/footer.css" >
   
   <style type="text/css">
-  	.content-wrapper .bottom .sub-menu .menu .menu__name .reserve {
-	  color: #000;
-	  text-decoration: none;
-	}
+  	.content-wrapper .top .top_right .top_myinfoDown .sub-menu .menu .menu__name .reserve {
+  		color: #fff;
+  	}
   
+  	.content-wrapper .bottom .inner {
+	  color: #fff;
+	}
+	
+	.tb {
+	  color: #fff;
+	  border-collapse: separate;
+	  border-spacing: 0 15px;
+	}
   </style>
   
 </head>
@@ -77,31 +85,36 @@ String id = request.getParameter("id");
 			</div>
 		</div>
 		<div class="top_right">
-			<span class="username"><%=mem.getName() %>님</span>&nbsp;반가워요!
+			<div class="top_myinfoUp">
+				<span class="username"><%=mem.getName() %>님</span>&nbsp;반가워요!
+			</div>
+			<div class="top_myinfoDown">
+				<ul class="sub-menu">
+			        <li class="menu">
+			        	<div class="menu__name">
+			        		<a href="./mypageReserve.jsp" class="reserve">예매내역</a>
+			        	</div>
+			        </li>
+			        <li class="menu">
+			          <div class="menu__name">
+			          	<a href="./mypageInfo.jsp">MY 정보 보기</a>
+			          </div>
+			        </li>
+		      	</ul>  	
+			</div>
 		</div>
 	</div>
 	
 	
 	<div class="bottom">
 		<div class="inner">
-			<ul class="sub-menu">
-		        <li class="menu">
-		        	<div class="menu__name">
-		        		<a href="./mypageReserve.jsp?id=" class="reserve">예매내역</a>
-		        	</div>
-		        </li>
-		        <li class="menu">
-		          <div class="menu__name">
-		          	<a href="./mypageInfo.jsp?id=<%=mem.getId() %>" class="info">MY 정보 관리</a>
-		          </div>
-		        </li>
-	      	</ul>  	
+          예매내역
       	</div>
       	
-      	<div class="contents">
-	      		<table>
-	      		<col width="200px"><col width="400px"><col width="400px"><col width="200px"><col width="200px">
-	      			<tr>
+      	<div class="contents" align="center">
+	      		<table class="tb" style="text-align: center; font-size: 15px;">
+	      		<col width="200px"><col width="150px"><col width="150px"><col width="150px">
+	      			<tr style="font-weight: bold;">
 	      				<th>제목</th><th>상영관</th><th>결제일</th><th>상영일</th>
 	      			</tr>
 	      			<% for(int i = 0; i < list.size(); i++){
