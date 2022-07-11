@@ -15,13 +15,14 @@ import dto.ReviewDto;
 
 public class MovieDetailCrawling {
 	public void crawlingMovieDetail(String url) throws Exception {
+		System.out.println("들어온 url " + url);
 		MovieDetailDao mdDao = MovieDetailDao.getInstance();
 		MovieStillcutDao msDao = MovieStillcutDao.getInstance();
 		ReviewDao rDao = ReviewDao.getInstance();
 		Document doc = Jsoup.connect(url).get();
-		String movie = null, author = null, actor = null, genre = null, age_limit = null, running_time = null,
-				country = null, movie_description = null, movie_descriptionTitle = null, previous_expectations = null,
-				real_review = null;
+		String movie = "없음", author = "없음", actor = "없음", genre = "없음", age_limit = "없음", running_time = "없음",
+				country = "없음", movie_description = "없음", movie_descriptionTitle = "없음", previous_expectations = "없음",
+				real_review = "없음";
 		List<String> update_detail = new ArrayList<String>();
 		List<String> still_cut = new ArrayList<String>();
 		List<ReviewDto> review_content = new ArrayList<ReviewDto>();
@@ -29,34 +30,65 @@ public class MovieDetailCrawling {
 		// 감독, 배우
 		String AA = "div.spec dl dd a";
 		Elements AAs = doc.select(AA);
-		author = AAs.get(0).text();
-		actor = "";
+		
+		if(!AAs.isEmpty()) {
+			author = AAs.get(0).text() + "";
+		}else {
+			author = "없음";
+		}
+		
+		System.out.println("author" + author);
+		actor = "없음";
 		int index = -1;
 		for (Element e : AAs) {
 			index++;
 			if (index == 0)
 				continue;
+			actor = "";
 			actor += AAs.get(index).text() + ", ";
 		}
-		actor = actor.substring(0, actor.lastIndexOf(", "));
+		if(!actor.equals("없음")) {
+			actor = actor.substring(0, actor.lastIndexOf(", "));
+		}
 		update_detail.add(actor);
+		update_detail.add(author);
 
 		// 장르,
 		String genreDir = "div.spec dl dt";
 		Elements genres = doc.select(genreDir);
 		Element gen = genres.get(2);
-		String modiGenre = gen.text().replace("장르 : ", "");
+		String modiGenre = "없음";
+		if(!genres.isEmpty()) {
+			modiGenre = gen.text().replace("장르 : ", "");	
+		}
 		genre = modiGenre;
+		System.out.println("genre" + genre);
 		update_detail.add(modiGenre);
 
 		// 나이제한, 상영시간, 나라
 		String specDir = "div.spec dl dd.on";
 		Elements specs = doc.select(specDir);
-		Element spec = specs.get(1);
-		String[] results = spec.text().split(", ");
-		age_limit = results[0];
-		running_time = results[1];
-		country = results[2];
+		if(!specs.isEmpty()) {
+			Element spec = specs.get(1);
+			String[] results = spec.text().split(", ");
+			
+			if(results.length == 1) {
+				age_limit = "없음";
+				running_time = "없음";
+				country = "없음";
+			}else if(results.length == 2){
+				country = "없음";
+			}else {
+				age_limit = results[0];
+				running_time = results[1];
+				country = results[2];	
+			}
+		}else {
+			age_limit = "없음";
+			running_time = "없음";
+			country = "없음";
+		}
+		
 		update_detail.add(age_limit);
 		update_detail.add(running_time);
 		update_detail.add(country);
@@ -65,11 +97,13 @@ public class MovieDetailCrawling {
 		String movieDescriptionTitle = "div.sect-story-movie strong";
 		Elements movieDescriptionTitles = doc.select(movieDescriptionTitle);
 		String title = "";
-		for (int i = 0; i < movieDescriptionTitles.size(); i++) {
-			title = movieDescriptionTitles.get(i).text();
-			movie_descriptionTitle = title;
-			update_detail.add(title);
+		//for (int i = 0; i < movieDescriptionTitles.size(); i++) {
+		if(!movieDescriptionTitles.isEmpty()) {
+			title = movieDescriptionTitles.get(0).text();
+			movie_descriptionTitle = title;			
 		}
+			update_detail.add(title);
+		//}
 
 		// 영화 설명
 		String movieDescription = "div.sect-story-movie";
@@ -114,24 +148,37 @@ public class MovieDetailCrawling {
 
 		for (int i = 0; i < befores.size(); i++) {
 			before = befores.get(i).text().replace("%", "");
-			previous_expectations = before;
+			if(before.equals("?")) {
+				before = "0";
+			}else {
+				previous_expectations = before;	
+			}
 			update_detail.add(before);
 		}
 
 		// 실관람지수
 		String real = "div.item-rating div.box_golden span.percent";
 		Elements reals = doc.select(real);
-
+		
 		for (int i = 0; i < reals.size(); i++) {
 			real = reals.get(i).text().replace("%", "");
-			real_review = real;
+			if(real.equals("?")) {
+				real = "0";
+			}else {
+				real_review = real;	
+			}
 			update_detail.add(real);
 		}
 
 		// 제목
 		String tit = "div.title strong";
 		Elements tt = doc.select(tit);
-		update_detail.add(tt.get(0).text());
+		String movieTitle = "없음";
+		if(!tt.isEmpty()) {
+			movieTitle = tt.get(0).text();
+		}
+		
+		update_detail.add(movieTitle);
 
 		// 스틸컷
 		String img = "div.item-wrap div.item img";
@@ -143,9 +190,9 @@ public class MovieDetailCrawling {
 		
 		//리뷰내용
 		//String reviewTit = "div.box-contents ul.writerinfo li.writer-name";// a.commentMore
-		String reviewCon = "div.box-comment";// p
-		Elements reviews = doc.select(reviewCon);
-		System.out.println("review 내용 : " + reviews.toString());
+//		String reviewCon = "div.box-comment";// p
+//		Elements reviews = doc.select(reviewCon);
+//		System.out.println("review 내용 : " + reviews.toString());
 		
 //		String reviewTit = "li.writer-name a.commentMore";
 //		String reviewCon = "div.box-comment";
@@ -161,10 +208,13 @@ public class MovieDetailCrawling {
 //				System.out.println("review 내용 : " + sReview);
 //			}
 //		}
-
+		for(int i=0;i<11;i++) {
+			System.out.println("결과값 : " + i + " " + update_detail.get(i));	
+		}
+		
 
 		mdDao.addMovieDetail(update_detail);
-		msDao.addMovieStillCut(still_cut, tt.get(0).text());
+		msDao.addMovieStillCut(still_cut, movieTitle);
 		//rDao.addReview(title);
 	}
 }

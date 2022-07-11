@@ -95,7 +95,7 @@ List<String> stillCut = (List<String>) request.getAttribute("stillCut");
 				<div id="mainRight">
 					<div id="poster"></div>
 					<div id="resvbtn">
-						<input type="button" value="예매하기">
+						<input type="button" onclick="moveReservation(<%=title %>, <%=img %>)" value="예매하기">
 					</div>
 				</div>
 			</div>
