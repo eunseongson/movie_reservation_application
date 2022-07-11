@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 import dao.MovieStillcutDao;
 
 class MovieDetailControllerTest {
-
+}
 //	@Before
 //	void before() throws IOException {
 //		
@@ -105,13 +105,9 @@ class MovieDetailControllerTest {
 //		
 //	}
 	
-	@Test
-	void test() throws IOException {
-		MovieStillcutDao dao = MovieStillcutDao.getInstance();
-		List<String> list = new ArrayList<String>();
-		list.add("https://img.cgv.co.kr/Movie/Thumbnail/StillCut/000085/85999/85999204177_727.jpg");
-		list.add("https://img.cgv.co.kr/Movie/Thumbnail/StillCut/000085/85999/85999204176_727.jpg");
-		boolean result = dao.addMovieStillCut(list, "thor");
-		assertEquals(result, false);
-	}
-}
+//		MovieStillcutDao dao = MovieStillcutDao.getInstance();
+//		List<String> list = new ArrayList<String>();
+//		list.add("https://img.cgv.co.kr/Movie/Thumbnail/StillCut/000085/85999/85999204177_727.jpg");
+//		list.add("https://img.cgv.co.kr/Movie/Thumbnail/StillCut/000085/85999/85999204176_727.jpg");
+//		boolean result = dao.addMovieStillCut(list, "thor");
+//		assertEquals(result, false); 
