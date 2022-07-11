@@ -1,3 +1,6 @@
+<%@page import="java.util.Calendar"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="dao.LocationDao"%>
 <%@page import="java.util.Arrays"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="dto.ReviewDto"%>
@@ -6,7 +9,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%
-
+LocationDao dao = LocationDao.getInstance();
+List<String> region = dao.getRegionList();
+List<String> theater = dao.getTheaterList("서울특별시");
 %>
 <!DOCTYPE html>
 <html>
@@ -21,6 +26,8 @@
 	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/css/reservation.css">
 
@@ -41,11 +48,12 @@
 							<h5>지역</h5>
 							<div class="list">
 								<%
-								for (int i = 0; i < 20; i++) {
+								for (int i = 0; i < region.size(); i++) {
 								%>
 								<div
 									class="list-group-item list-group-item-action list-group-item-light selectList"
-									id="region<%=i%>" onclick="selectRegion(<%=i%>)">서울특별시</div>
+									id="<%=region.get(i)%>"
+									onclick="selectRegion('<%=region.get(i)%>')"><%=region.get(i)%></div>
 								<%
 								}
 								%>
@@ -53,28 +61,27 @@
 						</div>
 						<div class="list-group">
 							<h5>상영관</h5>
-							<div class="list">
-								<%
-								for (int i = 0; i < 20; i++) {
-								%>
-								<div
-									class="list-group-item list-group-item-action list-group-item-light selectList"
-									id="theater<%=i%>" onclick="selectTheater(<%=i%>)">용산</div>
-								<%
-								}
-								%>
+							<div class="list" id="theaterlist">
+								<div class="defaultTheater">지역을 선택해주세요</div>
 							</div>
 						</div>
 						<div class="list-group">
 							<h5>요일</h5>
-							<input type="date">
+							<% 
+							SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); 
+							Calendar c1 = Calendar.getInstance();
+							String strToday = sdf.format(c1.getTime());
+							%>
+							<input type="date" id="selectDate" min=<%=strToday %>>
 						</div>
 					</div>
 				</div>
 				<div id="mainRight">
-					<div id="poster"></div>
+					<div id="poster">
+						<img alt="" src="../img/토르포스터.jpg">
+					</div>
 					<div id="resvbtn">
-						<input type="button" value="예매하기">
+						<input type="button" value="예매하기" onclick="reservationBtn()">
 					</div>
 				</div>
 			</div>
@@ -84,45 +91,59 @@
 	<script type="text/javascript">
 		let nowRegion = -1;
 		let nowTheater = -1;
-		function selectRegion(seq) {
-			if(nowRegion != seq){
-				if(nowRegion!=-1){
-					document.getElementById("region"+nowRegion).style.backgroundColor = '#fdfdfe';
-					document.getElementById("region"+nowRegion).style.color = '#818182';
+		function selectRegion(region) {
+			nowTheater = -1; // 선택 지역영화관 초기화
+			// css 컬러 변경
+			if (nowRegion != region) {
+				if (nowRegion != -1) {
+					document.getElementById(nowRegion).style.backgroundColor = '#fdfdfe';
+					document.getElementById(nowRegion).style.color = '#818182';
 				}
-				document.getElementById("region"+seq).style.backgroundColor = 'rgb(245, 161, 66)';
-				document.getElementById("region"+seq).style.color = 'rgb(255, 255, 255)';
-				nowRegion = seq
+				document.getElementById(region).style.backgroundColor = 'rgb(245, 161, 66)';
+				document.getElementById(region).style.color = 'rgb(255, 255, 255)';
+				nowRegion = region
 			}
+			$.ajax({
+				url : "../location?param=city&region=" + region,
+				type : "get",
+				datatype : "json",
+				success : function(data) {
+					let theater = data.theater
+					$("#theaterlist").empty();
+					for (let i = 0; i < theater.length; i++) {
+						const element = document.createElement('div');
+						element.classList.add('list-group-item',
+								'list-group-item-action',
+								'list-group-item-light', 'selectList');
+						element.id = theater[i];
+						element.onclick = function() {
+							selectTheater(theater[i]);
+						}
+						element.innerHTML = theater[i];
+						$('#theaterlist').append(element)
+					}
+				},
+				error : function() {
+					alert('error');
+				}
+			})
 		}
 		function selectTheater(seq) {
-			if(nowTheater != seq){
-				if(nowTheater!=-1){
-					document.getElementById("theater"+nowTheater).style.backgroundColor = '#fdfdfe';
-					document.getElementById("theater"+nowTheater).style.color = '#818182';
+			if (nowTheater != seq) {
+				if (nowTheater != -1) {
+					document.getElementById(nowTheater).style.backgroundColor = '#fdfdfe';
+					document.getElementById(nowTheater).style.color = '#818182';
 				}
-				document.getElementById("theater"+seq).style.backgroundColor = 'rgb(245, 161, 66)';
-				document.getElementById("theater"+seq).style.color = 'rgb(255, 255, 255)';
-				nowRegion = seq
+				document.getElementById(seq).style.backgroundColor = 'rgb(245, 161, 66)';
+				document.getElementById(seq).style.color = 'rgb(255, 255, 255)';
+				nowTheater = seq
 			}
-			const element = document.getElementById("theater"+seq);
-			element.style.backgroundColor = 'rgb(245, 161, 66)';
-			element.style.color = 'rgb(255, 255, 255)';
-			console.log(seq);
 		}
-		
-		/* 			$.ajax({
-		url : "downup?seq=" + seq,
-		type: "get",
-		datatype: "json",
-		success : function(data){ // 갓솔지, 갓진광 ,갓지훈,은성!
-			console.log(data.msg);
-			$('#id'+seq).text(data.msg);
-		},
-		error: function(){
-			alert('error');
+
+		function reservationBtn() {
+			let nowDate = document.getElementById('selectDate').value;
+			console.log(nowRegion, nowTheater, nowDate);
 		}
-	}) */
 	</script>
 </body>
 </html>
