@@ -29,11 +29,8 @@ public class MovieCrawing {
 			Elements movieTitles=doc.select("div.box-contents strong.title");
 			Elements movieRates=doc.select(".percent span");//영화 예매율
 			Elements movieOpenDates=doc.select(".txt-info strong");
-			Elements a=doc.select("div.box-contents a");
-			for(Element e:a) {
-				String url=e.attr("href");
-				detail.crawlingMovieDetail("www.cgv.co.kr"+url);
-			}
+			Elements a=doc.select("div.box-contents  a:first-child");
+			
 			List<MovieDto>list=new ArrayList<>();
 			for(int i=0;i<movieTitles.size();i++) {
 				String img=imgs.get(i).attr("src");
@@ -50,11 +47,7 @@ public class MovieCrawing {
 			Elements movieTitles2=doc.select("div.box-contents strong.title");
 			Elements movieRates2=doc.select(".percent span");//영화 예매율
 			Elements movieOpenDates2=doc.select(".txt-info strong");
-			Elements a2=doc.select("div.box-contents a");
-			for(Element e: a2) {
-				String url=e.attr("href");
-				detail.crawlingMovieDetail("www.cgv.co.kr"+url);
-			}
+			Elements a2=doc.select("div.box-contents a:first-child");
 			
 			for(int i=0;i<movieTitles.size();i++) {
 				String img=imgs2.get(i).attr("src");
@@ -70,6 +63,21 @@ public class MovieCrawing {
 				System.out.println(d.toString());
 			}
 			dao.insertData(list);
+			for(Element e:a) {
+				String url=e.attr("href");
+				if(url.substring(0,7).equals("/ticket"))
+					continue;
+				detail.crawlingMovieDetail("http://www.cgv.co.kr"+url);
+			
+			}
+			for(Element e: a2) {
+				String url=e.attr("href");
+				if(url.substring(0,7).equals("/ticket"))
+					continue;
+				detail.crawlingMovieDetail("http://www.cgv.co.kr"+url);
+				
+			}
+			
 			gson=new Gson().toJson(list);
 		}catch(IOException e) {
 			e.printStackTrace();
