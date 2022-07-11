@@ -11,6 +11,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Starbucks Coffee JIHUN</title>
 
+
 <link rel="icon" href="<%=request.getContextPath()%>/favicon.png">
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
@@ -44,6 +45,7 @@
 	background: linear-gradient(black, 80%, transparent);
 }
 
+
 .px-2 {
 	color: white;
 }
@@ -52,6 +54,7 @@ i {
 	color: white;
 }
 </style>
+
 </head>
 <body>
 	<!-- HEADER -->
@@ -68,6 +71,7 @@ i {
 									src="<%=request.getContextPath()%>/images/logo.png">
 							</a></li>
 						</ul>
+
 						<ul class="nav">
 						<li class="nav-item"
 							style="display: flex; align-items: center; padding-right: 30px; color: white">
@@ -85,6 +89,7 @@ i {
 									}
 								}
 								</script>
+
 							</form>
 						</li>
 						<%
@@ -117,6 +122,7 @@ i {
 								<span style="color:white">마이페이지</span>
 						</a></li>
 
+
 						<li class="nav-item" style="display: flex; align-items: center; padding-right: 30px;"><a
 							href="<%=request.getContextPath()%>/member?param=logout"
 							class="nav-link link-dark px-2"> <i
@@ -125,6 +131,7 @@ i {
 								<span style="color:white">로그아웃</span>
 						</a></li>
 						</ul>
+
 						<%
 						}
 						%>
@@ -135,4 +142,15 @@ i {
 		</main>
 	</header>
 </body>
+
+
+<script type="text/javascript">
+	$("#chk").click(function() {
+		alert("id를 입력해 주십시오");
+	});
+</script>
+
+
+
+
 </html>

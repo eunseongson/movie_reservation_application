@@ -14,6 +14,7 @@ if(obj == null){
 	</script>
 	<%
 }
+
 mem = (MemberDto)obj;
 %>
    
@@ -64,6 +65,10 @@ mem = (MemberDto)obj;
 			<div class="top_myinfoUp">
 				<img alt="" src="../images/default_profile.gif">
 			</div>
+			<div class="top_myinfoDown">
+				<a href="<%=request.getContextPath() %>/member?param=withdraw">회원탈퇴</a>
+			</div>
+			
 		</div>
 		<div class="top_right">
 			<div class="top_myinfoUp">
