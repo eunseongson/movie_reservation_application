@@ -379,6 +379,7 @@ public class MemberDao {
 		String sql = " SELECT title "
 				+ "FROM movie "
 				+ "where seq= ? ";
+
 		Connection conn = null; // DB 연결
 	      PreparedStatement psmt = null; // Query문을 실행
 	      ResultSet rs = null; // 결과 취득
@@ -404,6 +405,8 @@ public class MemberDao {
 	      }
 	      
 	      return title;
+
 	}
-	
+	}	
+
 }
