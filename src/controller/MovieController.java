@@ -27,7 +27,7 @@ public class MovieController extends HttpServlet{
 		
 	}
 	 public void doProcess(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
-		 MovieCrawing.getData();
+	//	 MovieCrawing.getData();
 		 String param = req.getParameter("param");
 		 if(param.equals("start")) {
 			 resp.setContentType("application/x-json; charset=utf-8");
