@@ -62,7 +62,7 @@ public class MovieListController extends HttpServlet{
 			if(check) {
 				MovieDto dto = dao.getObject(movieSearch);
 				req.setAttribute("rowtitle", dto.getRowtitle());
-				forward("movie/moviedetail.jsp",req,resp);
+				forward("movieDetail",req,resp);
 			}else {
 				movieCommon(req, resp, 1);
 				req.setAttribute("checking","fail");

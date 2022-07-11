@@ -16,6 +16,46 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `movie`
+--
+
+DROP TABLE IF EXISTS `movie`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `movie` (
+  `seq` int NOT NULL AUTO_INCREMENT,
+  `title` varchar(50) DEFAULT NULL,
+  `rowtitle` varchar(50) DEFAULT NULL,
+  `reservation` decimal(5,2) DEFAULT NULL,
+  `img` varchar(500) DEFAULT NULL,
+  `rdate` varchar(8) DEFAULT NULL,
+  `readcount` decimal(8,0) DEFAULT NULL,
+  `actor` varchar(100) DEFAULT NULL,
+  `author` varchar(30) DEFAULT NULL,
+  `genre` varchar(30) DEFAULT NULL,
+  `age_limit` varchar(15) DEFAULT NULL,
+  `running_time` varchar(45) DEFAULT NULL,
+  `country` varchar(20) DEFAULT NULL,
+  `movie_description` varchar(8000) DEFAULT NULL,
+  `movie_description_title` varchar(2000) DEFAULT NULL,
+  `previous_expectations` int DEFAULT NULL,
+  `real_review` int DEFAULT NULL,
+  PRIMARY KEY (`seq`),
+  UNIQUE KEY `unk` (`title`)
+) ENGINE=InnoDB AUTO_INCREMENT=1257 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `movie`
+--
+
+LOCK TABLES `movie` WRITE;
+/*!40000 ALTER TABLE `movie` DISABLE KEYS */;
+/*!40000 ALTER TABLE `movie` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+--
 -- Table structure for table `distribution`
 --
 
@@ -25,13 +65,13 @@ DROP TABLE IF EXISTS `distribution`;
 CREATE TABLE `distribution` (
   `seq` int NOT NULL AUTO_INCREMENT,
   `movie_seq` int DEFAULT NULL,
-  `male` decimal(2,1) DEFAULT NULL,
-  `female` decimal(2,1) DEFAULT NULL,
-  `teenager` int DEFAULT NULL,
-  `twenty` int DEFAULT NULL,
-  `thirty` int DEFAULT NULL,
-  `forty` int DEFAULT NULL,
-  `fifty` int DEFAULT NULL,
+  `male` decimal(3,2) DEFAULT NULL,
+  `female` decimal(3,2) DEFAULT NULL,
+  `teenager` decimal(3,2) DEFAULT NULL,
+  `twenty` decimal(3,2) DEFAULT NULL,
+  `thirty` decimal(3,2) DEFAULT NULL,
+  `forty` decimal(3,2) DEFAULT NULL,
+  `fifty` decimal(3,2) DEFAULT NULL,
   PRIMARY KEY (`seq`),
   KEY `movie_seq` (`movie_seq`),
   CONSTRAINT `distribution_ibfk_1` FOREIGN KEY (`movie_seq`) REFERENCES `movie` (`seq`)
@@ -59,7 +99,7 @@ CREATE TABLE `location` (
   `city` varchar(15) DEFAULT NULL,
   `city_detail` varchar(25) DEFAULT NULL,
   PRIMARY KEY (`seq`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -71,40 +111,60 @@ LOCK TABLES `location` WRITE;
 /*!40000 ALTER TABLE `location` ENABLE KEYS */;
 UNLOCK TABLES;
 
-
 --
--- Table structure for table `movie`
+-- Table structure for table `location_movie`
 --
 
-DROP TABLE IF EXISTS `movie`;
+DROP TABLE IF EXISTS `location_movie`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `movie` (
-  `seq` int NOT NULL AUTO_INCREMENT,
-  `title` varchar(50) NOT NULL,
-  `reservation` decimal(5,2) DEFAULT NULL,
-  `img` varchar(100) NOT NULL,
-  `rdate` varchar(8) NOT NULL,
-  `readcount` decimal(8,0) NOT NULL,
-  `actor` varchar(100) DEFAULT NULL,
-  `author` varchar(30) DEFAULT NULL,
-  `genre` varchar(30) DEFAULT NULL,
-  `age_limit` varchar(15) DEFAULT NULL,
-  `country` varchar(20) DEFAULT NULL,
-  `movie_description` varchar(2000) DEFAULT NULL,
-  `previous_expectations` int DEFAULT NULL,
-  `real_review` int DEFAULT NULL,
-  PRIMARY KEY (`seq`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `location_movie` (
+  `location_movie_seq` int NOT NULL AUTO_INCREMENT,
+  `location_seq` int DEFAULT NULL,
+  `movie_seq` int DEFAULT NULL,
+  `movie_time` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`location_movie_seq`),
+  KEY `location_seq` (`location_seq`),
+  KEY `movie_seq` (`movie_seq`),
+  CONSTRAINT `location_movie_ibfk_1` FOREIGN KEY (`location_seq`) REFERENCES `location` (`seq`),
+  CONSTRAINT `location_movie_ibfk_2` FOREIGN KEY (`movie_seq`) REFERENCES `movie` (`seq`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `movie`
+-- Dumping data for table `location_movie`
 --
 
-LOCK TABLES `movie` WRITE;
-/*!40000 ALTER TABLE `movie` DISABLE KEYS */;
-/*!40000 ALTER TABLE `movie` ENABLE KEYS */;
+LOCK TABLES `location_movie` WRITE;
+/*!40000 ALTER TABLE `location_movie` DISABLE KEYS */;
+/*!40000 ALTER TABLE `location_movie` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+--
+-- Table structure for table `movie_stillcut`
+--
+
+DROP TABLE IF EXISTS `movie_stillcut`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `movie_stillcut` (
+  `seq` int NOT NULL AUTO_INCREMENT,
+  `movie_seq` int DEFAULT NULL,
+  `movie_still_img` varchar(300) DEFAULT NULL,
+  PRIMARY KEY (`seq`),
+  KEY `movie_fk_idx` (`movie_seq`),
+  CONSTRAINT `movie_fk1` FOREIGN KEY (`movie_seq`) REFERENCES `movie` (`seq`)
+) ENGINE=InnoDB AUTO_INCREMENT=482 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `movie_stillcut`
+--
+
+LOCK TABLES `movie_stillcut` WRITE;
+/*!40000 ALTER TABLE `movie_stillcut` DISABLE KEYS */;
+/*!40000 ALTER TABLE `movie_stillcut` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -122,7 +182,7 @@ CREATE TABLE `reservation` (
   PRIMARY KEY (`seq`),
   KEY `movie_seq` (`movie_seq`),
   CONSTRAINT `reservation_ibfk_1` FOREIGN KEY (`movie_seq`) REFERENCES `movie` (`seq`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -143,9 +203,13 @@ DROP TABLE IF EXISTS `review`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `review` (
   `seq` int NOT NULL AUTO_INCREMENT,
+  `movie_seq` int DEFAULT NULL,
+  `title` varchar(100) DEFAULT NULL,
+  `content` varchar(2000) DEFAULT NULL,
   `wdate` int DEFAULT NULL,
-  `content` varchar(2000) NOT NULL,
-  PRIMARY KEY (`seq`)
+  PRIMARY KEY (`seq`),
+  KEY `movie_fk_idx` (`movie_seq`),
+  CONSTRAINT `movie_fk` FOREIGN KEY (`movie_seq`) REFERENCES `movie` (`seq`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -183,38 +247,8 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES ('test','test','test','test@naver.com','010-1234-1234',1);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `location_movie`
---
-
-DROP TABLE IF EXISTS `location_movie`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `location_movie` (
-  `location_seq` int DEFAULT NULL,
-  `movie_seq` int DEFAULT NULL,
-  `movie_time` timestamp NULL DEFAULT NULL,
-  KEY `location_seq` (`location_seq`),
-  KEY `movie_seq` (`movie_seq`),
-  CONSTRAINT `location_movie_ibfk_1` FOREIGN KEY (`location_seq`) REFERENCES `location` (`seq`),
-  CONSTRAINT `location_movie_ibfk_2` FOREIGN KEY (`movie_seq`) REFERENCES `movie` (`seq`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `location_movie`
---
-
-LOCK TABLES `location_movie` WRITE;
-/*!40000 ALTER TABLE `location_movie` DISABLE KEYS */;
-/*!40000 ALTER TABLE `location_movie` ENABLE KEYS */;
-UNLOCK TABLES;
-
-
 
 --
 -- Table structure for table `user_reservation_location`
@@ -256,4 +290,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-07-08 11:34:20
+-- Dump completed on 2022-07-11 19:55:40
