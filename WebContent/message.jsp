@@ -26,7 +26,7 @@ if(msg.equals("regiOK")){
 }else if(msg.equals("loginOK")){
 	%>
 	<script type="text/javascript">
-	alert("로그인 되었습니다.");
+	
 	location.href = "./main/main.jsp";
 	</script>
 	<%

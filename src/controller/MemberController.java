@@ -126,11 +126,16 @@ public class MemberController extends HttpServlet {
 			resp.sendRedirect("message.jsp?msg=" + msg);
 			
 		} else if (param.equals("mypage")) {
-			String id = req.getParameter("id");
-
-			resp.sendRedirect("member/mypage.jsp?id=" + id);
+			resp.sendRedirect("member/mypage.jsp");
 			
-		} else if(param.equals("findidAf")) {
+		} else if (param.equals("mypageInfo")) {
+			resp.sendRedirect("member/mypageInfo.jsp");
+			
+		} else if (param.equals("mypageReserve")) {
+			resp.sendRedirect("member/mypageReserve.jsp");
+			
+		}
+		else if(param.equals("findidAf")) {
 			
 			String name = req.getParameter("name");
 			String email = req.getParameter("email");

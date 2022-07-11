@@ -6,24 +6,12 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link rel="icon" href="./favicon.png">
+<link rel="icon" href="../images/favicon.png">
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link
-	href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap"
-	rel="stylesheet">
-<link rel="stylesheet"
-	href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
 <link rel="stylesheet" href="../css/bootstrap.min.css">
 <link rel="stylesheet" href="../css/account.css">
-
-
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"
-	integrity="sha512-WFN04846sdKMIP5LKNphMaWzU7YpMyCU245etK3g/2ARYbPK9Ub18eG+ljU96qKRCWh+quCY7yefSmlkQw1ANQ=="
-	crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 <title>BITBOX</title>
 
@@ -42,6 +30,7 @@
 
 body {
 	margin: 0px 350px;
+	background-image: url('../images/background.png')
 }
 </style>
 
@@ -74,48 +63,47 @@ body {
 					</span>
 					</span>
 				</div>
-			</div>
-			<div class="btn_area">
-				<button type="button" id="findIdBtn"
-					class="btn btn_type btn-danger btn_primary">ID 찾기</button>
-
+				<div class="btn_area">
+					<button type="button" id="findIdBtn"
+						class="btn btn_type btn-danger btn_primary">ID 찾기</button>
+				</div>
 			</div>
 		</form>
 
 		<script type="text/javascript">
-		$(function() {
+			$(function() {
 
-			$("#findIdBtn").click(function() {
+				$("#findIdBtn").click(function() {
 
-				$.ajax({
-					type : "post",
-					url : "../member?param=findidAf",
-					data : {
-						"name" : $("#name").val(),
-						"email" : $("#email").val()
-					},
-					// 위에 data 는 서버로 보내는 A, 아래 data 는 서버에서 받아오는 JSONObject B
+					$.ajax({
+						type : "post",
+						url : "../member?param=findidAf",
+						data : {
+							"name" : $("#name").val(),
+							"email" : $("#email").val()
+						},
+						// 위에 data 는 서버로 보내는 A, 아래 data 는 서버에서 받아오는 JSONObject B
 
-					success : function(data) {
-						if (data.msg.trim() == "YES") {
-							alert(data.name + "님의 id는 " + data.id + "입니다");
-							window.location.href = "./login.jsp";
+						success : function(data) {
+							if (data.msg.trim() == "YES") {
+								alert(data.name + "님의 id는 " + data.id + "입니다");
+								window.location.href = "login.jsp";
 
-						} else {
-							alert("없는 회원 정보입니다.");
-							window.location.href = "./findid.jsp";
+							} else {
+								alert("없는 회원 정보입니다.");
+								window.location.href = "findid.jsp";
 
+							}
+						},
+						error : function() {
+							alert("error");
 						}
-					},
-					error : function() {
-						alert("error");
-					}
+					});
+
 				});
 
 			});
-
-		});
-	</script>
+		</script>
 
 	</section>
 

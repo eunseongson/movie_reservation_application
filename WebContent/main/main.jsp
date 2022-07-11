@@ -27,7 +27,7 @@
 </style>
 
 
-<%-- <%
+<%
 if(session.getAttribute("login") == null){
 %>
 <div align="right">
@@ -51,12 +51,6 @@ if(session.getAttribute("login") == null){
 </div>
 <% 
 }
-%> --%>
-<script type="text/javascript">
-   
-   
-
-    
 
 </script>
 <script type="text/javascript">
