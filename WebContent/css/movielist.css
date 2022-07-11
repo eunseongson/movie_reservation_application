@@ -245,15 +245,18 @@
 	cursor: pointer;
 }
 
+.pab .back .backinner{
+	width: 100%;
+}
 
 .pab .back .bottom_title{
-	text-align:left;
+	text-align:center;
 	font-weight: bold;
 	margin:5px 0 0 0;
 }
 
 .pab .back .bottom_detail{
-	text-align:left;
+	text-align:center;
 	font-weight: lighter;
 	margin:5px 0;
 }
