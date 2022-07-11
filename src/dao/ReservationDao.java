@@ -30,6 +30,7 @@ public class ReservationDao{
 	
 		int reservationSeq = addReservation(movieSeq, movieTime);
 		
+		System.out.println(userId + " :reservationStart");
 		addUserReservationLocation(reservationSeq, locationSeq, userId);
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -85,6 +86,7 @@ public class ReservationDao{
 		PreparedStatement psmt = null;
 		int count = 0;
 
+		System.out.println(userId + " :addUserReservationLocation");
 		try {
 			conn = DBConnection.getConnection();
 	
