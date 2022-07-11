@@ -19,7 +19,7 @@ public class DBConnection {
 		
 		String url = "jdbc:mysql://localhost:3306/movie_reservation_db";
 		String user = "root";
-		String password = "zx12qw34";
+		String password = "1234";
 		
 		Connection conn = null;
 
