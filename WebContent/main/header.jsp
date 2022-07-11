@@ -44,7 +44,14 @@
 									<img alt="" src="<%=request.getContextPath() %>/images/logo.png">
 							</a></li>
 						</ul>
-
+						
+						<li class="nav-item" style="padding-top: 50px; padding-right: 30px">
+							<form action="/something">
+								<label for="searchbar">검색창</label> <input type="text"
+									id="searchbar" name="searchbar">
+								<button type="submit" form="searchbar">검색</button>
+							</form>
+						</li>
 						<%
 						if (session.getAttribute("login") == null) {
 						%>
@@ -88,15 +95,7 @@
 						<%
 						}
 						%>
-						<br>
-						<br>
-						<li class="nav-item" style="padding-top: 50px; padding-left: 30px">
-							<form action="/something">
-								<label for="searchbar">검색창</label> <input type="text"
-									id="searchbar" name="searchbar">
-								<button type="submit" form="searchbar">검색</button>
-							</form>
-						</li>
+						
 				</ul>
 				</div>
 			</nav>
