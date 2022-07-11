@@ -14,6 +14,7 @@ if(obj == null){
 	</script>
 	<%
 }
+
 mem = (MemberDto)obj;
 %>
    
