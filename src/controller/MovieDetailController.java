@@ -185,6 +185,8 @@ public class MovieDetailController extends HttpServlet {
 
 			MovieDetailDao dao = MovieDetailDao.getInstance();
 			String title = req.getParameter("title");
+			//TODO +가 url에서 무시됨. 해결방안
+			title = title.replace("%20", " ");
 			MovieDetailDto dto = dao.getMovieDetail(title);
 			req.setAttribute("title", dto.getTitle());
 			req.setAttribute("reservation", dto.getReservation());
