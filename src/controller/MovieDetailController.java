@@ -32,16 +32,30 @@ public class MovieDetailController extends HttpServlet {
 		try {
 			
 			MovieDetailDao dao = MovieDetailDao.getInstance();
-			String title = req.getParameter("title");
-			//TODO +가 url에서 무시됨. 해결방안
-			title = title.replace("%20", " ");
-			//대기 원래는 title만 가져옴
-			//MovieDetailDto dto = dao.getMovieDetail(title);
-			//수정본 movieDto로 갖고와서 처리 값은 다 갖고 있음.
-			String rowTitle = req.getParameter("rowtitle"); 
+			String rowTitle = req.getParameter("rowtitle");
 			MovieDetailDto dto = dao.getMovieDetail(rowTitle);
 			
+			System.out.println(dto.getTitle());
+			System.out.println(dto.getRowTitle());
+			System.out.println(dto.getReservation());
+			System.out.println(dto.getImg());
+			System.out.println(dto.getRdate());
+			System.out.println(dto.getReadcount());
+			System.out.println(dto.getActor());
+			System.out.println(dto.getAuthor());
+			System.out.println(dto.getGenre());
+			System.out.println(dto.getAge_limit());
+			System.out.println(dto.getRunning_time());
+			System.out.println(dto.getCountry());
+			System.out.println(dto.getMovie_description());
+			System.out.println(dto.getMovie_description_title());
+			System.out.println(dto.getPrevious_expectations());
+			System.out.println(dto.getReal_review());
+			System.out.println(dto.getStill_cut());
+			System.out.println(dto.getReviews());
+			
 			req.setAttribute("title", dto.getTitle());
+			req.setAttribute("rowtitle", dto.getRowTitle());
 			req.setAttribute("reservation", dto.getReservation());
 			req.setAttribute("img", dto.getImg());
 			req.setAttribute("rdate", dto.getRdate());

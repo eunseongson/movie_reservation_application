@@ -177,7 +177,7 @@ if(fail.equals("fail")){
 	        		<script>
 					function detailsubmit(rowtitle){
 						alert("detailsubmit : " + rowtitle);
-						location.href = "movieDetail?movie="+rowtitle;
+						location.href = "movieDetail?rowtitle="+rowtitle;
 					}
 					</script>
 	        	</td>
