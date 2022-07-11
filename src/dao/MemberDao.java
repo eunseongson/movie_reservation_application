@@ -86,7 +86,7 @@ public class MemberDao {
 		}
 
 		return findId;
-		// true 반환하면 이미 있는 id 
+		// true 반환하면 이미 있는 id
 	}
 
 	// 로그인하기
@@ -155,7 +155,7 @@ public class MemberDao {
 
 			if (rs.next()) {
 				String id = rs.getString(1);
-				
+
 				mem = new MemberDto(id, null, null, null, null, 0);
 				System.out.println(dto.getId());
 			}
@@ -172,32 +172,31 @@ public class MemberDao {
 
 	// 패스워드 찾기 (findpwd WITH id, email)
 	public MemberDto findpw(MemberDto dto) {
-		
-		String sql = " SELECT PWD "
-				   + " FROM user "
-				   + " WHERE id=? AND email=? ";
-		
-		Connection conn = null;			// DB 연결
-		PreparedStatement psmt = null;	// Query문을 실행
-		ResultSet rs = null;			// 결과 취득
-		
+
+		String sql = " SELECT ID, PWD " + " FROM user " + " WHERE id=? AND email=? ";
+
+		Connection conn = null; // DB 연결
+		PreparedStatement psmt = null; // Query문을 실행
+		ResultSet rs = null; // 결과 취득
+
 		MemberDto mem = null;
-		
+
 		try {
 			conn = DBConnection.getConnection();
-				
+
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, dto.getId());
 			psmt.setString(2, dto.getEmail());
-			
+
 			rs = psmt.executeQuery();
-			if(rs.next()) {
-				String pwd = rs.getString(1);
-				
-				mem = new MemberDto(null, pwd, null, null, null, 0);
+			if (rs.next()) {
+				String id = rs.getString(1);
+				String pwd = rs.getString(2);
+
+				mem = new MemberDto(id, pwd, null, null, null, 0);
 				System.out.println(dto.getId() + " " + dto.getPwd());
 			}
-		
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println("no such pwd : findpwd failed");
@@ -205,28 +204,80 @@ public class MemberDao {
 		} finally {
 			DBClose.close(conn, psmt, rs);
 		}
-		
+
 		return mem;
 	}
 
 	// 탈퇴 check pwd
 
 	public boolean withdraw(MemberDto dto) {
-		String sql = " delete " + " FROM user " + " WHERE pwd=? ";
+		String sql = " select id, pwd from user where id=? AND pwd=? ";
+		String sql2 = " delete " + " FROM user " + " WHERE pwd=? ";
 
 		Connection conn = null; // DB 연결
 		PreparedStatement psmt = null; // Query문을 실행
 		ResultSet rs = null; // 결과 취득
 
-		String id = "";
-		MemberDto mem = null;
+		boolean ret = false;
+
+		try {
+			conn = DBConnection.getConnection();
+
+			psmt = conn.prepareStatement(sql);
+
+			psmt.setString(1, dto.getId());
+			psmt.setString(2, dto.getPwd());
+
+			rs = psmt.executeQuery();
+			if (rs.next()) {
+				String id = rs.getString(1);
+				String pwd = rs.getString(2);
+
+				try {
+					Connection conn2 = DBConnection.getConnection();
+					PreparedStatement psmt2 = conn2.prepareStatement(sql2);
+					psmt2.setString(1, pwd);
+					int count = psmt2.executeUpdate();
+					
+					if(count > 0) {
+						ret = true;
+					}
+
+				} catch (SQLException e2) {
+					e2.printStackTrace();
+				} finally {
+					DBClose.close(conn, psmt, null);
+				}
+
+//				deleteUser(pwd);
+//				System.out.println(dto.getId() + " " + dto.getPwd() + "탈퇴 완료");
+
+			} else {
+				// 탈퇴 불가능 Do not delete
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBClose.close(conn, psmt, null);
+		}
+		return ret;
+	}
+	
+
+	public void deleteUser(String pwd) {
+		String sql = " delete " + " FROM user " + " WHERE pwd=? ";
+		Connection conn = null; // DB 연결
+		PreparedStatement psmt = null; // Query문을 실행
+		ResultSet rs = null; // 결과 취득
+
 		int count = 0;
 
 		try {
 			conn = DBConnection.getConnection();
 
 			psmt = conn.prepareStatement(sql);
-			psmt.setString(1, dto.getPwd());
+			psmt.setString(1, pwd);
 
 			count = psmt.executeUpdate();
 
@@ -235,95 +286,90 @@ public class MemberDao {
 		} finally {
 			DBClose.close(conn, psmt, null);
 		}
-		return (count == 1) ? true : false;
+		// return (count == 1) ? true : false;
 	}
-	
+
 	public List<UserReserveDto> findreserve(MemberDto dto) {
-	      // user_reservation_location 이용부분
-	      String sql = " select seq, reservation_seq, location_seq "
-	               + " from user_reservation_location "
-	               + " where user_id = ? ";
-	      
-	      Connection conn = null; // DB 연결
-	      PreparedStatement psmt = null; // Query문을 실행
-	      ResultSet rs = null; // 결과 취득
+		// user_reservation_location 이용부분
+		String sql = " select seq, reservation_seq, location_seq " + " from user_reservation_location "
+				+ " where user_id = ? ";
 
-	      List<UserReserveDto> list = new ArrayList<UserReserveDto>();
-	      UserReserveDto udto = null;
-	      
-	      int seq = -1;
-	      int reservation_seq = -1;
-	      int location_seq = -1;
-	      int movie_seq = -1;
-	      
-	      String title = "";
-	      String city = "";
-	      String date = "";    // wdate + rdate + movie_seq
-	      String wdate = "";
-	      String rdate = "";
-	      
-	      
-	      try {
-	         conn = DBConnection.getConnection();
-	         
-	         psmt = conn.prepareStatement(sql);
-	         psmt.setString(1, dto.getId());
-
-	         rs = psmt.executeQuery();
-	         
-	         while (rs.next()) {
-	            seq = rs.getInt(1);
-	            reservation_seq = rs.getInt(2);
-	            location_seq = rs.getInt(3);
-	            
-	            city = findCity(location_seq);
-	            date = findDate(reservation_seq);
-	            
-	            wdate = date.substring(0, 10);
-	            rdate = date.substring(10, 20);
-	            movie_seq = Integer.parseInt(date.substring(20));
-	            
-	            title = findTitle(movie_seq);
-	            
-	            udto = new UserReserveDto(title, city, wdate, rdate);
-	            
-	            list.add(udto);
-	         }
-	      } catch (SQLException e) {
-	         System.out.println("findreserve fail");
-	      } finally {
-	         DBClose.close(conn, psmt, rs);
-	      }
-	      
-	      return list;
-	   }
-
-	   
-	public String findCity(int location_seq) {
-		String sql = " select city, city_detail "
-				+ " from location "
-				+ " where seq= ? ";
-		
 		Connection conn = null; // DB 연결
 		PreparedStatement psmt = null; // Query문을 실행
 		ResultSet rs = null; // 결과 취득
-		
+
+		List<UserReserveDto> list = new ArrayList<UserReserveDto>();
+		UserReserveDto udto = null;
+
+		int seq = -1;
+		int reservation_seq = -1;
+		int location_seq = -1;
+		int movie_seq = -1;
+
+		String title = "";
 		String city = "";
-		String city_name = "";			// 서울
-		String city_detail = "";	// 강남
-	
+		String date = ""; // wdate + rdate + movie_seq
+		String wdate = "";
+		String rdate = "";
+
 		try {
 			conn = DBConnection.getConnection();
-			
+
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, dto.getId());
+
+			rs = psmt.executeQuery();
+
+			while (rs.next()) {
+				seq = rs.getInt(1);
+				reservation_seq = rs.getInt(2);
+				location_seq = rs.getInt(3);
+
+				city = findCity(location_seq);
+				date = findDate(reservation_seq);
+
+				wdate = date.substring(0, 10);
+				rdate = date.substring(10, 20);
+				movie_seq = Integer.parseInt(date.substring(20));
+
+				title = findTitle(movie_seq);
+
+				udto = new UserReserveDto(title, city, wdate, rdate);
+
+				list.add(udto);
+			}
+		} catch (SQLException e) {
+			System.out.println("findreserve fail");
+		} finally {
+			DBClose.close(conn, psmt, rs);
+		}
+
+		return list;
+	}
+
+	public String findCity(int location_seq) {
+		String sql = " select city, city_detail " + " from location " + " where seq= ? ";
+
+		Connection conn = null; // DB 연결
+		PreparedStatement psmt = null; // Query문을 실행
+		ResultSet rs = null; // 결과 취득
+
+		String city = "";
+		String city_name = ""; // 서울
+		String city_detail = ""; // 강남
+
+		try {
+			conn = DBConnection.getConnection();
+
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, location_seq + "");
-	
+
 			rs = psmt.executeQuery();
-			
+
 			if (rs.next()) {
 				city_name = rs.getString(1);
 				city_detail = rs.getString(2);
-				
+
 				city = city_name + " " + city_detail;
 			}
 		} catch (SQLException e) {
@@ -331,79 +377,75 @@ public class MemberDao {
 		} finally {
 			DBClose.close(conn, psmt, rs);
 		}
-			
+
 		return city;
 	}
-	
-	public String findDate(int reservation_seq) {
-		String sql = " select movie_seq, wdate, rdate " 
-				 + " from reservation " 
-				 + " where seq= ? ";
-		 
-		 Connection conn = null; // DB 연결 
-		 PreparedStatement psmt = null; // Query문을 실행 
-		 ResultSet rs = null; // 결과 취득
-		 
-		 int movie_seq = -1; 
-		 String wdate = ""; 
-		 String rdate = "";
-		 String date = null;
-		 
-		 try { conn = DBConnection.getConnection();
-		 
-			 psmt = conn.prepareStatement(sql); 
-			 psmt.setString(1, reservation_seq + "");
-			 
-			 rs = psmt.executeQuery();
-			 
-			 if (rs.next()) { 
-				 movie_seq = rs.getInt(1);
-				 wdate = rs.getString(2);
-				 rdate = rs.getString(3);
-				 wdate = wdate.substring(0, 10);
-				 rdate = rdate.substring(0, 10);
-				 date = wdate + rdate + movie_seq;
-			 }
-		 
-		 } catch (SQLException e) { 
-			 System.out.println("findreserve fail"); 
-		 } finally { 
-			 DBClose.close(conn, psmt, rs); 
-		 }
-		 
-		return date;
-	}
 
-	
-	public String  findTitle(int movie_seq) {
-		String sql = " SELECT title "
-				+ "FROM movie "
-				+ "where seq= ? ";
+	public String findDate(int reservation_seq) {
+		String sql = " select movie_seq, wdate, rdate " + " from reservation " + " where seq= ? ";
 
 		Connection conn = null; // DB 연결
 		PreparedStatement psmt = null; // Query문을 실행
 		ResultSet rs = null; // 결과 취득
-		
-		String title = "";
-		
+
+		int movie_seq = -1;
+		String wdate = "";
+		String rdate = "";
+		String date = null;
+
 		try {
 			conn = DBConnection.getConnection();
-			
+
 			psmt = conn.prepareStatement(sql);
-			psmt.setString(1, movie_seq + "");
-		
+			psmt.setString(1, reservation_seq + "");
+
 			rs = psmt.executeQuery();
-			
+
 			if (rs.next()) {
-				title = rs.getString(1);
+				movie_seq = rs.getInt(1);
+				wdate = rs.getString(2);
+				rdate = rs.getString(3);
+				wdate = wdate.substring(0, 10);
+				rdate = rdate.substring(0, 10);
+				date = wdate + rdate + movie_seq;
 			}
-			
+
 		} catch (SQLException e) {
 			System.out.println("findreserve fail");
 		} finally {
 			DBClose.close(conn, psmt, rs);
 		}
-		
+
+		return date;
+	}
+
+	public String findTitle(int movie_seq) {
+		String sql = " SELECT title " + "FROM movie " + "where seq= ? ";
+
+		Connection conn = null; // DB 연결
+		PreparedStatement psmt = null; // Query문을 실행
+		ResultSet rs = null; // 결과 취득
+
+		String title = "";
+
+		try {
+			conn = DBConnection.getConnection();
+
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, movie_seq + "");
+
+			rs = psmt.executeQuery();
+
+			if (rs.next()) {
+				title = rs.getString(1);
+			}
+
+		} catch (SQLException e) {
+			System.out.println("findreserve fail");
+		} finally {
+			DBClose.close(conn, psmt, rs);
+		}
+
 		return title;
 
 	}
