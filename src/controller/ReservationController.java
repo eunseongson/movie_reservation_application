@@ -22,12 +22,12 @@ public class ReservationController extends HttpServlet{
 		String city = req.getParameter("city");
 		String cityDetail = req.getParameter("citydetail");
 		String title = req.getParameter("title");
-		
+		String movieTime = req.getParameter("movieTime");
 		//연결 안되어 있으니 임의값 넣기
 		//MemberDto dto = (MemberDto)req.getSession().getAttribute("login");
 		//String userId = dto.getId();
 		String userId = "test";
 		
-		boolean result = dao.reservationStart(city, cityDetail, title, userId);
+		boolean result = dao.reservationStart(city, cityDetail, title, userId, movieTime);
 	}
 }

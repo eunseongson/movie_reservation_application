@@ -15,6 +15,7 @@ import dao.MovieDao;
 import dto.MovieDto;
 
 public class MovieCrawing {
+
 	public static void getData() {
 		MovieDetailCrawling detail=new MovieDetailCrawling();
 		MovieDao dao=new MovieDao();
@@ -85,8 +86,6 @@ public class MovieCrawing {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-	
 	}
 
-	
 }
