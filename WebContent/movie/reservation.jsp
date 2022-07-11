@@ -11,7 +11,7 @@
 <%
 LocationDao dao = LocationDao.getInstance();
 String title = request.getParameter("title");
-title = "토오르";
+title = "토르-러브 앤 썬더";
 List<String> region = dao.getRegionList();
 List<String> theater = dao.getTheaterList("서울특별시");
 %>
