@@ -25,10 +25,11 @@ String sort = String.valueOf(request.getAttribute("sort"));
   <link rel="stylesheet" href="<%=request.getContextPath() %>/css/movielist.css?ver=0">
   
 </head>
+
 <body style="background-image: url('<%=request.getContextPath() %>/img/nf.png'); background-size:cover; opacity:0.7;">
   <!-- HEADER -->
   <jsp:include page="../main/header.jsp"></jsp:include>
-  
+
   <!-- CONTENT -->
 	<div class="content">
         <!-- Heading Map Multi -->
@@ -148,10 +149,11 @@ String sort = String.valueOf(request.getAttribute("sort"));
         </table>
      <!-- //MovieList -->
      </div>
+
      
      <!-- FOOTER -->
      <jsp:include page="../main/footer.jsp"></jsp:include>
-<body>
 
 </body>
+
 </html>
