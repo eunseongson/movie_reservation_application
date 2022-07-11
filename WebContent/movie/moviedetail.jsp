@@ -22,44 +22,36 @@ String movieDescriptionTitle = (String) request.getAttribute("movieDescriptionTi
 String previousExpectations = (String) request.getAttribute("previousExpectations");
 String realReview = (String) request.getAttribute("realReview");
 List<String> stillCut = (List<String>) request.getAttribute("stillCut");
-List<ReviewDto> reviews = (List<ReviewDto>) request.getAttribute("reviews");
 %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
+<!-- Carousel -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/common.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/swipe.css">
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/css/moviedetail.css">
+	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+<link rel="icon" href="<%=request.getContextPath()%>/favicon.png">
+<script
+	src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://kit.fontawesome.com/079869d0a6.js"
 	crossorigin="anonymous"></script>
-<link rel="icon" href="./favicon.png">
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link
-	href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap"
-	rel="stylesheet">
+<!-- Carousel -->
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/css/moviedetail.css">
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"
-	integrity="sha512-WFN04846sdKMIP5LKNphMaWzU7YpMyCU245etK3g/2ARYbPK9Ub18eG+ljU96qKRCWh+quCY7yefSmlkQw1ANQ=="
-	crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-<!-- SWIPER -->
-<link rel="stylesheet"
-	href="https://unpkg.com/swiper@6.8.4/swiper-bundle.min.css" />
-<script src="https://unpkg.com/swiper@6.8.4/swiper-bundle.min.js"></script>
 <title>Insert title here</title>
 </head>
 <body>
 
+	<jsp:include page="../main/header.jsp"></jsp:include>
 	<h1>${dto.getTitle()}</h1>
 
 	<div id="container">
@@ -85,8 +77,7 @@ List<ReviewDto> reviews = (List<ReviewDto>) request.getAttribute("reviews");
 								</tr>
 								<tr>
 									<td><i class="fa-solid fa-chart-pie icons"></i></td>
-									<td>장르 :
-							<%=genre%></td>
+									<td>장르 : <%=genre%></td>
 								</tr>
 								<tr>
 									<td><i class="fa-solid fa-bookmark icons"></i></td>
@@ -97,17 +88,6 @@ List<ReviewDto> reviews = (List<ReviewDto>) request.getAttribute("reviews");
 									<td>개봉 : <%=rdate%></td>
 								</tr>
 							</table>
-						<%-- 	<i class="fa-solid fa-user-check icons"></i> 감독 :
-							<%=author%><br> <i class="fa-solid fa-user-group icons"></i>
-							배우 :
-							<%=actor%><br> <i class="fa-solid fa-chart-pie icons"></i>
-							장르 :
-							<%=genre%>
-							<br> <i class="fa-solid fa-bookmark icons"></i> 기본 :
-							<%=ageLimit%>, 119분,
-							<%=country%>
-							<br> <i class="fa-regular fa-calendar-check icons"></i> 개봉 :
-							<%=rdate%> --%>
 						</div>
 					</div>
 					<div id="mlbottom"></div>
@@ -126,124 +106,44 @@ List<ReviewDto> reviews = (List<ReviewDto>) request.getAttribute("reviews");
 				<div id="content">
 					<%=movieDescription%>
 				</div>
-				<div id="graphWrapper">
-					<div id="lGraph">성별 예매 분포</div>
-					<div id="rGraph">연령별 예매 분포</div>
-				</div>
 			</div>
-
 			<div
-				style="border-top: 2px solid #454545; margin-top: 100px; margin-bottom: 80px"></div>
+				style="border-top: 2px solid #454545; margin-top: 100px; margin-bottom: 40px"></div>
 		</div>
 
-		<section class="notice">
-			스틸컷
-			<div class="promotion">
-				<div class="swiper-container">
-					<div class="swiper-wrapper">
-						<%
-						for (int i = 0; i < stillCut.size(); i++) {
-						%>
-						<div class="swiper-slide">
-							<img id="slideimg" src="<%=stillCut.get(i)%>" alt="no_image">
-						</div>
-						<%
-						}
-						%>
-					</div>
-				</div>
-				<div class="swiper-pagination"></div>
-				<div class="swiper-prev">
-					<div class="material-icons">arrow_back</div>
-				</div>
-				<div class="swiper-next">
-					<div class="material-icons">arrow_forward</div>
-				</div>
-			</div>
-		</section>
+		<div id="slider">
+			<div id="stillCut" class="carousel slide" data-ride="carousel">
 
-		<div id="reviewWrapper">
-			<div style="border-top: 2px solid #454545; margin-bottom: 100px;"></div>
-			<div class="title">
-				<i class="fa-regular fa-face-smile"></i>실시간 후기
+				<!-- Indicators -->
+				<ul class="carousel-indicators">
+					<li data-target="#demo" data-slide-to="0" class="active"></li>
+					<%
+					for (int i = 1; i < stillCut.size(); i++) {
+					%>
+					<li data-target="#demo" data-slide-to="<%=i%>"></li>
+					<%
+					}
+					%>
+				</ul>
+
+				<!-- The slideshow -->
+				<div class="carousel-inner">
+					<div class="carousel-item active">
+						<img src="<%=stillCut.get(0)%>" alt="Chicago">
+					</div>
+					<%
+					for (int i = 1; i < stillCut.size(); i++) {
+					%>
+					<div class="carousel-item">
+						<img src="<%=stillCut.get(i)%>" alt="Chicago">
+					</div>
+					<%
+					}
+					%>
+				</div>
 			</div>
-			<table id="table">
-				<%
-				for (int i = 0; i < reviews.size(); i += 2) {
-				%>
-				<tr>
-					<td class="td">
-						<div id="tdDiv">
-							<div id="revLeft">
-								<img
-									alt="${pageContext.request.contextPath}/img/default_profile.gif"
-									src="${pageContext.request.contextPath}/img/second.jpg">
-							</div>
-							<div id="revRight">
-								<div id="revId">
-									<div id="revTop">
-										<div id="id">dmstjd3256</div>
-										<div>2022.07.28</div>
-									</div>
-									<br>
-									<%=reviews.get(i).getContent()%>
-								</div>
-							</div>
-						</div>
-					</td>
-					<td class="td">
-						<div id="tdDiv">
-							<div id="revLeft">
-								<img
-									alt="${pageContext.request.contextPath}/img/default_profile.gif"
-									src="${pageContext.request.contextPath}/img/second.jpg">
-							</div>
-							<div id="revRight">
-								<div id="revId">
-									<div id="revTop">
-										<div id="id"><%=reviews.get(i).getTitle()%></div>
-										<div><%=reviews.get(i).getWdate()%></div>
-									</div>
-									<br>
-									<%=reviews.get(i).getContent()%>
-								</div>
-							</div>
-						</div>
-					</td>
-				</tr>
-				<%
-				}
-				%>
-			</table>
 		</div>
 	</div>
-
-	<!-- swipe-script -->
-	<script type="text/javascript">
-		// new Swiper(선택자, 옵션)
-		new Swiper('.promotion .swiper-container', {
-			slidesPerView : 3,
-			spaceBetween : 10,
-			centeredSlides : true,
-			loop : true,
-			autoplay : {
-				delay : 3000,
-			},
-			pagination : {
-				el : '.promotion .swiper-pagination', // 페이지 번호 요소 선택자
-				clickable : true, // 사용자의 페이지 번호 요소 제어 가능 여부
-			},
-			navigation : {
-				prevEl : '.promotion .swiper-prev',
-				nextEl : '.promotion .swiper-next',
-			},
-		})
-	</script>
-	
-	<script type="text/javascript">
-		function moveReservation(title, img) {
-			location.href(movie/reservation.jsp?title=title);
-		}
-	</script>
+	<jsp:include page="../main/footer.jsp"></jsp:include>
 </body>
 </html>
