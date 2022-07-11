@@ -25,57 +25,58 @@ public class MovieListController extends HttpServlet{
       doProcess(req, resp);
    }
 
-   @Override
-   protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-      doProcess(req, resp);
-   }
-   
-   public void doProcess(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
-      req.setCharacterEncoding("utf-8");
-      
-      String param = req.getParameter("param");
-      
-      if(param.equals("movielist")) {
-         movieCommon(req, resp, 1);
-         forward("movie/movielist.jsp",req,resp);
-      }else if(param.equals("Schedule")) {
-         movieCommon(req, resp, 2);
-         forward("movie/ScheduleMovie.jsp",req,resp);
-      }else if(param.equals("nowMovielist")) {
-         movieCommon(req, resp, 3);
-         forward("movie/movielist.jsp",req,resp);
-      }else if(param.equals("sortMovielist")) {
-         String division = (String) req.getParameter("division");
-         int div = Integer.parseInt(division);
-         movieCommon(req, resp, div);
-         
-         forward("movie/movielist.jsp",req,resp);
-      }else if(param.equals("movieSe")) {
-         String movieSearch = (String)req.getParameter("movieSearch");
-      
-         
-         MovieDao dao = new MovieDao();
-         dao = dao.getInstance();
-         boolean check = dao.isExists(movieSearch);
-         
-         
-         if(check) {
-            MovieDto dto = dao.getObject(movieSearch);
-            req.setAttribute("rowtitle", dto.getRowtitle());
-            forward("movieDetail",req,resp);
-         }else {
-            movieCommon(req, resp, 1);
-            req.setAttribute("checking","fail");
-            forward("movie/movielist.jsp",req,resp);
-         }
-      }
-   }
-   
-   private void movieCommon(HttpServletRequest req, HttpServletResponse resp, int division) {
-      MovieDao dao = new MovieDao();
-      dao = dao.getInstance();
-      
-      SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd"); 
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		doProcess(req, resp);
+	}
+	
+	public void doProcess(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
+		req.setCharacterEncoding("utf-8");
+		
+		String param = req.getParameter("param");
+		
+		if(param.equals("movielist")) {
+			movieCommon(req, resp, 1);
+			forward("movie/movielist.jsp",req,resp);
+		}else if(param.equals("Schedule")) {
+			movieCommon(req, resp, 2);
+			forward("movie/ScheduleMovie.jsp",req,resp);
+		}else if(param.equals("nowMovielist")) {
+			movieCommon(req, resp, 3);
+			forward("movie/movielist.jsp",req,resp);
+		}else if(param.equals("sortMovielist")) {
+			String division = (String) req.getParameter("division");
+			int div = Integer.parseInt(division);
+			movieCommon(req, resp, div);
+			
+			forward("movie/movielist.jsp",req,resp);
+		}else if(param.equals("movieSe")) {
+			String movieSearch = (String)req.getParameter("movieSearch");
+		
+			
+			MovieDao dao = new MovieDao();
+			dao = dao.getInstance();
+			boolean check = dao.isExists(movieSearch);
+			
+			
+			if(check) {
+				MovieDto dto = dao.getObject(movieSearch);
+				req.setAttribute("rowtitle", dto.getRowtitle());
+				forward("movieDetail",req,resp);
+			}else {
+				movieCommon(req, resp, 1);
+				req.setAttribute("checking","fail");
+				forward("movie/movielist.jsp",req,resp);
+			}
+		}
+	}
+	
+	private void movieCommon(HttpServletRequest req, HttpServletResponse resp, int division) {
+		MovieDao dao = new MovieDao();
+		dao = dao.getInstance();
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd"); 
+
         Calendar c1 = Calendar.getInstance();
         String today = sdf.format(c1.getTime());
         List<MovieDto> list = new ArrayList<>();
