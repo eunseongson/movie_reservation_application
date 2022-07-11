@@ -9,6 +9,14 @@
 List<MovieDto> list = (List)request.getAttribute("movie");
 String division = String.valueOf(request.getAttribute("division"));
 String sort = String.valueOf(request.getAttribute("sort"));
+String fail = String.valueOf(request.getAttribute("checking"));
+if(fail.equals("fail")){
+%>
+<script>
+	alert("해당 영화가 없습니다.");
+</script>
+<%
+}
 %>	
 <!DOCTYPE html>
 <html lang="ko">
@@ -26,10 +34,10 @@ String sort = String.valueOf(request.getAttribute("sort"));
   <link rel="stylesheet" href="<%=request.getContextPath() %>/css/movielist.css?ver=0">
   
 </head>
-<body style="background-image: url('<%=request.getContextPath() %>/img/nf.png'); background-size:cover; opacity:0.7;">
+<body style="background-image: url('<%=request.getContextPath() %>/img/nf.png');">   
 <!-- HEADER -->
 <jsp:include page="../main/header.jsp"></jsp:include>
-  
+ 
   <!-- CONTENT -->
 	<div class="content">
         <!-- Heading Map Multi -->
@@ -163,12 +171,13 @@ String sort = String.valueOf(request.getAttribute("sort"));
 	        		<div><p class="bottom_title<%=i+1 %>" id="bottom_title<%=i+1 %>" style="text-align:left; color:white; font-weight: bold; margin:5px 0 0 0;"><%=list.get(i).getTitle() %></p>
 	        			<p class="bottom_detail" style="text-align:left; color:white; font-weight: lighter; margin:5px 0;">예매율 <%=list.get(i).getReservation() %> %<br>
 	        			<%=list.get(i).getRdate().substring(0, 4) + "." + list.get(i).getRdate().substring(4, 6) + "." + list.get(i).getRdate().substring(6, 8) %> 개봉</p>
-	        			<p style="text-align:left"><input type="button" value="예매하기" id="reservation" name="reservation" onclick="detailsubmit('<%=list.get(i).getTitle() %>')"></p>
+	        			<p style="text-align:left"><input type="button" value="예매하기" id="reservation" name="reservation" onclick="detailsubmit('<%=list.get(i) %>')"></p>
 	        		</div>
 	        		
 	        		<script>
-					function detailsubmit(title){
-						location.href = "movieDetail?title="+title;
+					function detailsubmit(obj){
+						alert("detailsubmit : " + obj);
+						location.href = "movieDetail?movie="+obj;
 					}
 					</script>
 	        	</td>
@@ -186,7 +195,6 @@ String sort = String.valueOf(request.getAttribute("sort"));
         </table>
         <!-- //MovieList -->
      </div>
-     
      <!-- FOOTER -->
      <jsp:include page="../main/footer.jsp"></jsp:include>
 

@@ -49,7 +49,17 @@
 							<form action="/something">
 								<label for="searchbar">검색창</label> <input type="text"
 									id="searchbar" name="searchbar">
-								<button type="submit" form="searchbar">검색</button>
+								<button type="submit" form="searchbar" onclick="movieSearch()">검색</button>
+								<script type="text/javascript">
+								function movieSearch(){
+									let moviesr = document.getElementById("searchbar").value.trim();
+									if(moviesr == null || moviesr.trim()==""){
+										alert("검색어를 입력하세요.");
+									}else{
+										location.href = "<%=request.getContextPath() %>/Movielist?param=movieSe&movieSearch="+moviesr;	
+									}
+								}
+								</script>
 							</form>
 						</li>
 						<%
