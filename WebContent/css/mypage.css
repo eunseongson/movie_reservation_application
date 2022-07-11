@@ -2,8 +2,7 @@
 
 body{
   background-image: url("../images/bg1.png");
-  background-size: cover;
-  /* background: linear-gradient( #eb529d 10%, #fff 90% ); */
+  /* background-size: cover; */
   color: #333;
 }
 
@@ -29,9 +28,34 @@ body{
 
 .content-wrapper .top_left{
 	width: 60%;
-	display: flex;
+	/* display: flex;
 	flex-direction: column;
-	margin-right: 20px;
+	 */margin-right: 20px;
+}
+
+.content-wrapper .top_left .top_myinfoUp{
+	width: 100%;
+	margin: 0 auto;
+	padding: 20px 0;
+	height: 180px;
+}
+
+.content-wrapper .top_left .top_myinfoDown{
+	margin: 0 auto;
+	padding-top: 40px;
+	width: 100%;
+	height: 50px;
+}
+
+.content-wrapper .top .top_left .top_myinfoDown a {
+	color: #7F7F7F;
+	font-size: 20px;
+  	text-decoration: none;
+  	padding-bottom: 10px;
+}
+
+.content-wrapper .top .top_left .top_myinfoDown a:hover {
+	color: #fff;
 }
 
 .content-wrapper .top_right{
@@ -39,20 +63,19 @@ body{
 	font-size: 20px;
 }
 
-.content-wrapper .top_myinfoUp{
-	
+.content-wrapper .top_right .top_myinfoUp{
 	padding: 20px 0;
 	height: 100px;
 }
 
-.content-wrapper .top_myinfoDown{
+.content-wrapper .top_right .top_myinfoDown{
 	margin: 0 auto;
 	padding-top: 40px;
 	width: 100%;
 	height: 50px;
 }
 
-.content-wrapper .top_right span{
+.content-wrapper .top_right .top_right span{
 	font-size: 30px;
 	font-weight: bold;
 }
