@@ -88,15 +88,15 @@ mem = (MemberDto)obj;
 	
 	
 	<div class="bottom">
-		<div class="intro" style="color: #8c8c8c;">
-			<br>
-			<span style="color: #fff; font-size: 20px;">Bit Box(주) 윤리행동 준칙의 목적과 취지</span><br><br>
+		<div class="intro" style="color: #8c8c8c; font-size: 20px;">
+			<br><br>
+			<span style="color: #fff; font-size: 30px;">Bit Box(주) 윤리행동 준칙의 목적과 취지</span><br><br>
 			특별한 만족을 드리는 특별한 멀티플렉스라는 경영이념과 더불어 국내 멀티플렉스 산업의 선두이기보다는<br>
 			 관객 여러분들이 생각하는 최상의 멀티플렉스로 거듭나기 위하여 올바른 윤리적 가치관과 공정한 거래로<br>
 			 윤리경영을 함으로써 고객이 풍요로운 삶을 추구하고, 사회와 국가의 발전을 도모함에 있습니다.
 			 <br><br>
 			
-			<span style="color: #fff; font-size: 20px;">신고접수처</span><br><br>
+			<span style="color: #fff; font-size: 30px;">신고접수처</span><br><br>
 			Bit Box(주) 윤리사무국은 기업윤리의 저촉과 관련된 사항의 제보와 신고를 접수 받고 있습니다.<br>
 			여러분의조언을 최대한 윤리경영에 반영하겠습니다. 또한 실질적인 기업윤리 정착을 위해 내부신고자<br>
 			 보호제도를 마련하여, 신고자 보호를 위해 가능한 모든 조취를 취할 것입니다.<br>

@@ -107,9 +107,35 @@ $(function(){
 });
 </script>
 
-<body style="background-image: url('../images/background.png')">
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BIT BOX KOREA</title>
 
-	<jsp:include page="../main/header.jsp"></jsp:include>
+<link rel="icon" href="<%=request.getContextPath() %>/favicon.png">
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+	href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap"
+	rel="stylesheet">
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+<!-- Bootstrap core CSS -->
+<link href="<%=request.getContextPath() %>/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Custom styles for this template -->
+<!-- <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/footers/"> -->
+
+</head>
+
+
+<body style="background-image: url('../images/background.png'); background-size: cover;">
 
 <!-- HEADER -->
 <jsp:include page="../main/header.jsp"></jsp:include>
