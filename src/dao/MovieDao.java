@@ -74,6 +74,27 @@ public class MovieDao {
 		return list;
 	}
 	
+	public List<MovieDto> SelectFutureTopFive(){
+		String sql=" select * from movie where rdate>now() order by reservation desc limit 5";
+		List<MovieDto>list=new ArrayList<>();
+		try {
+			conn=DBConnection.getConnection();
+			psmt=conn.prepareStatement(sql);
+			rs=psmt.executeQuery();
+		
+			while(rs.next()) {
+				MovieDto dto=new MovieDto(rs.getString(2),rs.getDouble(3),rs.getString(4),rs.getString(5));
+				list.add(dto);
+			}
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			DBClose.close(conn, psmt, rs);
+		}
+		return list;
+	}
+	
 	public List<MovieDto> getMovie(int division) {
 		
 		String sql = " select title, reservation, img, rdate "

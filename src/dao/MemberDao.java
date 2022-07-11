@@ -297,6 +297,7 @@ public class MemberDao {
 	      
 	      return list;
 	   }
+
 	   
 	public String findCity(int location_seq) {
 		String sql = " select city, city_detail "
@@ -378,32 +379,34 @@ public class MemberDao {
 		String sql = " SELECT title "
 				+ "FROM movie "
 				+ "where seq= ? ";
-	
+
 		Connection conn = null; // DB 연결
-		PreparedStatement psmt = null; // Query문을 실행
-		ResultSet rs = null; // 결과 취득
-		
-		String title = "";
-		
-		try {
-			conn = DBConnection.getConnection();
-			
-			psmt = conn.prepareStatement(sql);
-			psmt.setString(1, movie_seq + "");
-		
-			rs = psmt.executeQuery();
-			
-			if (rs.next()) {
-				title = rs.getString(1);
-			}
-			
-		} catch (SQLException e) {
-			System.out.println("findreserve fail");
-		} finally {
-			DBClose.close(conn, psmt, rs);
-		}
-		
-		return title;
+	      PreparedStatement psmt = null; // Query문을 실행
+	      ResultSet rs = null; // 결과 취득
+	      
+	      String title = "";
+	      
+	      try {
+	         conn = DBConnection.getConnection();
+	         
+	         psmt = conn.prepareStatement(sql);
+	         psmt.setString(1, movie_seq + "");
+	      
+	         rs = psmt.executeQuery();
+	         
+	         if (rs.next()) {
+	            title = rs.getString(1);
+	         }
+	         
+	      } catch (SQLException e) {
+	         System.out.println("findreserve fail");
+	      } finally {
+	         DBClose.close(conn, psmt, rs);
+	      }
+	      
+	      return title;
+
 	}
-	
+	}	
+
 }
