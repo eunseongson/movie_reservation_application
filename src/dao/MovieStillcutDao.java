@@ -35,24 +35,24 @@ public class MovieStillcutDao {
 		Connection conn = null;
 		PreparedStatement psmt = null;
 		int count = 0;
+		if(seq != -1) {
+			try {
+				conn = DBConnection.getConnection();
+				
+				for(int i=0;i<list.size();i++) {
+					psmt = conn.prepareStatement(sql);
+					psmt.setInt(1, seq);	
+					psmt.setString(2, list.get(i));
+					count += psmt.executeUpdate();
+					psmt.clearParameters();
+				}
 
-		try {
-			conn = DBConnection.getConnection();
-			
-			for(int i=0;i<list.size();i++) {
-				psmt = conn.prepareStatement(sql);
-				psmt.setInt(1, seq);	
-				psmt.setString(2, list.get(i));
-				count += psmt.executeUpdate();
-				psmt.clearParameters();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				DBClose.close(conn, psmt, null);
 			}
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			DBClose.close(conn, psmt, null);
 		}
-
 		return count > 0 ? true : false;
 	}
 	
@@ -67,18 +67,18 @@ public class MovieStillcutDao {
 
 		try {
 			conn = DBConnection.getConnection();
-			System.out.println("1/4 getBbslist success");
+			System.out.println("1/4 getMovieSeq success");
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, title);
-			System.out.println("2/4 getBbslist success");
+			System.out.println("2/4 getMovieSeq success");
 			rs = psmt.executeQuery();
-			System.out.println("3/4 getBbslist success");
+			System.out.println("3/4 getMovieSeq success");
 			if (rs.next()) {
 				result = rs.getInt(1);
 			}
-			System.out.println("4/4 getBbslist success");
+			System.out.println("4/4 getMovieSeq success");
 		} catch (SQLException e) {
-			System.out.println("getBbslist fail");
+			System.out.println("getMovieSeq fail");
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
@@ -104,7 +104,7 @@ public class MovieStillcutDao {
 				result = true;
 			}
 		}catch (SQLException e) {
-			System.out.println("getMovieDetail fail");
+			System.out.println("checkDistinctStillcut fail");
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {

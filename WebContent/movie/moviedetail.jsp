@@ -115,7 +115,7 @@ List<ReviewDto> reviews = (List<ReviewDto>) request.getAttribute("reviews");
 				<div id="mainRight">
 					<div id="poster"></div>
 					<div id="resvbtn">
-						<input type="button" value="예매하기">
+						<input type="button" onclick="moveReservation(<%=title %>, <%=img %>)" value="예매하기">
 					</div>
 				</div>
 			</div>
@@ -238,6 +238,12 @@ List<ReviewDto> reviews = (List<ReviewDto>) request.getAttribute("reviews");
 				nextEl : '.promotion .swiper-next',
 			},
 		})
+	</script>
+	
+	<script type="text/javascript">
+		function moveReservation(title, img) {
+			location.href(movie/reservation.jsp?title=title);
+		}
 	</script>
 </body>
 </html>
