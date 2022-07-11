@@ -171,13 +171,13 @@ if(fail.equals("fail")){
 	        		<div><p class="bottom_title<%=i+1 %>" id="bottom_title<%=i+1 %>" style="text-align:left; color:white; font-weight: bold; margin:5px 0 0 0;"><%=list.get(i).getTitle() %></p>
 	        			<p class="bottom_detail" style="text-align:left; color:white; font-weight: lighter; margin:5px 0;">예매율 <%=list.get(i).getReservation() %> %<br>
 	        			<%=list.get(i).getRdate().substring(0, 4) + "." + list.get(i).getRdate().substring(4, 6) + "." + list.get(i).getRdate().substring(6, 8) %> 개봉</p>
-	        			<p style="text-align:left"><input type="button" value="예매하기" id="reservation" name="reservation" onclick="detailsubmit('<%=list.get(i) %>')"></p>
+	        			<p style="text-align:left"><input type="button" value="예매하기" id="reservation" name="reservation" onclick="detailsubmit('<%=list.get(i).getRowtitle() %>')"></p>
 	        		</div>
 	        		
 	        		<script>
-					function detailsubmit(obj){
-						alert("detailsubmit : " + obj);
-						location.href = "movieDetail?movie="+obj;
+					function detailsubmit(rowtitle){
+						alert("detailsubmit : " + rowtitle);
+						location.href = "movieDetail?movie="+rowtitle;
 					}
 					</script>
 	        	</td>
