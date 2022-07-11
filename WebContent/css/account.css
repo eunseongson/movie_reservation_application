@@ -4,18 +4,22 @@ body {
 }
 
 .account {
-  margin-top: 120px;
-  padding: 100px 0 150px;
-  background-color: #f6f5f0; 
-  /*background-color: rgba(246,245,240, 0.3);*/
+	width: 40%;
+    margin: 120px auto;
+    padding: 100px 0 150px;
+    background-color: rgba(0,0,0,.50);
+    opacity: 0.;
+    border-radius: 1vw;
 }
+
 
 .content {
   width: 500px;
   margin: 0 auto;
   border-radius: 6px;
-  background-color: rgba(246,245,240, 0.3);
-  color: #555;
+  background-color :rgba(0,0,0,.50);
+  color: white;
+  font-weight: bold;
 }
 
 .join_title {

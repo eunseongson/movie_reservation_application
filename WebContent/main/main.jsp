@@ -19,31 +19,6 @@
 </style>
 
 
-<%
-if(session.getAttribute("login") == null){
-%>
-<div align="right">
-
-<a class="newp" id="login"
-	href="<%=request.getContextPath() %>/member?param=login">로그인</a>
-<a class="newp" id="regi"
-	href="<%=request.getContextPath() %>/member?param=regi">회원가입</a>
-<%
-}else{
-	
-	MemberDto dto = (MemberDto)session.getAttribute("login");
-%>
-	<%=dto.getId() %>
-	님의 <a class="newp" id="mypage"
-		href="<%=request.getContextPath() %>/member/mypage.jsp">마이페이지</a> <a
-		class="newp" id="logout"
-		href="<%=request.getContextPath() %>/member?param=logout">로그아웃</a> <a
-		class="newp" id="withdraw"
-		href="<%=request.getContextPath() %>/member?param=withdraw">회원탈퇴</a>
-</div>
-<% 
-}
-%>
 
 <script type="text/javascript">
 $(function(){
@@ -77,7 +52,10 @@ $(function(){
 });
 </script>
 
-<body>
+<body style="background-image: url('../images/background.png')">
+
+	<jsp:include page="../main/header.jsp"></jsp:include>
+
 <div>
 	<div class="contents">
 		<video autoplay muted>
