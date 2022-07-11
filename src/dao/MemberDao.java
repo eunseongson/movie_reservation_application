@@ -298,7 +298,6 @@ public class MemberDao {
 	      return list;
 	   }
 	   
-	   
 	public String findCity(int location_seq) {
 		String sql = " select city, city_detail "
 				+ " from location "
@@ -373,6 +372,7 @@ public class MemberDao {
 		 
 		return date;
 	}
+
 	
 	public String  findTitle(int movie_seq) {
 		String sql = " SELECT title "
