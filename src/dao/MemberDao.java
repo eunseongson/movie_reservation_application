@@ -101,14 +101,14 @@ public class MemberDao {
 
 		try {
 			conn = DBConnection.getConnection();
-			System.out.println("1/3 login success");
+			
 
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, dto.getId());
 			psmt.setString(2, dto.getPwd());
 
 			rs = psmt.executeQuery();
-			System.out.println("2/3 login success");
+
 
 			if (rs.next()) {
 				String id = rs.getString(1);
@@ -118,9 +118,9 @@ public class MemberDao {
 				int auth = rs.getInt(5);
 
 				mem = new MemberDto(id, null, name, email, phone, auth);
-				System.out.println(dto.getId());
+		
 			}
-			System.out.println("3/3 login success");
+		
 
 		} catch (SQLException e) {
 			System.out.println("login fail");
@@ -144,22 +144,22 @@ public class MemberDao {
 
 		try {
 			conn = DBConnection.getConnection();
-			System.out.println("1/3 findid success");
+		
 
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, dto.getName());
 			psmt.setString(2, dto.getEmail());
 
 			rs = psmt.executeQuery();
-			System.out.println("2/3 findid success");
+	
 
 			if (rs.next()) {
 				String id = rs.getString(1);
 
 				mem = new MemberDto(id, null, null, null, null, 0);
-				System.out.println(dto.getId());
+			
 			}
-			System.out.println("3/3 findid success");
+		
 
 		} catch (SQLException e) {
 			System.out.println("no such id : findid failed");
@@ -194,12 +194,12 @@ public class MemberDao {
 				String pwd = rs.getString(2);
 
 				mem = new MemberDto(id, pwd, null, null, null, 0);
-				System.out.println(dto.getId() + " " + dto.getPwd());
+			
 			}
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-			System.out.println("no such pwd : findpwd failed");
+			
 
 		} finally {
 			DBClose.close(conn, psmt, rs);
