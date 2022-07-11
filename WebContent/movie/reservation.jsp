@@ -80,7 +80,7 @@ List<String> theater = dao.getTheaterList("서울특별시");
 				</div>
 				<div id="mainRight">
 					<div id="poster">
-						<img alt="" src="../img/토르포스터.jpg">
+						<img alt="" src="<%=img%>">
 					</div>
 					<div id="resvbtn">
 						<input type="button" value="예매하기" onclick="reservationBtn()">
@@ -105,6 +105,7 @@ List<String> theater = dao.getTheaterList("서울특별시");
 				document.getElementById(region).style.color = 'rgb(255, 255, 255)';
 				nowRegion = region
 			}
+			console.log(region)
 			$.ajax({
 				url : "../location?param=city&region=" + region,
 				type : "get",
@@ -144,7 +145,7 @@ List<String> theater = dao.getTheaterList("서울특별시");
 
 		function reservationBtn() {
 			let nowDate = document.getElementById('selectDate').value;
-			location.href="../reservation?city=" + nowRegion + "&cityDetail=" + nowTheater + "&title=<%=title%>" + "&movieTime=" + nowDate;
+			location.href="../reservation?city=" + nowRegion + "&cityDetail=" + nowTheater + "&rowtitle=<%=rowtitle%>" + "&movieTime=" + nowDate;
 		}
 	</script>
 </body>
