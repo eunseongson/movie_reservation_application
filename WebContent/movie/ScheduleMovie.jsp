@@ -18,7 +18,8 @@
   
 </head>
 <body>
-  
+<!-- HEADER -->
+<jsp:include page="../main/header.jsp"></jsp:include>  
   <!-- CONTENT -->
 	<div class="content">
         <!-- Heading Map Multi -->
@@ -104,8 +105,8 @@
         </table>
         <!-- //MovieList -->
      </div>
-    
-<body>
+ 
 
 </body>
+
 </html>

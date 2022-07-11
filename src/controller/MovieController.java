@@ -39,6 +39,18 @@ public class MovieController extends HttpServlet{
 			 resp.setContentType("application/x-json; charset=utf-8");
 			 resp.getWriter().print(obj);
 		 }
+		 else if(param.equals("ajaxchart")) {
+			 JSONObject obj=new JSONObject();
+			 obj.put("list", dao.SelectTopFive());
+			 resp.setContentType("application/x-json; charset=utf-8");
+			 resp.getWriter().print(obj);
+		 }
+		 else if(param.equals("ajaxmchart")) {
+			 JSONObject obj=new JSONObject();
+			 obj.put("list", dao.SelectFutureTopFive());
+			 resp.setContentType("application/x-json; charset=utf-8");
+			 resp.getWriter().print(obj);
+		 }
 	 }
 
 }
