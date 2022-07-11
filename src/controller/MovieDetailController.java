@@ -38,8 +38,8 @@ public class MovieDetailController extends HttpServlet {
 			//대기 원래는 titleㅁ만 가져옴
 			//MovieDetailDto dto = dao.getMovieDetail(title);
 			//수정본 movieDto로 갖고와서 처리 값은 다 갖고 있음.
-			MovieDto reqDto = (MovieDto)req.getAttribute("dto"); 
-			MovieDetailDto dto = dao.getMovieDetail(reqDto);
+			String rowTitle = req.getParameter("rowtitle"); 
+			MovieDetailDto dto = dao.getMovieDetail(rowTitle);
 			
 			req.setAttribute("title", dto.getTitle());
 			req.setAttribute("reservation", dto.getReservation());
