@@ -20,9 +20,9 @@ public class ReservationDao{
 		return dao;
 	}
 
-	public boolean reservationStart(String city, String cityDetail, String title, String userId, String movieTime) {
+	public boolean reservationStart(String city, String cityDetail, String rowtitle, String userId, String movieTime) {
 		try {
-		int movieSeq = getMovieSeq(title);
+		int movieSeq = getMovieSeq(rowtitle);
 	
 		int locationSeq = getLocationSeq(city, cityDetail);
 		
@@ -178,9 +178,9 @@ public class ReservationDao{
 	}
 	
 	//movie_seq갖고오기 위한 함수
-	public int getMovieSeq(String title) {
+	public int getMovieSeq(String rowtitle) {
 		int result = -1;
-		String sql = "SELECT seq FROM movie WHERE title = ?";// city = ? AND
+		String sql = "SELECT seq FROM movie WHERE rowtitle like '%"+ rowtitle +"%'";// city = ? AND
 		
 		Connection conn = null;
 		PreparedStatement psmt = null;
@@ -190,7 +190,6 @@ public class ReservationDao{
 			// review 받아오기
 			conn = DBConnection.getConnection();
 			psmt = conn.prepareStatement(sql);
-			psmt.setString(1, title);
 			rs = psmt.executeQuery();
 			if(rs.next()) {
 				result = rs.getInt(1);

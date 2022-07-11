@@ -22,7 +22,7 @@ public class ReservationController extends HttpServlet{
 		
 		String city = req.getParameter("city");
 		String cityDetail = req.getParameter("cityDetail");
-		String title = req.getParameter("title");
+		String rowtitle = req.getParameter("rowtitle");
 		String movieTime = req.getParameter("movieTime");
 		//연결 안되어 있으니 임의값 넣기
 		//MemberDto dto = (MemberDto)req.getSession().getAttribute("login");
@@ -31,6 +31,6 @@ public class ReservationController extends HttpServlet{
 		MemberDto dto =(MemberDto)session.getAttribute("login");
 		String userId = dto.getId();
 		
-		boolean result = dao.reservationStart(city, cityDetail, title, userId, movieTime);
+		boolean result = dao.reservationStart(city, cityDetail, rowtitle, userId, movieTime);
 	}
 }

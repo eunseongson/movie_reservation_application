@@ -59,23 +59,23 @@ public class LocationController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		// crawlingList(); // 지역, 영화관 정보 받아오기
-		String params = req.getParameter("param");
-		LocationDao ldao = LocationDao.getInstance();
-		if(params.equals("city")) {
-			String region = req.getParameter("region");
-	
-			
-			List<String> theater = ldao.getTheaterList(region);
-			
-			JSONObject obj = new JSONObject();
-			obj.put("theater", theater);
-			
+		 // crawlingList(); // 지역, 영화관 정보 받아오기
+		
+		  String params = req.getParameter("param"); LocationDao ldao =
+		  LocationDao.getInstance(); if(params.equals("city")) { String region =
+		  req.getParameter("region");
+		  
+		  
+		  List<String> theater = ldao.getTheaterList(region);
+		  
+		  JSONObject obj = new JSONObject(); obj.put("theater", theater);
+		  
+		  
 
-			resp.setContentType("application/x-json; charset=utf-8");
-			resp.getWriter().print(obj);
-		}else if(params.equals("theater")) {
-			
-		}
+		  resp.setContentType("application/x-json; charset=utf-8");
+		  resp.getWriter().print(obj); }else if(params.equals("theater")) {
+		  
+		  }
+		 
 	}
 }
