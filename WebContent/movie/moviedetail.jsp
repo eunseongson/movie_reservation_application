@@ -69,20 +69,45 @@ List<ReviewDto> reviews = (List<ReviewDto>) request.getAttribute("reviews");
 					<div id="mltop">
 						<div id="title"><%=title%></div>
 						<div id="regipercent">
-							<i class="fa-solid fa-ticket"></i>예매율
+							<i class="fa-solid fa-egg"></i>예매율
 							<%=reservation%>%
 						</div>
 						<div style="border-top: 2px solid #fff; margin: 10px 10px;"></div>
-						<div id="regipercent">
-							감독 :
-							<%=author%><br> 배우 :
-							<%=actor%><br> 장르 :
+						<div id="detailList">
+							<table>
+								<tr>
+									<td><i class="fa-solid fa-user-check icons"></i></td>
+									<td>감독 : <%=author%></td>
+								</tr>
+								<tr>
+									<td><i class="fa-solid fa-user-group icons"></i></td>
+									<td>배우 : <%=actor%></td>
+								</tr>
+								<tr>
+									<td><i class="fa-solid fa-chart-pie icons"></i></td>
+									<td>장르 :
+							<%=genre%></td>
+								</tr>
+								<tr>
+									<td><i class="fa-solid fa-bookmark icons"></i></td>
+									<td>기본 : <%=ageLimit%>, 119분, <%=country%></td>
+								</tr>
+								<tr>
+									<td><i class="fa-regular fa-calendar-check icons"></i></td>
+									<td>개봉 : <%=rdate%></td>
+								</tr>
+							</table>
+						<%-- 	<i class="fa-solid fa-user-check icons"></i> 감독 :
+							<%=author%><br> <i class="fa-solid fa-user-group icons"></i>
+							배우 :
+							<%=actor%><br> <i class="fa-solid fa-chart-pie icons"></i>
+							장르 :
 							<%=genre%>
-							<br> 기본 :
+							<br> <i class="fa-solid fa-bookmark icons"></i> 기본 :
 							<%=ageLimit%>, 119분,
 							<%=country%>
-							<br> 개봉 :
-							<%=rdate%>
+							<br> <i class="fa-regular fa-calendar-check icons"></i> 개봉 :
+							<%=rdate%> --%>
 						</div>
 					</div>
 					<div id="mlbottom"></div>
@@ -192,39 +217,6 @@ List<ReviewDto> reviews = (List<ReviewDto>) request.getAttribute("reviews");
 			</table>
 		</div>
 	</div>
-	<footer>
-		<div class="inner">
-
-			<ul class="menu">
-				<li><a href="javascript:void(0)" class="green">개인정보처리방침</a></li>
-				<li><a href="javascript:void(0)">영상정보처리기기 운영관리 방침</a></li>
-				<li><a href="javascript:void(0)">홈페이지 이용약관</a></li>
-				<li><a href="javascript:void(0)">위치정보 이용약관</a></li>
-				<li><a href="javascript:void(0)">스타벅스 카드 이용약관</a></li>
-				<li><a href="javascript:void(0)">운영경영 핫라인</a></li>
-			</ul>
-
-			<div class="btn-group">
-				<a href="javascript:void(0)" class="btn btn--white">찾아오시는 길</a> <a
-					href="javascript:void(0)" class="btn btn--white">신규입점제의</a> <a
-					href="javascript:void(0)" class="btn btn--white">사이트 맵</a>
-			</div>
-
-			<div class="info">
-				<span>사업자등록번호 201-81-21515</span> <span>(주)롯데시네마 대표 손은성</span> <span>TEL
-					: 02) 1234-1234 / FAX : 02) 1234-1234</span> <span>개인정보 책임자 : 정태영</span>
-			</div>
-
-			<p class="copyright">
-				&copy; <span class="this-year"></span> Starbucks Coffee Company. All
-				Right Reserved.
-			</p>
-			<img src="./images/starbucks_logo_only_text.png" alt="" class="logo">
-
-		</div>
-	</footer>
-
-
 
 	<!-- swipe-script -->
 	<script type="text/javascript">

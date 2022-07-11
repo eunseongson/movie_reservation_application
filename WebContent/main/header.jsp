@@ -1,3 +1,4 @@
+
 <%@page import="dto.MemberDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -29,7 +30,6 @@
 
 </head>
 <body>
-
 	<!-- HEADER -->
 	<header>
 		<main>
@@ -41,7 +41,7 @@
 							<li class="nav-item" style="font-size: 60px;"><a
 								href="../main/main.jsp"
 								class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
-									<img alt="" src="../images/logo3.png">
+									<img alt="" src="../images/logo.png">
 							</a></li>
 						</ul>
 
@@ -101,6 +101,6 @@
 				</div>
 			</nav>
 		</main>
-	</header>
+</header>
 </body>
 </html>
