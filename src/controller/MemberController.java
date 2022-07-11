@@ -121,9 +121,22 @@ public class MemberController extends HttpServlet {
 
 			if (!isTrue) { // 회원탈퇴 실패
 				msg = "withdrawNO";
+				resp.sendRedirect("member/withdraw.jsp");
 			}
+			resp.sendRedirect("main/main.jsp");
 
-			resp.sendRedirect("message.jsp?msg=" + msg);
+			// resp.sendRedirect("message.jsp?msg=" + msg);
+			
+			// 보내는 JSONObject : findid.jsp 에서 받는 Json
+//			JSONObject obj = new JSONObject();
+//			obj.put("msg", msg); // 짐싸!
+//			obj.put("name", name);
+//			if(dto != null) {
+//				obj.put("id", dto.getId());
+//			}
+//
+//			resp.setContentType("application/x-json; charset=utf-8");
+//			resp.getWriter().print(obj);
 			
 		} else if (param.equals("mypage")) {
 			resp.sendRedirect("member/mypage.jsp");

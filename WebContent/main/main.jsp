@@ -134,7 +134,6 @@ $(function(){
 
 </head>
 
-
 <body style="background-image: url('../images/background.png'); background-size: cover;">
 
 <!-- HEADER -->
