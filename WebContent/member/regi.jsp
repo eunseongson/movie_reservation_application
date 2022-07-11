@@ -28,7 +28,7 @@
 	<section class="account">
 		<div class="content">
 			<form action="<%=request.getContextPath()%>/member" method="post">
-				<input type="hidden" name="param" value="withdrawAf">
+				<input type="hidden" name="param" value="regiAf">
 
 				<div class="row_group">
 					<h3 class="join_title">
@@ -93,7 +93,7 @@
 					</span>
 				</div>
 				
-				<button type="submit" class="btn btn_type btn-danger btn_primary">로그인하기</button>
+				<button type="submit" class="btn btn_type btn-danger btn_primary">회원가입</button>
 			</form>
 
 		</div>
