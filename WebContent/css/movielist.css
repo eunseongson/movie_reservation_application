@@ -148,18 +148,19 @@
 
 
 .sect-sorting{
-	padding : 10px;
+	padding : 20px;
 	position : relative;
 	overflow : hidden;
 }
 
 .nowshow{
 	float:left;
+	margin : 0 0 10px 0;
 }
 
 .movielist{
 	width:100%;
-	margin: 10px 0;
+	margin: 30px 0;
 }
 
 .movielist-sort{
@@ -173,6 +174,7 @@
 	height : 500px;
 	padding : 30px;
 	text-align : center;
+	color: white;
 }
 
 .movielist td:nth-child(1){

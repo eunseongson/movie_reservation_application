@@ -66,6 +66,7 @@ public class MovieListController extends HttpServlet{
         //정렬처리
         if(req.getParameter("sort") != null) {
         	String sort = (String) req.getParameter("sort");
+        	System.out.println("정렬 go : " + sort);
         	if(sort.equals("1")) {
 				 list = dao.getMovie(1);
 			}else if(sort.equals("2")) {
@@ -76,6 +77,7 @@ public class MovieListController extends HttpServlet{
         	req.setAttribute("sort",sort);
         }else {
         	list = dao.getMovie(2);
+        	req.setAttribute("sort",2);
         }
 		
         //영화 구분 처리
@@ -92,6 +94,7 @@ public class MovieListController extends HttpServlet{
           		}
           	}
           	req.setAttribute("movie",uselist);
+          	req.setAttribute("division",2);
 		}else if(division==3) {
 			// 현재 상영 영화
 			List<MovieDto> uselist = new ArrayList<>();
@@ -100,8 +103,11 @@ public class MovieListController extends HttpServlet{
           			uselist.add(list.get(i));
           		}
           	}
-          	req.setAttribute("division",3);
           	req.setAttribute("movie",uselist);
+          	req.setAttribute("division",3);
+		}else {
+			req.setAttribute("movie",list);
+			req.setAttribute("division",1);
 		}
 	}
 
