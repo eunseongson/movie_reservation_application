@@ -10,8 +10,8 @@
 	pageEncoding="UTF-8"%>
 <%
 LocationDao dao = LocationDao.getInstance();
-String title = request.getParameter("title");
-title = "토르-러브 앤 썬더";
+String rowtitle = request.getParameter("rowtitle");
+String img = request.getParameter("img");
 List<String> region = dao.getRegionList();
 List<String> theater = dao.getTheaterList("서울특별시");
 %>
