@@ -120,13 +120,13 @@ public class MovieDao {
 		
 		try {
 			conn = DBConnection.getConnection();
-			System.out.println("1/4 getMovie success");
+			
 				
 			psmt = conn.prepareStatement(sql);
-			System.out.println("2/4 getMovie success");
+		
 			
 			rs = psmt.executeQuery();
-			System.out.println("3/4 getMovie success");
+			
 			
 			while(rs.next()) {
 				MovieDto dto = new MovieDto(rs.getString(1),
@@ -137,10 +137,10 @@ public class MovieDao {
 				
 				list.add(dto);
 			}
-			System.out.println("4/4 getBbslist success");
+		
 			
 		} catch (SQLException e) {
-			System.out.println("getMovie fail");
+		
 			e.printStackTrace();
 		} finally {
 			DBClose.close(conn, psmt, rs);
@@ -161,19 +161,19 @@ public class MovieDao {
 		
 		try {
 			conn = DBConnection.getConnection();
-			System.out.println("1/4 getMovie success");
+	
 				
 			psmt = conn.prepareStatement(sql);
-			System.out.println("2/4 getMovie success");
+			
 			
 			rs = psmt.executeQuery();
-			System.out.println("3/4 getMovie success");
+			
 			
 			if(rs.next()) {
 				count = Integer.parseInt(rs.getString(1));
 			}
 			
-			System.out.println("4/4 getBbslist success");
+		
 			
 		} catch (SQLException e) {
 			System.out.println("getMovie fail");
@@ -197,13 +197,13 @@ public class MovieDao {
 		
 		try {
 			conn = DBConnection.getConnection();
-			System.out.println("1/4 getMovie success");
+	
 				
 			psmt = conn.prepareStatement(sql);
-			System.out.println("2/4 getMovie success");
+		
 			
 			rs = psmt.executeQuery();
-			System.out.println("3/4 getMovie success");
+		
 			
 			if(rs.next()) {
 				dto = new MovieDto(rs.getString(1),
@@ -213,7 +213,7 @@ public class MovieDao {
 										rs.getString(5));
 			}
 			
-			System.out.println("4/4 getBbslist success");
+		
 			
 		} catch (SQLException e) {
 			System.out.println("getMovie fail");

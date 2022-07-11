@@ -24,7 +24,7 @@ public class MovieDetailDao {
 		return dao;
 	}
 	public boolean addMovieDetail(List<String> update_detail) {
-		System.out.println("update_detail size : " + update_detail.size());
+		
 		boolean result = false;
 		String sql = "UPDATE MOVIE SET actor = ?, author = ?, genre = ?, "
 				+ "age_limit = ?, running_time = ?, country = ?, "
@@ -39,7 +39,7 @@ public class MovieDetailDao {
 
 		try {
 			conn = DBConnection.getConnection();
-			System.out.println("1/4 addMovieDetail success");
+			
 			psmt = conn.prepareStatement(sql);
 
 			for (int i = 0; i < update_detail.size() - 3; i++) {
@@ -49,15 +49,15 @@ public class MovieDetailDao {
 			psmt.setInt(10, Integer.parseInt(update_detail.get(9)));
 			psmt.setString(11, update_detail.get(10));
 
-			System.out.println("2/4 addMovieDetail success");
+		
 			count = psmt.executeUpdate();
-			System.out.println("3/4 addMovieDetail success");
+			
 			if (count > 0) {
 				result = true;
 			}
-			System.out.println("4/4 addMovieDetail success");
+			
 		} catch (SQLException e) {
-			System.out.println("addMovieDetail fail");
+			
 
 			e.printStackTrace();
 		} finally {
