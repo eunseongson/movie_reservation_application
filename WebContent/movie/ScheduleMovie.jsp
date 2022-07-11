@@ -1,40 +1,40 @@
 <%@page import="java.util.ArrayList"%>
-<%@page import="java.util.Collections"%>
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="dto.MovieDto"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+    
 <% 
 List<MovieDto> list = (List)request.getAttribute("movie");
-String division = String.valueOf(request.getAttribute("division"));
 String sort = String.valueOf(request.getAttribute("sort"));
 %>	
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="wScheduleidth=device-width, initial-scale=1.0">
-  <title>무비 차트</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>상영예정작</title>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   
-  <!-- Bootstrap core CSS -->
+    <!-- Bootstrap core CSS -->
   <link rel="stylesheet" href="<%=request.getContextPath() %>/css/bootstrap.min.css">
   
   <link rel="stylesheet" href="<%=request.getContextPath() %>/css/movielist.css?ver=0">
   
 </head>
+
 <body style="background-image: url('<%=request.getContextPath() %>/img/nf.png'); background-size:cover; opacity:0.7;">
 <!-- HEADER -->
 <jsp:include page="../main/header.jsp"></jsp:include>
-  
+
   <!-- CONTENT -->
 	<div class="content">
         <!-- Heading Map Multi -->
         <div class="tit-heading-wrap">
-            <div class="tit-movielist-header" style="color:white; font-weight:bold;">무비차트</div>
+            <div class="tit-movielist-header" style="color:white; font-weight:bold;">상영예정작</div>
            
             <div class="submenu">
 				<a href="Movielist?param=movielist">
@@ -58,18 +58,7 @@ String sort = String.valueOf(request.getAttribute("sort"));
         <!-- Sorting -->
         <div class="sect-sorting" style="padding : 20px;">
             <div class="nowshow">
-            	<%
-            	if(division.equals("1")){
-            	%>
-            		<input type="checkbox" id="chk_nowshow"  title="선택되지 않음" onclick='is_checked()'/>
-            	<%
-            	}else{
-            	%>
-            		<input type="checkbox" id="chk_nowshow"  title="현재 선택됨" onclick='is_checked()' checked/>
-            	<%
-            	}
-            	%>
-                <label for="chk_nowshow" style="color:white;">현재 상영작만 보기</label>                
+                <label for="chk_nowshow">상영예정작</label>                
             </div>
             <div class="movielist-sort">
             	<%
@@ -114,16 +103,9 @@ String sort = String.valueOf(request.getAttribute("sort"));
             function sortclick(){
             	var selectedElement = document.getElementById("order_type");
             	var optionVal = selectedElement.options[selectedElement.selectedIndex].value;
-                var chk_nowshow = document.getElementById("chk_nowshow").checked;
-                
-                if(chk_nowshow){ //상영중
-                	var division = 3;
-                }else{ //전체
-                	var division = 1;
-                }
-
+            	
                 // 선택한 option의 value, 텍스트
-                location.href = "Movielist?param=sortMovielist&sort="+optionVal+"&division="+division;
+                location.href = "Movielist?param=Schedule&sort="+optionVal;
             }
             </script>
         </div>
@@ -131,27 +113,10 @@ String sort = String.valueOf(request.getAttribute("sort"));
         
         <!-- MovieList -->
         <table class="movielist">
-        	<script>
-	        	function is_checked() {
-	        		  
-	        		  // 1. checkbox element를 찾습니다.
-	        		  const checkbox = document.getElementById('chk_nowshow');
-	
-	        		  // 2. checked 속성을 체크합니다.
-	        		  const is_checked = checkbox.checked;
-	        		  
-	        		  if(is_checked){
-	        			  location.href = "Movielist?param=nowMovielist";
-	        			  checkbox.checked;
-	        		  }else{
-	        			  location.href = "Movielist?param=movielist";
-	        		  }
-	        	}
-	        	
-        	</script>
-        	
-        		<%
+        	<%              
         		for(int i=0; i<list.size(); i++) {
+        	%>	
+        		<%
         		if(i%4==0){
         		%> <tr>
         		<%
@@ -177,18 +142,18 @@ String sort = String.valueOf(request.getAttribute("sort"));
         		%> </tr>
         		<%
         		}
-
-	        	%>
-	        	
+        		%>
         	<%
         	}
         	%>
         </table>
-        <!-- //MovieList -->
+     <!-- //MovieList -->
      </div>
+
      
      <!-- FOOTER -->
      <jsp:include page="../main/footer.jsp"></jsp:include>
 
 </body>
+
 </html>
