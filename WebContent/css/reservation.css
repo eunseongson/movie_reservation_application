@@ -53,6 +53,10 @@ body {
 	overflow: auto;
 }
 
+.selectList{
+	cursor: pointer;
+}
+
 ::-webkit-scrollbar {
 	width: 10px;
 }
@@ -68,12 +72,8 @@ body {
 	box-shadow: inset 0px 0px 5px white;
 }
 
-#mltop {
-	
-}
-
-#mlbottom {
-	
+.date{
+	display: flex;
 }
 
 #title {
@@ -120,6 +120,11 @@ i {
 	font-size: 18px;
 	font-weight: bold;
 	cursor: pointer;
+}
+
+#resvbtn input:hover{
+	background-color: #ffde82;
+	color: white;
 }
 
 #contentWrapper {
