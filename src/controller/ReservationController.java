@@ -20,7 +20,7 @@ public class ReservationController extends HttpServlet{
 		ReservationDao dao = ReservationDao.getInstance();
 		
 		String city = req.getParameter("city");
-		String cityDetail = req.getParameter("citydetail");
+		String cityDetail = req.getParameter("cityDetail");
 		String title = req.getParameter("title");
 		String movieTime = req.getParameter("movieTime");
 		//연결 안되어 있으니 임의값 넣기

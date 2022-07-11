@@ -58,6 +58,7 @@ public class LocationController extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
 		// crawlingList(); // 지역, 영화관 정보 받아오기
 		String params = req.getParameter("param");
 		LocationDao ldao = LocationDao.getInstance();
