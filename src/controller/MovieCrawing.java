@@ -17,7 +17,7 @@ import dto.MovieDto;
 public class MovieCrawing {
 
 	public static void getData() {
-		//MovieDetailCrawling detail=new MovieDetailCrawling();
+		MovieDetailCrawling detail=new MovieDetailCrawling();
 		MovieDao dao=new MovieDao();
 		Document doc;
 		String gson="";
