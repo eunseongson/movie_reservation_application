@@ -9,6 +9,7 @@ import java.util.List;
 
 import db.DBClose;
 import db.DBConnection;
+import dto.ReviewDto;
 
 public class MovieStillcutDao {
 	private static MovieStillcutDao dao = new MovieStillcutDao();
@@ -22,6 +23,12 @@ public class MovieStillcutDao {
 	}
 	
 	public boolean addMovieStillCut(List<String> list, String title) {
+		for(int i=0;i<list.size();i++) {
+			if(checkDistinctStillcut(list.get(i))) {
+				list.remove(i);
+				i--;
+			}
+		}
 		String sql = "INSERT INTO movie_stillcut(movie_seq, movie_still_img) VALUES (?, ?)";
 		int seq = getMovieSeq(title);
 		
@@ -72,6 +79,32 @@ public class MovieStillcutDao {
 			System.out.println("4/4 getBbslist success");
 		} catch (SQLException e) {
 			System.out.println("getBbslist fail");
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			DBClose.close(conn, psmt, rs);
+		}
+		return result;
+	}
+	
+	public boolean checkDistinctStillcut(String stillCutImg) {
+		String sql = "SELECT * FROM movie_stillcut WHERE movie_still_img = ?";
+		boolean result = false;
+		Connection conn = null;
+		PreparedStatement psmt = null;
+		ResultSet rs = null;
+		
+		try {
+			// review 받아오기
+			conn = DBConnection.getConnection();
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, stillCutImg);
+			rs = psmt.executeQuery();
+			if (rs.next()) {
+				result = true;
+			}
+		}catch (SQLException e) {
+			System.out.println("getMovieDetail fail");
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {

@@ -1,3 +1,4 @@
+<%@page import="dao.LocationDao"%>
 <%@page import="java.util.Arrays"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="dto.ReviewDto"%>
@@ -6,7 +7,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%
-
+LocationDao dao = LocationDao.getInstance();
+List<String> region = dao.getRegionList();
 %>
 <!DOCTYPE html>
 <html>
@@ -21,6 +23,8 @@
 	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/css/reservation.css">
 
@@ -41,11 +45,12 @@
 							<h5>지역</h5>
 							<div class="list">
 								<%
-								for (int i = 0; i < 20; i++) {
+								for (int i = 0; i < region.size(); i++) {
 								%>
 								<div
 									class="list-group-item list-group-item-action list-group-item-light selectList"
-									id="region<%=i%>" onclick="selectRegion(<%=i%>)">서울특별시</div>
+									id="region<%=i%>"
+									onclick="selectRegion(<%=i%>, '<%=region.get(i)%>')"><%=region.get(i)%></div>
 								<%
 								}
 								%>
@@ -53,7 +58,7 @@
 						</div>
 						<div class="list-group">
 							<h5>상영관</h5>
-							<div class="list">
+							<div class="list" id="theaterlist">
 								<%
 								for (int i = 0; i < 20; i++) {
 								%>
@@ -84,9 +89,10 @@
 	<script type="text/javascript">
 		let nowRegion = -1;
 		let nowTheater = -1;
-		function selectRegion(seq) {
+		function selectRegion(seq, region) {
+			// css 컬러 변경
 			if(nowRegion != seq){
-				if(nowRegion!=-1){
+				if(nowRegion != -1){
 					document.getElementById("region"+nowRegion).style.backgroundColor = '#fdfdfe';
 					document.getElementById("region"+nowRegion).style.color = '#818182';
 				}
@@ -94,35 +100,41 @@
 				document.getElementById("region"+seq).style.color = 'rgb(255, 255, 255)';
 				nowRegion = seq
 			}
+			console.log(region);
+			$.ajax({
+				url : "../location?param=city&region=" + region,
+				type: "get",
+				datatype: "json",
+				success : function(data){
+					let theater = data.theater
+					$("#theaterlist").empty();
+					 for(let i = 0; i < theater.length; i++){
+						 const element = document.createElement('div');
+						 element.classList.add('list-group-item', 'list-group-item-action', 'list-group-item-light', 'selectList');
+						 element.id = i;
+						 element.onclick = function(){
+							 selectTheater(i);
+						 }
+						 element.innerHTML = theater[i];
+						$('#theaterlist').append(element)
+					}
+				},
+				error: function(){
+					alert('error');
+				}
+			})
 		}
-		function selectTheater(seq) {
+ 		function selectTheater(seq) {
 			if(nowTheater != seq){
 				if(nowTheater!=-1){
-					document.getElementById("theater"+nowTheater).style.backgroundColor = '#fdfdfe';
-					document.getElementById("theater"+nowTheater).style.color = '#818182';
+					document.getElementById(nowTheater).style.backgroundColor = '#fdfdfe';
+					document.getElementById(nowTheater).style.color = '#818182';
 				}
-				document.getElementById("theater"+seq).style.backgroundColor = 'rgb(245, 161, 66)';
-				document.getElementById("theater"+seq).style.color = 'rgb(255, 255, 255)';
-				nowRegion = seq
+				document.getElementById(seq).style.backgroundColor = 'rgb(245, 161, 66)';
+				document.getElementById(seq).style.color = 'rgb(255, 255, 255)';
+				nowTheater = seq
 			}
-			const element = document.getElementById("theater"+seq);
-			element.style.backgroundColor = 'rgb(245, 161, 66)';
-			element.style.color = 'rgb(255, 255, 255)';
-			console.log(seq);
 		}
-		
-		/* 			$.ajax({
-		url : "downup?seq=" + seq,
-		type: "get",
-		datatype: "json",
-		success : function(data){ // 갓솔지, 갓진광 ,갓지훈,은성!
-			console.log(data.msg);
-			$('#id'+seq).text(data.msg);
-		},
-		error: function(){
-			alert('error');
-		}
-	}) */
 	</script>
 </body>
 </html>
