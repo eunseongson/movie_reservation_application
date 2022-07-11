@@ -7,6 +7,7 @@
 	pageEncoding="UTF-8"%>
 <%
 String title = (String) request.getAttribute("title");
+String rowtitle = (String) request.getAttribute("rowtitle");
 String reservation = (String) request.getAttribute("reservation");
 String img = (String) request.getAttribute("img");
 String rdate = (String) request.getAttribute("rdate");
@@ -97,7 +98,7 @@ List<String> stillCut = (List<String>) request.getAttribute("stillCut");
 						<img alt="" src="<%=img%>">
 					</div>
 					<div id="resvbtn">
-						<input type="button" onclick="moveReservation(<%=title %>, <%=img %>)" value="예매하기">
+						<input type="button" onclick="moveReservation('<%=rowtitle %>', '<%=img %>')" value="예매하기">
 					</div>
 				</div>
 			</div>
@@ -154,5 +155,11 @@ List<String> stillCut = (List<String>) request.getAttribute("stillCut");
 		</div>
 	</div>
 	<jsp:include page="../main/footer.jsp"></jsp:include>
+	
+	<script type="text/javascript">
+		function moveReservation(rowtitle, img){
+			location.href = "./movie/reservation.jsp?rowtitle=" + rowtitle + "&img=" + img + "";
+		}
+	</script>
 </body>
 </html>
