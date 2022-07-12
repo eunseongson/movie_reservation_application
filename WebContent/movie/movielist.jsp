@@ -94,16 +94,7 @@ if (fail.equals("fail")) {
     	                <option value="3">개봉일순</option>
     	            </select>
     	        <%		
-            		}else if(sort.equals("2")){
-				%>
-				<select id="order_type" name="order-type">
-					<option title="현재 선택됨" selected value="1">예매율순</option>
-					<option value="2">제목순</option>
-					<option value="3">개봉일순</option>
-				</select>
-				<%
-
-				} else if (sort.equals("2")) {
+            	}else if (sort.equals("2")) {
 				%>
 				<select id="order_type" name="order-type">
 					<option value="1">예매율순</option>
@@ -122,8 +113,8 @@ if (fail.equals("fail")) {
 				} else {
 				%>
 				<select id="order_type" name="order-type">
-					<option value="1">예매율순</option>
-					<option title="현재 선택됨" selected value="2">제목순</option>
+					<option title="현재 선택됨" selected value="1">예매율순</option>
+					<option value="2">제목순</option>
 					<option value="3">개봉일순</option>
 				</select>
 				<%
