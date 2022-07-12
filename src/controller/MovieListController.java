@@ -94,8 +94,8 @@ public class MovieListController extends HttpServlet{
          }
            req.setAttribute("sort",sort);
         }else {
-           list = dao.getMovie(2);
-           req.setAttribute("sort",2);
+        	list = dao.getMovie(1);
+        	req.setAttribute("sort",1);
         }
       
         //영화 구분 처리

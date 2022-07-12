@@ -45,44 +45,56 @@ if (fail.equals("fail")) {
 
 	<!-- CONTENT -->
 	<div class="content">
-		<!-- Heading Map Multi -->
-		<div class="tit-heading-wrap">
-			<div class="tit-movielist-header"
-				style="color: white; font-weight: bold;">무비차트</div>
-
-			<div class="submenu">
-				<a href="Movielist?param=movielist"> <span></span> <span></span>
-					<span></span> <span></span> 무비차트
-				</a> <a href="Movielist?param=Schedule"> <span></span> <span></span>
-					<span></span> <span></span> 상영예정작
-				</a>
-			</div>
-		</div>
-		<br>
-		<hr style="border: double 7px black; color: white;">
-		<br>
-
-		<!-- Sorting -->
-		<div class="sect-sorting" style="padding: 20px;">
-			<div class="nowshow">
-				<%
-				if (division.equals("1")) {
-				%>
-				<input type="checkbox" id="chk_nowshow" title="선택되지 않음"
-					onclick='is_checked()' />
-				<%
-				} else {
-				%>
-				<input type="checkbox" id="chk_nowshow" title="현재 선택됨"
-					onclick='is_checked()' checked />
-				<%
-				}
-				%>
-				<label for="chk_nowshow" style="color: white;">현재 상영작만 보기</label>
-			</div>
-			<div class="movielist-sort">
-				<%
-				if (sort.equals("1")) {
+        <!-- Heading Map Multi -->
+        <div class="tit-heading-wrap">
+            <div class="tit-movielist-header" style="color:white; font-weight:bold;">무비차트</div>
+           
+            <div class="submenu">
+				<a href="Movielist?param=movielist">
+			        <span></span>
+			        <span></span>
+			        <span></span>
+			        <span></span>
+			        무비차트
+			    </a>
+			    <a href="Movielist?param=Schedule">
+			        <span></span>
+			        <span></span>
+			        <span></span>
+			        <span></span>
+			        상영예정작
+			    </a>
+            </div>
+        </div>
+         <br><hr style="border: double 7px black; color:white;"><br>
+        
+        <!-- Sorting -->
+        <div class="sect-sorting" style="padding : 20px;">
+            <div class="nowshow">
+            	<%
+            	if(division.equals("1")){
+            	%>
+            		<input type="checkbox" id="chk_nowshow"  title="선택되지 않음" onclick='is_checked()' />
+            	<%
+            	}else{
+            	%>
+            		<input type="checkbox" id="chk_nowshow"  title="현재 선택됨" onclick='is_checked()' checked/>
+            	<%
+            	}
+            	%>
+                <label for="chk_nowshow" style="color:white;">현재 상영작만 보기</label>                
+            </div>
+            <div class="movielist-sort">
+            	<%
+            		if(sort.equals("1")){
+         		%>
+           			<select id="order_type" name="order-type">
+    		            <option title="현재 선택됨" selected value="1">예매율순</option>
+    	                <option value="2">제목순</option>
+    	                <option value="3">개봉일순</option>
+    	            </select>
+    	        <%		
+            		}else if(sort.equals("2")){
 				%>
 				<select id="order_type" name="order-type">
 					<option title="현재 선택됨" selected value="1">예매율순</option>
@@ -90,6 +102,7 @@ if (fail.equals("fail")) {
 					<option value="3">개봉일순</option>
 				</select>
 				<%
+
 				} else if (sort.equals("2")) {
 				%>
 				<select id="order_type" name="order-type">
@@ -158,6 +171,7 @@ if (fail.equals("fail")) {
 						} else {
 							location.href = "Movielist?param=movielist";
 						}
+
 					}
 				</script>
 
