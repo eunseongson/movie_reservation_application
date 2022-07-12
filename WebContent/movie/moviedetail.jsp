@@ -10,6 +10,7 @@ String title = (String) request.getAttribute("title");
 String rowtitle = (String) request.getAttribute("rowtitle");
 String reservation = (String) request.getAttribute("reservation");
 String img = (String) request.getAttribute("img");
+String bPoster = (String) request.getAttribute("bPoster");
 String rdate = (String) request.getAttribute("rdate");
 String readcount = (String) request.getAttribute("readcount");
 String actor = (String) request.getAttribute("actor");
@@ -53,8 +54,7 @@ List<String> stillCut = (List<String>) request.getAttribute("stillCut");
 <body>
 
 	<jsp:include page="../main/header.jsp"></jsp:include>
-	<h1>${dto.getTitle()}</h1>
-
+	<div id="imageWrapper" style="background-image: url(<%=bPoster%>); background-repeat: no-repeat; background-size:cover;"></div>
 	<div id="container">
 		<div id="mainWrapper">
 			<div id="mainBlock">

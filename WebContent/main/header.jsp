@@ -45,7 +45,6 @@
 	background: linear-gradient(black, 80%, transparent);
 }
 
-
 .px-2 {
 	color: white;
 }
@@ -73,63 +72,55 @@ i {
 						</ul>
 
 						<ul class="nav">
-						<li class="nav-item"
-							style="display: flex; align-items: center; padding-right: 30px; color: white">
-							<form action="/something">
-							 <input type="text"
-									id="searchbar" name="searchbar">
-								<i class="fa-solid fa-magnifying-glass" onclick="movieSearch() style="cursor:pointer; font-size: 18px;"></i>
-								<script type="text/javascript">
-								function movieSearch(){
-									let moviesr = document.getElementById("searchbar").value.trim();
-									if(moviesr == null || moviesr.trim()==""){
-										alert("검색어를 입력하세요.");
-									}else{
-										location.href = "<%=request.getContextPath() %>/Movielist?param=movieSe&movieSearch="+moviesr;	
-									}
-								}
-								</script>
+							<li class="nav-item"
+								style="display: flex; align-items: center; padding-right: 30px; color: white">
+								<input type="text" id="searchbar" name="searchbar"> <i
+								class="fa-solid fa-magnifying-glass"
+								style="cursor: pointer; font-size: 18px; margin-left: 6px;"
+								onclick="movieSearch()"></i>
+							</li>
+							<%
+							if (session.getAttribute("login") == null) {
+							%>
 
-							</form>
-						</li>
-						<%
-						if (session.getAttribute("login") == null) {
-						%>
+							<li class="nav-item" style="display: flex; align-items: center;"><a
+								href="<%=request.getContextPath()%>/member/login.jsp"
+								class="nav-link link-dark px-2"> <i
+									class="fa-solid fa-arrow-right-to-bracket"
+									href="<%=request.getContextPath()%>/member?param=login"></i> <span
+									style="color: white">로그인</span>
+							</a></li>
+							<li class="nav-item"
+								style="display: flex; align-items: center; padding-right: 30px;"><a
+								href="<%=request.getContextPath()%>/member/regi.jsp"
+								class="nav-link link-dark px-2"> <i
+									class="fa-solid fa-person-circle-plus"
+									href="<%=request.getContextPath()%>/member?param=regi"></i> <span
+									style="color: white">회원가입</span>
+							</a></li>
 
-						<li class="nav-item" style="display: flex; align-items: center;"><a
-							href="<%=request.getContextPath()%>/member/login.jsp"
-							class="nav-link link-dark px-2"> <i
-								class="fa-solid fa-arrow-right-to-bracket"
-								href="<%=request.getContextPath()%>/member?param=login"></i> <span style="color:white">로그인</span>
-						</a></li>
-						<li class="nav-item" style="display: flex; align-items: center; padding-right: 30px;"><a
-							href="<%=request.getContextPath()%>/member/regi.jsp"
-							class="nav-link link-dark px-2"> <i
-								class="fa-solid fa-person-circle-plus"
-								href="<%=request.getContextPath()%>/member?param=regi"></i> <span style="color:white">회원가입</span>
-						</a></li>
+							<%
+							} else {
+							MemberDto dto = (MemberDto) session.getAttribute("login");
+							%>
 
-						<%
-						} else {
-						MemberDto dto = (MemberDto) session.getAttribute("login");
-						%>
-
-						<li class="nav-item" style="display: flex; align-items: center;"><a
-							href="<%=request.getContextPath()%>/member/mypage.jsp"
-							class="nav-link link-dark px-2"> <i
-								class="fa-solid fa-circle-user"
-								href="<%=request.getContextPath()%>/member?param=mypage"></i>
-								<span style="color:white">마이페이지</span>
-						</a></li>
+							<li class="nav-item" style="display: flex; align-items: center;"><a
+								href="<%=request.getContextPath()%>/member/mypage.jsp"
+								class="nav-link link-dark px-2"> <i
+									class="fa-solid fa-circle-user"
+									href="<%=request.getContextPath()%>/member?param=mypage"></i> <span
+									style="color: white">마이페이지</span>
+							</a></li>
 
 
-						<li class="nav-item" style="display: flex; align-items: center; padding-right: 30px;"><a
-							href="<%=request.getContextPath()%>/member?param=logout"
-							class="nav-link link-dark px-2"> <i
-								class="fa-solid fa-arrow-right-from-bracket"
-								href="<%=request.getContextPath()%>/member?param=logout"></i>
-								<span style="color:white">로그아웃</span>
-						</a></li>
+							<li class="nav-item"
+								style="display: flex; align-items: center; padding-right: 30px;"><a
+								href="<%=request.getContextPath()%>/member?param=logout"
+								class="nav-link link-dark px-2"> <i
+									class="fa-solid fa-arrow-right-from-bracket"
+									href="<%=request.getContextPath()%>/member?param=logout"></i> <span
+									style="color: white">로그아웃</span>
+							</a></li>
 						</ul>
 
 						<%
@@ -141,8 +132,21 @@ i {
 			</nav>
 		</main>
 	</header>
-</body>
 
+	<script type="text/javascript">
+function movieSearch(){
+	console.log("들어옴")
+let moviesr = document.getElementById("searchbar").value.trim();
+if(moviesr == null || moviesr.trim()==""){
+	alert("검색어를 입력하세요.");
+}else{
+location.href = "<%=request.getContextPath()%>/Movielist?param=movieSe&movieSearch=" + moviesr;
+
+		}
+	}
+</script>
+
+</body>
 
 <script type="text/javascript">
 	$("#chk").click(function() {

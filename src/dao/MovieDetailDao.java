@@ -23,23 +23,23 @@ public class MovieDetailDao {
 	public static MovieDetailDao getInstance() {
 		return dao;
 	}
+
 	public boolean addMovieDetail(List<String> update_detail) {
-		
+
 		boolean result = false;
 		String sql = "UPDATE MOVIE SET actor = ?, author = ?, genre = ?, "
 				+ "age_limit = ?, running_time = ?, country = ?, "
 
-				+ "movie_description_title = ?, movie_description = ?, "
-				+ "previous_expectations = ?, real_review = ? "
+				+ "movie_description_title = ?, movie_description = ?, " + "previous_expectations = ?, real_review = ? "
 				+ "WHERE title = ?";
-		
+
 		Connection conn = null;
 		PreparedStatement psmt = null;
 		int count = 0;
 
 		try {
 			conn = DBConnection.getConnection();
-			
+
 			psmt = conn.prepareStatement(sql);
 
 			for (int i = 0; i < update_detail.size() - 3; i++) {
@@ -49,15 +49,13 @@ public class MovieDetailDao {
 			psmt.setInt(10, Integer.parseInt(update_detail.get(9)));
 			psmt.setString(11, update_detail.get(10));
 
-		
 			count = psmt.executeUpdate();
-			
+
 			if (count > 0) {
 				result = true;
 			}
-			
+
 		} catch (SQLException e) {
-			
 
 			e.printStackTrace();
 		} finally {
@@ -129,8 +127,9 @@ public class MovieDetailDao {
 	public MovieDetailDto getMovieDetail(String rowTitle) {
 		MovieDetailDto dto = null;
 
-		//String sql = "SELECT * FROM movie WHERE seq = (SELECT seq FROM movie WHERE rowtitle = ?)";
-		String sql = "SELECT * FROM movie WHERE rowtitle like '%"+ rowTitle +"%'";
+		// String sql = "SELECT * FROM movie WHERE seq = (SELECT seq FROM movie WHERE
+		// rowtitle = ?)";
+		String sql = "SELECT * FROM movie WHERE rowtitle like '%" + rowTitle + "%'";
 		String sql1 = "SELECT * FROM review WHERE movie_seq = (SELECT seq FROM movie WHERE rowtitle = ?)";
 		String sql2 = "SELECT movie_still_img FROM movie_stillcut WHERE movie_seq = (SELECT seq FROM movie WHERE rowtitle = ?)";
 		System.out.println(sql);
@@ -167,13 +166,13 @@ public class MovieDetailDao {
 
 			// moviedetail 불러오기
 			psmt2 = conn.prepareStatement(sql);
-			//psmt2.setString(1, rowTitle);
+			// psmt2.setString(1, rowTitle);
 			rs2 = psmt2.executeQuery();
 			if (rs2.next()) {
 				dto = new MovieDetailDto(rs2.getString(2), rs2.getString(3), rs2.getString(4), rs2.getString(5),
-						rs2.getString(6), rs2.getString(7), rs2.getString(8), rs2.getString(9), rs2.getString(10),
-						rs2.getString(11), rs2.getString(12), rs2.getString(13), rs2.getString(14), rs2.getString(15),
-						rs2.getString(16), rs2.getString(17), movie_still_img, reviews);
+						rs2.getString(18), rs2.getString(6), rs2.getString(7), rs2.getString(8), rs2.getString(9),
+						rs2.getString(10), rs2.getString(11), rs2.getString(12), rs2.getString(13), rs2.getString(14),
+						rs2.getString(15), rs2.getString(16), rs2.getString(17), movie_still_img, reviews);
 			}
 		} catch (SQLException e) {
 			System.out.println("getMovieDetail fail");
