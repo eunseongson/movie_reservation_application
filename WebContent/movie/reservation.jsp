@@ -1,3 +1,4 @@
+<%@page import="dto.MemberDto"%>
 <%@page import="java.util.Calendar"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="dao.LocationDao"%>
@@ -8,6 +9,22 @@
 <%@page import="dto.MovieDetailDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	
+<%
+Object obj = session.getAttribute("login");
+MemberDto mem = null;
+if(obj == null){
+	%>
+	<script>
+	alert('로그인 해 주십시오');
+	location.href = "../member/login.jsp";
+	</script>
+	<%
+}
+
+mem = (MemberDto)obj;
+%>
+
 <%
 LocationDao dao = LocationDao.getInstance();
 String rowtitle = request.getParameter("rowtitle");
@@ -33,7 +50,8 @@ List<String> theater = dao.getTheaterList("서울특별시");
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/css/reservation.css">
 
-<title>Insert title here</title>
+<link rel="icon" href="<%=request.getContextPath()%>/favicon.png">
+<title>예매하기</title>
 </head>
 <body>
 	<div id="container">

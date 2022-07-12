@@ -31,11 +31,11 @@ public class MovieDetailController extends HttpServlet {
 			MovieDetailDao dao = MovieDetailDao.getInstance();
 			String rowTitle = req.getParameter("rowtitle");
 			MovieDetailDto dto = dao.getMovieDetail(rowTitle);
-
 			req.setAttribute("title", dto.getTitle());
 			req.setAttribute("rowtitle", dto.getRowTitle());
 			req.setAttribute("reservation", dto.getReservation());
 			req.setAttribute("img", dto.getImg());
+			req.setAttribute("bPoster", dto.getBackgroundPoster());			
 			req.setAttribute("rdate", dto.getRdate());
 			req.setAttribute("readcount", dto.getReadcount());
 			req.setAttribute("actor", dto.getActor());
