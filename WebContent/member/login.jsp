@@ -13,8 +13,8 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
 	crossorigin="anonymous"></script>
-
-<title>BITBOX login page</title>
+<link rel="icon" href="<%=request.getContextPath()%>/favicon.png">
+<title>로그인</title>
 
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
