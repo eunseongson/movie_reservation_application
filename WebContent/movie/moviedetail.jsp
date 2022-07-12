@@ -1,3 +1,4 @@
+<%@page import="dto.MemberDto"%>
 <%@page import="java.util.Arrays"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="dto.ReviewDto"%>
@@ -5,6 +6,7 @@
 <%@page import="dto.MovieDetailDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+
 <%
 String title = (String) request.getAttribute("title");
 String rowtitle = (String) request.getAttribute("rowtitle");
