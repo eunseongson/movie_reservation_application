@@ -67,7 +67,7 @@ $(function(){
 				
 				
 					$("#movieChart_list").append($("<div class='poster'>")
-							.append($('<a >').attr('href','${pageContext.request.contextPath}/movieDetail?title='+data.list[i].title)
+							.append($('<a >').attr('href','${pageContext.request.contextPath}/movieDetail?rowtitle='+data.list[i].rowtitle)
 							.append($('<img>').css('width','170.4px').css('height','240px').attr('src',data.list[i].img)))
 							.append($('<div>')
 							.append($('<span>').text("평점: "+data.list[i].reservation+"%").css('color','#fff')).append($('<br>')).append($('<strong>').text(data.list[i].title).css('color','#fff'))));
@@ -93,7 +93,7 @@ $(function(){
 
 				
 					$("#movieChart_list").append($("<div class='poster'>")
-							.append($('<a>').attr('href','/movieDetail?title='+data.list[i].title)
+							.append($('<a>').attr('href','${pageContext.request.contextPath}/movieDetail?rowtitle='+data.list[i].rowtitle)
 							.append($('<img>').css('width','170.4px').css('height','240px').attr('src',data.list[i].img)))
 							.append($('<div>')
 							.append($('<span>').text("평점: "+data.list[i].reservation+"%").css('color','#fff')).append($('<br>')).append($('<strong>').text(data.list[i].title).css('color','#fff'))));
