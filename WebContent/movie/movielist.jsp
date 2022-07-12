@@ -30,6 +30,8 @@ if (fail.equals("fail")) {
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
+<link rel="icon" href="<%=request.getContextPath() %>/favicon.png">
+
 <!-- Bootstrap core CSS -->
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/css/bootstrap.min.css">
@@ -187,10 +189,10 @@ if (fail.equals("fail")) {
 									<p class="bottom_title" id="bottom_title<%=i + 1%>"><%=list.get(i).getTitle()%></p>
 									<p class="bottom_detail">
 										예매율
-										<%=list.get(i).getReservation()%>
-										%<br>
+										<%=list.get(i).getReservation()%> %
+										<br>
 										<%=list.get(i).getRdate().substring(0, 4) + "." + list.get(i).getRdate().substring(4, 6) + "."
-		+ list.get(i).getRdate().substring(6, 8)%>
+										+ list.get(i).getRdate().substring(6, 8)%>
 										개봉
 									</p>
 								</div>

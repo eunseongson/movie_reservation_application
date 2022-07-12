@@ -19,6 +19,8 @@ String sort = String.valueOf(request.getAttribute("sort"));
   <title>상영예정작</title>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   
+  <link rel="icon" href="<%=request.getContextPath() %>/favicon.png">
+  
     <!-- Bootstrap core CSS -->
   <link rel="stylesheet" href="<%=request.getContextPath() %>/css/bootstrap.min.css">
   
@@ -112,6 +114,7 @@ String sort = String.valueOf(request.getAttribute("sort"));
         <!-- //Sorting -->
         
         <!-- MovieList -->
+        <div class="moviechart">
         <table class="movielist">
         	<%              
         		for(int i=0; i<list.size(); i++) {
@@ -123,11 +126,28 @@ String sort = String.valueOf(request.getAttribute("sort"));
         		}
         		%>
 	        	<td class="movie_td">
-	        		<div style="background-color:red; padding:5px;"><strong class="rank" style="color:white">No.<%=i+1 %></strong></div>
-	        		<div><img src="<%=list.get(i).getImg() %>" width="100%" height="292px"></div>
-	        		<div><p class="bottom_title<%=i+1 %>" id="bottom_title<%=i+1 %>" style="text-align:left; color:white; font-weight: bold; margin:5px 0 0 0;"><%=list.get(i).getTitle() %></p>
-	        			<p class="bottom_detail" style="text-align:left; color:white; font-weight: lighter; margin:5px 0;">예매율 <%=list.get(i).getReservation() %> %<br>
-	        			<%=list.get(i).getRdate().substring(0, 4) + "." + list.get(i).getRdate().substring(4, 6) + "." + list.get(i).getRdate().substring(6, 8) %> 개봉</p>
+	        		<div style="background-color:red; padding:5px;">
+	        			<strong class="rank" style="color:white">No.<%=i+1 %></strong>
+	        		</div>
+	        		<div class="pab">
+						<div class="front">
+	        				<img src="<%=list.get(i).getImg() %>" width="100%" height="292px">
+	        			</div>
+						<div class="back">
+							<div class="backinner">
+	        					<p class="bottom_title<%=i+1 %>" id="bottom_title<%=i+1 %>" ><%=list.get(i).getTitle() %></p>
+	        					<p class="bottom_detail">
+	        						예매율
+	        						<%=list.get(i).getReservation() %> %
+	        						<br>
+	        						<%=list.get(i).getRdate().substring(0, 4) + "." + list.get(i).getRdate().substring(4, 6) + "."
+	        						+ list.get(i).getRdate().substring(6, 8) %> 
+	        						개봉
+	        					</p>
+        					</div>
+						</div>
+					</div>
+					<div>		
 	        			<p style="text-align:left"><input type="button" value="예매하기" id="reservation" name="reservation" onclick="detailsubmit('<%=list.get(i).getTitle() %>')"></p>
 	        		</div>
 	        		
@@ -147,6 +167,7 @@ String sort = String.valueOf(request.getAttribute("sort"));
         	}
         	%>
         </table>
+     </div>
      <!-- //MovieList -->
      </div>
 
