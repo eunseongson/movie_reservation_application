@@ -14,12 +14,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dao.MovieDao;
+import dao.MovieListDao;
 import dto.MovieDto;
 
 
 @WebServlet("/Movielist")
 public class MovieListController extends HttpServlet{
-
+	MovieListDao dao = new MovieListDao();
    @Override
    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
       doProcess(req, resp);
@@ -53,28 +54,22 @@ public class MovieListController extends HttpServlet{
 		}else if(param.equals("movieSe")) {
 			String movieSearch = (String)req.getParameter("movieSearch");
 		
-			
-			MovieDao dao = new MovieDao();
-			dao = dao.getInstance();
 			boolean check = dao.isExists(movieSearch);
-			
+			movieCommon(req, resp, 1);
 			
 			if(check) {
 				MovieDto dto = dao.getObject(movieSearch);
 				req.setAttribute("rowtitle", dto.getRowtitle());
-				forward("movieDetail",req,resp);
+				req.setAttribute("checking","success");
 			}else {
-				movieCommon(req, resp, 1);
 				req.setAttribute("checking","fail");
-				forward("movie/movielist.jsp",req,resp);
 			}
+			
+			forward("movie/movielist.jsp",req,resp);
 		}
 	}
 	
 	private void movieCommon(HttpServletRequest req, HttpServletResponse resp, int division) {
-		MovieDao dao = new MovieDao();
-		dao = dao.getInstance();
-		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd"); 
 
         Calendar c1 = Calendar.getInstance();
