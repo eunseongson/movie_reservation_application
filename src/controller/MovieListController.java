@@ -85,7 +85,7 @@ public class MovieListController extends HttpServlet{
         if(req.getParameter("sort") != null) {
            String sort = (String) req.getParameter("sort");
            
-           if(sort.equals("1")) {
+         if(sort.equals("1")) {
              list = dao.getMovie(1);
          }else if(sort.equals("2")) {
              list = dao.getMovie(2);
