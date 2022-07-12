@@ -20,13 +20,11 @@ public class ReservationDao{
 		return dao;
 	}
 
-	public boolean reservationStart(String city, String cityDetail, String rowtitle, String userId, String movieTime) {
+	public int reservationStart(String city, String cityDetail, String rowtitle, String userId, String movieTime) {
 		try {
 		int movieSeq = getMovieSeq(rowtitle);
 	
 		int locationSeq = getLocationSeq(city, cityDetail);
-		
-		//String movieTime = getMovieTime(locationSeq, movieSeq);
 	
 		int reservationSeq = addReservation(movieSeq, movieTime);
 		
@@ -34,9 +32,9 @@ public class ReservationDao{
 		addUserReservationLocation(reservationSeq, locationSeq, userId);
 		} catch(Exception e) {
 			e.printStackTrace();
-			return false;
+			return -1;
 		}
-		return true;
+		return 1;
 	}
 	
 	//예약하기위한 함수
@@ -70,10 +68,6 @@ public class ReservationDao{
 			DBClose.close(conn, psmt, null);
 		}
 		
-		//user_reservation_location user_id, reservation_seq, location_seq(city, citydetail로 갖고오기)
-		//location_movie의 값을 갖고와서   location_seq, movie_seq, movie_time의 movie_time빼와서 위의 rdate로 넣기 (이거 당장 사용안함)
-		//boolean res1 = addUserReservationLocation(user_id, reservation_seq, locationSeq);
-
 		return reservationSeq;
 	}
 	
@@ -95,8 +89,6 @@ public class ReservationDao{
 			psmt.setString(1, userId);
 			psmt.setInt(2, reservationSeq);
 			psmt.setInt(3, locationSeq);
-
-
 		
 			count = psmt.executeUpdate();
 		

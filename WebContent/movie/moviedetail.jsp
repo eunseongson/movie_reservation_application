@@ -8,6 +8,11 @@
 	pageEncoding="UTF-8"%>
 
 <%
+int result = 0;
+System.out.println("result 결과는 " + request.getParameter("result"));
+if(request.getParameter("result") != null) {
+	result = Integer.parseInt(request.getParameter("result"));
+}
 String title = (String) request.getAttribute("title");
 String rowtitle = (String) request.getAttribute("rowtitle");
 String reservation = (String) request.getAttribute("reservation");
@@ -163,5 +168,20 @@ List<String> stillCut = (List<String>) request.getAttribute("stillCut");
 			location.href = "./movie/reservation.jsp?rowtitle=" + rowtitle + "&img=" + img + "";
 		}
 	</script>
+	<%
+	if(result == 1) {
+	%>
+		<script type="text/javascript">
+		alert('예약 완료!');
+		</script>		
+	<%
+	}else if(result == -1) {
+	%>
+		<script type="text/javascript">
+		alert('예약 실패');
+		</script>
+	<%
+	}
+	%>
 </body>
 </html>
