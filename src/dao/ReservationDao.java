@@ -20,7 +20,7 @@ public class ReservationDao{
 		return dao;
 	}
 
-	public boolean reservationStart(String city, String cityDetail, String rowtitle, String userId, String movieTime) {
+	public int reservationStart(String city, String cityDetail, String rowtitle, String userId, String movieTime) {
 		try {
 		int movieSeq = getMovieSeq(rowtitle);
 	
@@ -32,9 +32,9 @@ public class ReservationDao{
 		addUserReservationLocation(reservationSeq, locationSeq, userId);
 		} catch(Exception e) {
 			e.printStackTrace();
-			return false;
+			return -1;
 		}
-		return true;
+		return 1;
 	}
 	
 	//예약하기위한 함수
