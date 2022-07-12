@@ -7,6 +7,7 @@
 	pageEncoding="UTF-8"%>
 <%
 String title = (String) request.getAttribute("title");
+String rowtitle = (String) request.getAttribute("rowtitle");
 String reservation = (String) request.getAttribute("reservation");
 String img = (String) request.getAttribute("img");
 String rdate = (String) request.getAttribute("rdate");
@@ -93,16 +94,18 @@ List<String> stillCut = (List<String>) request.getAttribute("stillCut");
 					<div id="mlbottom"></div>
 				</div>
 				<div id="mainRight">
-					<div id="poster"></div>
+					<div id="poster">
+						<img alt="" src="<%=img%>">
+					</div>
 					<div id="resvbtn">
-						<input type="button" onclick="moveReservation(<%=title %>, <%=img %>)" value="예매하기">
+						<input type="button" onclick="moveReservation('<%=rowtitle %>', '<%=img %>')" value="예매하기">
 					</div>
 				</div>
 			</div>
 		</div>
 		<div id="contentWrapper">
 			<div id="contentBlock">
-				<div class="title">"신을 죽이는 자, 신이 상대한다!"</div>
+				<div class="title"><%=title %></div>
 				<div id="content">
 					<%=movieDescription%>
 				</div>
@@ -125,12 +128,19 @@ List<String> stillCut = (List<String>) request.getAttribute("stillCut");
 					}
 					%>
 				</ul>
+				
+				<%
+				if(stillCut.size() != 0) {
+					%>
+					<!-- The slideshow -->
+					<div class="carousel-inner">
+						<div class="carousel-item active">
+							<img src="<%=stillCut.get(0)%>" alt="Chicago">
+						</div>
+					<%
+				}
+				%>
 
-				<!-- The slideshow -->
-				<div class="carousel-inner">
-					<div class="carousel-item active">
-						<img src="<%=stillCut.get(0)%>" alt="Chicago">
-					</div>
 					<%
 					for (int i = 1; i < stillCut.size(); i++) {
 					%>
@@ -145,5 +155,11 @@ List<String> stillCut = (List<String>) request.getAttribute("stillCut");
 		</div>
 	</div>
 	<jsp:include page="../main/footer.jsp"></jsp:include>
+	
+	<script type="text/javascript">
+		function moveReservation(rowtitle, img){
+			location.href = "./movie/reservation.jsp?rowtitle=" + rowtitle + "&img=" + img + "";
+		}
+	</script>
 </body>
 </html>

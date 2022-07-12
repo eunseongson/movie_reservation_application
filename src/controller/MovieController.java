@@ -28,7 +28,7 @@ public class MovieController extends HttpServlet{
 		
 	}
 	 public void doProcess(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
-		 
+
 		 if(count==0) {
 			 MovieCrawing.getData();
 			 count++;

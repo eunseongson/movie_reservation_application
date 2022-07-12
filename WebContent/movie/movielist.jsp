@@ -138,24 +138,28 @@ if(fail.equals("fail")){
         <!-- //Sorting -->
         
         <!-- MovieList -->
-        <table class="movielist">
-        	<script>
-	        	function is_checked() {
-	        		  
-	        		  // 1. checkbox element를 찾습니다.
-	        		  const checkbox = document.getElementById('chk_nowshow');
-	
-	        		  // 2. checked 속성을 체크합니다.
-	        		  const is_checked = checkbox.checked;
-	        		  
-	        		  if(is_checked){
-	        			  location.href = "Movielist?param=nowMovielist";
-	        			  checkbox.checked;
-	        		  }else{
-	        			  location.href = "Movielist?param=movielist";
-	        		  }
-	        	}
+        <div class="moviechart">
+	        <table class="movielist">
+	        	<script>
+		        	function is_checked() {
+		        		  
+		        		  // 1. checkbox element를 찾습니다.
+		        		  const checkbox = document.getElementById('chk_nowshow');
+		
+		        		  // 2. checked 속성을 체크합니다.
+		        		  const is_checked = checkbox.checked;
+		        		  
+		        		  if(is_checked){
+		        			  location.href = "Movielist?param=nowMovielist";
+		        			  checkbox.checked;
+		        		  }else{
+		        			  location.href = "Movielist?param=movielist";
+		        		  }
+		        	}
+		        	
+	        	</script>
 	        	
+
         	</script>
         	
         		<%
@@ -181,17 +185,10 @@ if(fail.equals("fail")){
 					</script>
 	        	</td>
 	        	<%
-        		if(i%4==3 || i==list.size()-1){
-        		%> </tr>
-        		<%
-        		}
-
+	        	}
 	        	%>
-	        	
-        	<%
-        	}
-        	%>
-        </table>
+	        </table>
+        </div>
         <!-- //MovieList -->
      </div>
      <!-- FOOTER -->

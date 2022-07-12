@@ -5,6 +5,7 @@ import java.util.List;
 public class MovieDetailDto {
 	private String seq;
 	private String title;
+	private String rowtitle;
 	private String reservation;
 	private String img;
 	private String rdate;
@@ -26,13 +27,14 @@ public class MovieDetailDto {
 		super();
 	}
 
-	public MovieDetailDto(String seq, String title, String reservation, String img, String rdate, String readcount, String actor,
+	public MovieDetailDto(String seq, String title, String rowtitle, String reservation, String img, String rdate, String readcount, String actor,
 			String author, String genre, String age_limit, String running_time, String country,
 			String movie_description, String movie_description_title, String previous_expectations, String real_review,
 			List<String> still_cut, List<ReviewDto> reviews) {
 		super();
 		this.seq = seq;
 		this.title = title;
+		this.rowtitle = rowtitle;
 		this.reservation = reservation;
 		this.img = img;
 		this.rdate = rdate;
@@ -51,12 +53,13 @@ public class MovieDetailDto {
 		this.reviews = reviews;
 	}
 
-	public MovieDetailDto(String title, String reservation, String img, String rdate, String readcount, String actor,
+	public MovieDetailDto(String title, String rowtitle, String reservation, String img, String rdate, String readcount, String actor,
 			String author, String genre, String age_limit, String running_time, String country,
 			String movie_description, String movie_description_title, String previous_expectations, String real_review,
 			List<String> still_cut, List<ReviewDto> reviews) {
 		super();
 		this.title = title;
+		this.rowtitle = rowtitle;
 		this.reservation = reservation;
 		this.img = img;
 		this.rdate = rdate;
@@ -85,6 +88,10 @@ public class MovieDetailDto {
 
 	public String getTitle() {
 		return title;
+	}
+	
+	public String getRowTitle() {
+		return rowtitle;
 	}
 
 	public List<String> getStill_cut() {
