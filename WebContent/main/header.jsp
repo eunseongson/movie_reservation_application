@@ -135,7 +135,6 @@ i {
 
 	<script type="text/javascript">
 function movieSearch(){
-	console.log("들어옴")
 let moviesr = document.getElementById("searchbar").value.trim();
 if(moviesr == null || moviesr.trim()==""){
 	alert("검색어를 입력하세요.");

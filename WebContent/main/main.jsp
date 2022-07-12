@@ -96,11 +96,11 @@ $(function(){
 							.append($('<img>').css('width','170.4px').css('height','240px').attr('src',data.list[i].img)))
 							.append($('<div>')
 							.append($('<span>').text("평점: "+data.list[i].reservation+"%").css('color','#fff')).append($('<br>')).append($('<strong>').text(data.list[i].title).css('color','#fff'))));
-						
 				}
 			}
 		})
 	});
+});
 </script>
 
 <!DOCTYPE html>
