@@ -16,6 +16,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
 import dao.LocationDao;
+import net.sf.json.JSONObject;
 
 @WebServlet("/location")
 public class LocationController extends HttpServlet {
@@ -46,24 +47,35 @@ public class LocationController extends HttpServlet {
 		StringTokenizer st;
 
 		for (int i = 0; i < regionList.size(); i++) {
-			System.out.println(regionList.get(i));
+		
 			st = new StringTokenizer(theaterList.get(i), "/");
 			while (st.hasMoreTokens()) {
 				dao.addRegion(regionList.get(i), st.nextToken());
 			}
-			System.out.println();
+		
 		}
 	}
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// crawlingList(); // 지역, 영화관 정보 받아오기
-		String params = req.getParameter("params");
+
+		 // crawlingList(); // 지역, 영화관 정보 받아오기
 		
-		if(params.equals("city")) {
-			
-		}else if(params.equals("theater")) {
-			
-		}
+		  String params = req.getParameter("param"); LocationDao ldao =
+		  LocationDao.getInstance(); if(params.equals("city")) { String region =
+		  req.getParameter("region");
+		  
+		  
+		  List<String> theater = ldao.getTheaterList(region);
+		  
+		  JSONObject obj = new JSONObject(); obj.put("theater", theater);
+		  
+		  
+
+		  resp.setContentType("application/x-json; charset=utf-8");
+		  resp.getWriter().print(obj); }else if(params.equals("theater")) {
+		  
+		  }
+		 
 	}
 }

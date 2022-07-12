@@ -54,7 +54,7 @@ body {
     color: #8e8e8e;
 }
 
-.ps_box.int_id, .ps_box.int_id input {
+.ps_box.int_id input, .ps_box.int_pass input {
     background: #fff;
     outline: 0;
 }

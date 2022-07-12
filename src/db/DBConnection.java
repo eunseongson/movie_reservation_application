@@ -9,7 +9,7 @@ public class DBConnection {
 	public static void initConnection() {		
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");			
-			System.out.println("Driver Loading Success");
+
 		} catch (ClassNotFoundException e) {			
 			e.printStackTrace();
 		}		
@@ -26,7 +26,6 @@ public class DBConnection {
 		try {
 			conn = DriverManager.getConnection(url, user, password);
 			
-			System.out.println("MySQL Connection Success");
 		} catch (SQLException e) {			 
 			e.printStackTrace();
 		}

@@ -1,21 +1,12 @@
 package dao;
 
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import db.DBClose;
 import db.DBConnection;
-import dto.MemberDto;
 
 
 public class ReservationDao{
@@ -29,22 +20,21 @@ public class ReservationDao{
 		return dao;
 	}
 
-	public boolean reservationStart(String city, String cityDetail, String title, String userId) {
+	public int reservationStart(String city, String cityDetail, String rowtitle, String userId, String movieTime) {
 		try {
-		int movieSeq = getMovieSeq(title);
-		System.out.println("movieSeq = " + movieSeq);
+		int movieSeq = getMovieSeq(rowtitle);
+	
 		int locationSeq = getLocationSeq(city, cityDetail);
-		System.out.println("locationSeq = " + locationSeq);
-		String movieTime = getMovieTime(locationSeq, movieSeq);
-		System.out.println("movieTime = " + movieTime);
+	
 		int reservationSeq = addReservation(movieSeq, movieTime);
-		System.out.println("reservationSeq = " + reservationSeq);
+		
+		System.out.println(userId + " :reservationStart");
 		addUserReservationLocation(reservationSeq, locationSeq, userId);
 		} catch(Exception e) {
 			e.printStackTrace();
-			return false;
+			return -1;
 		}
-		return true;
+		return 1;
 	}
 	
 	//예약하기위한 함수
@@ -57,19 +47,19 @@ public class ReservationDao{
 		int reservationSeq = -1;
 		try {
 			conn = DBConnection.getConnection();
-			System.out.println("1/4 addReservation success");
+	
 			psmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-			System.out.println("2/4 addReservation success");
+		
 			count = psmt.executeUpdate();
-			System.out.println("3/4 addReservation success");
+			
 			ResultSet rs = psmt.getGeneratedKeys();
 			if (count > 0) {
 				if(rs.next()) {
 					reservationSeq = rs.getInt(1);
-					System.out.println("reservation 결과 : " + reservationSeq);	
+		
 				}
 			}
-			System.out.println("4/4 addReservation success");
+	
 		} catch (SQLException e) {
 			System.out.println("addReservation fail");
 
@@ -78,10 +68,6 @@ public class ReservationDao{
 			DBClose.close(conn, psmt, null);
 		}
 		
-		//user_reservation_location user_id, reservation_seq, location_seq(city, citydetail로 갖고오기)
-		//location_movie의 값을 갖고와서   location_seq, movie_seq, movie_time의 movie_time빼와서 위의 rdate로 넣기 (이거 당장 사용안함)
-		//boolean res1 = addUserReservationLocation(user_id, reservation_seq, locationSeq);
-
 		return reservationSeq;
 	}
 	
@@ -94,23 +80,22 @@ public class ReservationDao{
 		PreparedStatement psmt = null;
 		int count = 0;
 
+		System.out.println(userId + " :addUserReservationLocation");
 		try {
 			conn = DBConnection.getConnection();
-			System.out.println("1/4 addUserReservationLocation success");
+	
 			psmt = conn.prepareStatement(sql);
 
 			psmt.setString(1, userId);
 			psmt.setInt(2, reservationSeq);
 			psmt.setInt(3, locationSeq);
-
-
-			System.out.println("2/4 addUserReservationLocation success");
+		
 			count = psmt.executeUpdate();
-			System.out.println("3/4 addUserReservationLocation success");
+		
 			if (count > 0) {
 				result = true;
 			}
-			System.out.println("4/4 addUserReservationLocation success");
+		
 		} catch (SQLException e) {
 			System.out.println("addUserReservationLocation fail");
 
@@ -185,9 +170,9 @@ public class ReservationDao{
 	}
 	
 	//movie_seq갖고오기 위한 함수
-	public int getMovieSeq(String title) {
+	public int getMovieSeq(String rowtitle) {
 		int result = -1;
-		String sql = "SELECT seq FROM movie WHERE title = ?";// city = ? AND
+		String sql = "SELECT seq FROM movie WHERE rowtitle like '%"+ rowtitle +"%'";// city = ? AND
 		
 		Connection conn = null;
 		PreparedStatement psmt = null;
@@ -197,7 +182,6 @@ public class ReservationDao{
 			// review 받아오기
 			conn = DBConnection.getConnection();
 			psmt = conn.prepareStatement(sql);
-			psmt.setString(1, title);
 			rs = psmt.executeQuery();
 			if(rs.next()) {
 				result = rs.getInt(1);

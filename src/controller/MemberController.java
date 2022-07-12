@@ -50,7 +50,7 @@ public class MemberController extends HttpServlet {
 			
 		} else if (param.equals("idcheck")) {
 			String id = req.getParameter("id");
-			System.out.println("id:" + id);
+		
 
 			MemberDao dao = MemberDao.getInstance();
 			boolean b = dao.getId(id);
@@ -83,7 +83,7 @@ public class MemberController extends HttpServlet {
 			if (!b) {
 				msg = "regiNO";
 			}
-			System.out.println(msg);
+		
 			resp.sendRedirect("message.jsp?msg=" + msg);
 			
 		} else if (param.equals("loginAf")) {
@@ -107,23 +107,36 @@ public class MemberController extends HttpServlet {
 
 		} else if (param.equals("withdrawAf")) {
 			
-			String msg = "withdrawOK";
+			String msg = "withdrawNO";
 			MemberDto dto = (MemberDto)req.getSession().getAttribute("login");
 			String withdrawId = dto.getId();
 			
-			req.getSession().invalidate();
+		
 
 			// 진짜 탈퇴할꺼면 비번 누르고 탈퇴 승인
 			String pwd = req.getParameter("pwd");
 
 			MemberDao dao = MemberDao.getInstance();
-			Boolean isTrue = dao.withdraw(new MemberDto(null, pwd, null, null, null, 0)); // 비번 일치 여부 check
+			Boolean isTrue = dao.withdraw(new MemberDto(withdrawId, pwd, null, null, null, 0)); // 비번 일치 여부 check
 
-			if (!isTrue) { // 회원탈퇴 실패
-				msg = "withdrawNO";
+			JSONObject obj = new JSONObject();
+			
+		
+			if (isTrue) { // 회원탈퇴 성공
+				msg = "withdrawOK";
+				req.getSession().invalidate();
+				obj.put("id", withdrawId);
 			}
 
-			resp.sendRedirect("message.jsp?msg=" + msg);
+			obj.put("msg", msg); // 짐싸!
+			
+			// resp 는 withdraw.jsp Ajax 로 전송
+			resp.setContentType("application/x-json; charset=utf-8");
+			resp.getWriter().print(obj);
+			
+
+			// resp.sendRedirect("message.jsp?msg=" + msg);
+
 			
 		} else if (param.equals("mypage")) {
 			resp.sendRedirect("member/mypage.jsp");
@@ -193,8 +206,8 @@ public class MemberController extends HttpServlet {
 			JSONObject obj = new JSONObject();
 			obj.put("msg", str); // 짐싸!
 			if(dto != null) {
-				obj.put("name", dto.getName());
 				obj.put("id", dto.getId());
+				obj.put("pwd", dto.getPwd());
 			}
 
 			resp.setContentType("application/x-json; charset=utf-8");

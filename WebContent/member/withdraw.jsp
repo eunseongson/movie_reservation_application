@@ -45,8 +45,8 @@ body {
 <jsp:include page="../main/header.jsp"></jsp:include>
 
 	<section class="account">
-		<form action="<%=request.getContextPath()%>/member" method="post">
-			<input type="hidden" name="param" value="withdrawAf">
+		<%-- <form action="<%=request.getContextPath()%>/member" method="post"> --%>
+			<!-- <input type="hidden" name="param" value="withdrawAf"> -->
 
 			<div class="content">
 				<div class="join_row">
@@ -62,9 +62,42 @@ body {
 					</span>
 					</span>
 				</div>
-				<button type="submit" class="btn btn_type btn-danger btn_primary">회원탈퇴하기</button>
+				<button type="button" id="withdrawBtn" class="btn btn_type btn-danger btn_primary">회원탈퇴하기</button>
 			</div>
-		</form>
+		<!-- </form> -->
+			<script type="text/javascript">
+		$(function() {
+			$("#withdrawBtn").click(function() {
+				$.ajax({
+					type : "post",
+					url : "../member?param=withdrawAf",
+					data : {
+						"pwd" : $("#pwd").val()
+					},
+					// 위에 data 는 서버로 보내는 A, 아래 data 는 서버에서 받아오는 JSONObject B
+
+					success : function(data) {
+						// alert('success');
+						// alert(data.msg);
+						
+						if (data.msg.trim() == "withdrawOK") {
+							alert(data.id + " 회원님, 탈퇴 처리 되었습니다.");
+							window.location.href = "../member?param=login";
+						} else {
+							alert("비밀번호가 일치하지 않아 회원탈퇴에 실패하였습니다.");
+							window.location.href = "../member?param=withdraw";
+						}
+					},
+					error : function() {
+						alert("error");
+					}
+				});
+
+			});
+
+		});
+	</script>	
+		
 	</section>
 
 <jsp:include page="../main/footer.jsp"></jsp:include>

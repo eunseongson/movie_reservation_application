@@ -73,8 +73,9 @@ public class LocationDao {
 	
 	// 영화관 받아오기
 	public List<String> getTheaterList(String city) {
-		String sql = " select city_detail " + "from location " + " where city = " + city;
+		String sql = " select city_detail " + "from location " + " where city = ? ";
 		
+		System.out.println(city + " : getTheaterList");
 		Connection conn = null;
 		PreparedStatement psmt = null;
 		ResultSet rs = null;
@@ -83,6 +84,7 @@ public class LocationDao {
 		try {
 			conn = DBConnection.getConnection();
 			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, city);
 			rs = psmt.executeQuery();
 			
 			while(rs.next()) {

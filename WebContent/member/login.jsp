@@ -13,8 +13,8 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
 	crossorigin="anonymous"></script>
-
-<title>BITBOX login page</title>
+<link rel="icon" href="<%=request.getContextPath()%>/favicon.png">
+<title>로그인</title>
 
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -33,16 +33,18 @@
 
 				<div class="row_group">
 					<h3 class="join_title">
-						<label for="id">아이디</label>
+						<label for="id" style="margin-left: 10px">아이디</label>
 					</h3>
 					<span class="ps_box int_id"> <input type="text" id="id"
 						name="id" class="int" title="ID" maxlength="20" required>
-					</span>
+					</span> <input type="checkbox" id="chk_save_id" 
+					style="margin-left:10px; margin-top: 15px">  아이디저장
+
 				</div>
 
 				<div class="join_row">
 					<h3 class="join_title">
-						<label for="pswd1">비밀번호</label>
+						<label for="pswd1" style="margin-left: 10px">비밀번호</label>
 					</h3>
 					<span class="ps_box int_pass" id="pswd1Img"> <input
 						type="password" id="pwd" name="pwd" class="int" title="비밀번호 입력"
@@ -53,11 +55,11 @@
 				</div>
 				<button type="submit" class="btn btn_type btn-danger btn_primary">로그인하기</button>
 			</form>
-			<br>
-			
-			<a href="findid.jsp" style="width: 50%; float: center; padding-left: 100px">ID 찾기</a>
-			<a href="findpw.jsp" style="width: 50%; float: center; padding-left: 160px">PW 찾기</a>
-			
+			<br> <a href="findid.jsp"
+				style="width: 50%; float: center; padding-left: 100px">ID 찾기</a> <a
+				href="findpw.jsp"
+				style="width: 50%; float: center; padding-left: 160px">PW 찾기</a>
+
 		</div>
 	</section>
 

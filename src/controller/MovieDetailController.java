@@ -18,6 +18,7 @@ import dao.MovieDetailDao;
 import dao.MovieStillcutDao;
 import dao.ReviewDao;
 import dto.MovieDetailDto;
+import dto.MovieDto;
 import dto.ReviewDto;
 import net.sf.json.JSONObject;
 
@@ -25,19 +26,16 @@ import net.sf.json.JSONObject;
 public class MovieDetailController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
-
-		// 테스트
-//		crawlingMovieDetail("http://www.cgv.co.kr/movies/detail-view/?midx=85999", mdDao, msDao, rDao);
 		try {
-
+			
 			MovieDetailDao dao = MovieDetailDao.getInstance();
-			String title = req.getParameter("title");
-			//TODO +가 url에서 무시됨. 해결방안
-			title = title.replace("%20", " ");
-			MovieDetailDto dto = dao.getMovieDetail(title);
+			String rowTitle = req.getParameter("rowtitle");
+			MovieDetailDto dto = dao.getMovieDetail(rowTitle);
 			req.setAttribute("title", dto.getTitle());
+			req.setAttribute("rowtitle", dto.getRowTitle());
 			req.setAttribute("reservation", dto.getReservation());
 			req.setAttribute("img", dto.getImg());
+			req.setAttribute("bPoster", dto.getBackgroundPoster());			
 			req.setAttribute("rdate", dto.getRdate());
 			req.setAttribute("readcount", dto.getReadcount());
 			req.setAttribute("actor", dto.getActor());
@@ -55,7 +53,6 @@ public class MovieDetailController extends HttpServlet {
 
 			RequestDispatcher requestDispatcher = req.getRequestDispatcher("/movie/moviedetail.jsp");
 			requestDispatcher.forward(req, resp);
-
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
