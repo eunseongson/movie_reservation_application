@@ -50,7 +50,7 @@ location.href = "movieDetail?rowtitle="+ "<%=rowtitle %>";
 
 </head>
 <body
-	style="background-image: url('<%=request.getContextPath()%>/img/nf.png');">
+	style="background-image: url('<%=request.getContextPath()%>/images/background.png');">
 	<!-- HEADER -->
 	<jsp:include page="../main/header.jsp"></jsp:include>
 
