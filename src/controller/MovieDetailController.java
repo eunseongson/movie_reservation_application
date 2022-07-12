@@ -39,6 +39,7 @@ public class MovieDetailController extends HttpServlet {
 			System.out.println(dto.getRowTitle());
 			System.out.println(dto.getReservation());
 			System.out.println(dto.getImg());
+			System.out.println(dto.getBackgroundPoster());
 			System.out.println(dto.getRdate());
 			System.out.println(dto.getReadcount());
 			System.out.println(dto.getActor());
@@ -58,6 +59,7 @@ public class MovieDetailController extends HttpServlet {
 			req.setAttribute("rowtitle", dto.getRowTitle());
 			req.setAttribute("reservation", dto.getReservation());
 			req.setAttribute("img", dto.getImg());
+			req.setAttribute("bPoster", dto.getBackgroundPoster());			
 			req.setAttribute("rdate", dto.getRdate());
 			req.setAttribute("readcount", dto.getReadcount());
 			req.setAttribute("actor", dto.getActor());
