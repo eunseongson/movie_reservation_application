@@ -26,34 +26,12 @@ import net.sf.json.JSONObject;
 public class MovieDetailController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
-
-		// 테스트
-//		crawlingMovieDetail("http://www.cgv.co.kr/movies/detail-view/?midx=85999", mdDao, msDao, rDao);
 		try {
 			
 			MovieDetailDao dao = MovieDetailDao.getInstance();
 			String rowTitle = req.getParameter("rowtitle");
 			MovieDetailDto dto = dao.getMovieDetail(rowTitle);
-			
-			System.out.println(dto.getTitle());
-			System.out.println(dto.getRowTitle());
-			System.out.println(dto.getReservation());
-			System.out.println(dto.getImg());
-			System.out.println(dto.getRdate());
-			System.out.println(dto.getReadcount());
-			System.out.println(dto.getActor());
-			System.out.println(dto.getAuthor());
-			System.out.println(dto.getGenre());
-			System.out.println(dto.getAge_limit());
-			System.out.println(dto.getRunning_time());
-			System.out.println(dto.getCountry());
-			System.out.println(dto.getMovie_description());
-			System.out.println(dto.getMovie_description_title());
-			System.out.println(dto.getPrevious_expectations());
-			System.out.println(dto.getReal_review());
-			System.out.println(dto.getStill_cut());
-			System.out.println(dto.getReviews());
-			
+
 			req.setAttribute("title", dto.getTitle());
 			req.setAttribute("rowtitle", dto.getRowTitle());
 			req.setAttribute("reservation", dto.getReservation());
@@ -75,7 +53,6 @@ public class MovieDetailController extends HttpServlet {
 
 			RequestDispatcher requestDispatcher = req.getRequestDispatcher("/movie/moviedetail.jsp");
 			requestDispatcher.forward(req, resp);
-
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
