@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dao.MovieDao;
+import dao.MovieListDao;
 import dto.MovieDto;
 
 
@@ -54,7 +55,7 @@ public class MovieListController extends HttpServlet{
 			String movieSearch = (String)req.getParameter("movieSearch");
 		
 			
-			MovieDao dao = new MovieDao();
+			MovieListDao dao = new MovieListDao();
 			dao = dao.getInstance();
 			boolean check = dao.isExists(movieSearch);
 			
@@ -72,7 +73,7 @@ public class MovieListController extends HttpServlet{
 	}
 	
 	private void movieCommon(HttpServletRequest req, HttpServletResponse resp, int division) {
-		MovieDao dao = new MovieDao();
+		MovieListDao dao = new MovieListDao();
 		dao = dao.getInstance();
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd"); 
