@@ -9,6 +9,22 @@
 List<MovieDto> list = (List) request.getAttribute("movie");
 String division = String.valueOf(request.getAttribute("division"));
 String sort = String.valueOf(request.getAttribute("sort"));
+String checking = String.valueOf(request.getAttribute("checking"));
+String rowtitle = String.valueOf(request.getAttribute("rowtitle"));
+
+if (checking.equals("fail")) {
+%>
+<script>
+	alert("해당 영화가 없습니다.");
+</script>
+<%
+}else if(checking.equals("success")){
+%>
+<script>
+location.href = "movieDetail?rowtitle="+ "<%=rowtitle %>";
+</script>
+<%	
+}
 %>
 
 <!DOCTYPE html>

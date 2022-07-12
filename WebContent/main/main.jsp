@@ -100,8 +100,8 @@ $(function(){
 			}
 		})
 	});
+});
 
-	});
 </script>
 
 <!DOCTYPE html>

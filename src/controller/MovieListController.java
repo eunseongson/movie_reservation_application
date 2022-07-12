@@ -61,6 +61,7 @@ public class MovieListController extends HttpServlet{
 				MovieDto dto = dao.getObject(movieSearch);
 				req.setAttribute("rowtitle", dto.getRowtitle());
 				req.setAttribute("checking","success");
+				System.out.println(dto.getRowtitle());
 			}else {
 				req.setAttribute("checking","fail");
 			}
