@@ -134,30 +134,27 @@
 ![ui_1](./assets/mainmovieanddetail.gif)
 
 
-### 마이 페이지 - 내 정보 확인
-![ui_1](./assets/mypage.PNG)
-### 마이 페이지 - 예약 내역 확인
-![ui_1](./assets/mypageReserv.PNG)
+### 회원가입 / 아이디 찾기 / 비밀번호 찾기
+![ui_1](./assets/regifindidfindpw.gif)
 
 
-### 로그인 페이지
-![ui_1](./assets/login.PNG)
+### 로그인 페이지 / 로그아웃
+![ui_1](./assets/loginlogout.gif)
 
 
-### 회원가입 페이지
-![ui_1](./assets/signup.PNG)
-
-
-### 영화 목록 페이지
-![ui_1](./assets/movielist.PNG)
+### 영화 예매 / 마이페이지 - 예매내역 확인
+![ui_1](./assets/reservv.gif)
 
 
 ### 영화 상세보기 페이지
-![ui_1](./assets/moviedetail.PNG)
+- 예매율순
+- 제목순
+- 개봉일순
+- 현재 상영작
+
+![ui_1](./assets/detailschangeee.gif)
 
 
-### 영화예약 페이지
-![ui_1](./assets/reservation.PNG)
 
 ### ✉Contact
 
