@@ -49,7 +49,7 @@ List<String> stillCut = (List<String>) request.getAttribute("stillCut");
 	href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
 
-<title>Insert title here</title>
+<title>영화 상세보기</title>
 </head>
 <body>
 
