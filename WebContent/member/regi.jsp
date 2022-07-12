@@ -12,8 +12,8 @@
 <link rel="stylesheet" href="../css/bootstrap.min.css">
 <link rel="stylesheet" href="../css/account.css">
 
-
-<title>BITBOX register page</title>
+<link rel="icon" href="<%=request.getContextPath()%>/favicon.png">
+<title>회원가입</title>
 
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>

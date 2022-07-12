@@ -50,7 +50,8 @@ List<String> theater = dao.getTheaterList("서울특별시");
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/css/reservation.css">
 
-<title>Insert title here</title>
+<link rel="icon" href="<%=request.getContextPath()%>/favicon.png">
+<title>예매하기</title>
 </head>
 <body>
 	<div id="container">

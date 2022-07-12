@@ -9,15 +9,8 @@
 List<MovieDto> list = (List) request.getAttribute("movie");
 String division = String.valueOf(request.getAttribute("division"));
 String sort = String.valueOf(request.getAttribute("sort"));
-String fail = String.valueOf(request.getAttribute("checking"));
-if (fail.equals("fail")) {
 %>
-<script>
-	alert("해당 영화가 없습니다.");
-</script>
-<%
-}
-%>
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -29,6 +22,8 @@ if (fail.equals("fail")) {
 <title>무비 차트</title>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<link rel="icon" href="<%=request.getContextPath() %>/favicon.png">
 
 <!-- Bootstrap core CSS -->
 <link rel="stylesheet"
@@ -94,16 +89,7 @@ if (fail.equals("fail")) {
     	                <option value="3">개봉일순</option>
     	            </select>
     	        <%		
-            		}else if(sort.equals("2")){
-				%>
-				<select id="order_type" name="order-type">
-					<option title="현재 선택됨" selected value="1">예매율순</option>
-					<option value="2">제목순</option>
-					<option value="3">개봉일순</option>
-				</select>
-				<%
-
-				} else if (sort.equals("2")) {
+            	}else if (sort.equals("2")) {
 				%>
 				<select id="order_type" name="order-type">
 					<option value="1">예매율순</option>
@@ -122,8 +108,8 @@ if (fail.equals("fail")) {
 				} else {
 				%>
 				<select id="order_type" name="order-type">
-					<option value="1">예매율순</option>
-					<option title="현재 선택됨" selected value="2">제목순</option>
+					<option title="현재 선택됨" selected value="1">예매율순</option>
+					<option value="2">제목순</option>
 					<option value="3">개봉일순</option>
 				</select>
 				<%
@@ -196,10 +182,10 @@ if (fail.equals("fail")) {
 									<p class="bottom_title" id="bottom_title<%=i + 1%>"><%=list.get(i).getTitle()%></p>
 									<p class="bottom_detail">
 										예매율
-										<%=list.get(i).getReservation()%>
-										%<br>
+										<%=list.get(i).getReservation()%> %
+										<br>
 										<%=list.get(i).getRdate().substring(0, 4) + "." + list.get(i).getRdate().substring(4, 6) + "."
-		+ list.get(i).getRdate().substring(6, 8)%>
+										+ list.get(i).getRdate().substring(6, 8)%>
 										개봉
 									</p>
 								</div>

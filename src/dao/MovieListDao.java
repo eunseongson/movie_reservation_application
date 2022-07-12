@@ -15,9 +15,9 @@ public class MovieListDao {
 	static Connection conn=null;
 	static PreparedStatement psmt=null;
 	static ResultSet rs=null;
-	private static MovieListDao dao=new MovieListDao();
+	private static MovieListDao dao = new MovieListDao();
 	
-	public MovieListDao() {
+	public MovieListDao () {
 		DBConnection.initConnection();
 	}
 	
@@ -39,12 +39,23 @@ public class MovieListDao {
 		}
 		
 		sql += order;
+				   
+		
+		Connection conn = null;
+		PreparedStatement psmt = null;
+		ResultSet rs = null;
+		
 		List<MovieDto> list = new ArrayList<MovieDto>();
 		
 		try {
-			conn = DBConnection.getConnection();	
+			conn = DBConnection.getConnection();
+			
+				
 			psmt = conn.prepareStatement(sql);
+		
+			
 			rs = psmt.executeQuery();
+			
 			
 			while(rs.next()) {
 				MovieDto dto = new MovieDto(rs.getString(1),
@@ -55,11 +66,15 @@ public class MovieListDao {
 				
 				list.add(dto);
 			}
+		
+			
 		} catch (SQLException e) {
+		
 			e.printStackTrace();
 		} finally {
 			DBClose.close(conn, psmt, rs);
 		}
+		
 		return list;
 	}
 	
@@ -104,13 +119,21 @@ public class MovieListDao {
 		String sql = " select title, rowtitle, reservation, img, rdate "
 				   + " from movie where rowtitle like '%" + movieSearch + "%' limit 1 " ;
 				   
+		Connection conn = null;
+		PreparedStatement psmt = null;
+		ResultSet rs = null;
 		MovieDto dto = null;
 		
 		try {
-			conn = DBConnection.getConnection();	
+			conn = DBConnection.getConnection();
+	
+				
 			psmt = conn.prepareStatement(sql);
+		
+			
 			rs = psmt.executeQuery();
 		
+			
 			if(rs.next()) {
 				dto = new MovieDto(rs.getString(1),
 										rs.getString(2),
@@ -118,6 +141,9 @@ public class MovieListDao {
 										rs.getString(4), 
 										rs.getString(5));
 			}
+			
+		
+			
 		} catch (SQLException e) {
 			System.out.println("getMovie fail");
 			e.printStackTrace();

@@ -26,207 +26,80 @@
 }
 </style>
 
-
-
 <script type="text/javascript">
-	$(function() {
-		$
-				.ajax({
-					url : "../main?param=ajax",
-					type : "get",
-					datatype : 'json',
-					error : function(xhr, status, msg) {
-						alert(xhr + "상태값 :" + status + "http에러메세지: " + msg)
-					},
-					success : function(data) {
+$(function(){
+	$.ajax({
+		url:"../main?param=ajax",
+		type:"get",
+		datatype:'json',
+		error:function(xhr,status,msg){
+			alert(xhr+"상태값 :"+status+"http에러메세지: "+msg)
+		},
+		success:function(data){
+		
+			
+			$("#movieChart_list").empty();
+			for(let i=0;i<data.list.length;i++){
+				
+				$("#movieChart_list").append($("<div class='poster'>")
+						.append($('<a >').attr('href','${pageContext.request.contextPath}/movieDetail?rowtitle='+data.list[i].rowtitle)
+						.append($('<img>').css('width','170.4px').css('height','240px').attr('src',data.list[i].img)))
+						.append($('<div>')
+						.append($('<span>').text("평점: "+data.list[i].reservation+"%").css('color','#fff')).append($('<br>')).append($('<strong>').text(data.list[i].title).css('color','#fff'))));
+					}	
+				
 
-						$("#movieChart_list").empty();
-						for (let i = 0; i < data.list.length; i++) {
+			}
+	})
+	$('#mbtn1').click(function(){
+		$.ajax({
+			url:"../main?param=ajaxchart",
+			type:"get",
+			datatype:'json',
+			error:function(xhr,status,msg){
+				alert(xhr+"상태값 :"+status+"http에러메세지: "+msg)
+			},
+			success:function(data){
+				$("#movieChart_list").empty();
+				for(let i=0;i<data.list.length;i++){
+					
+				
+				
+					$("#movieChart_list").append($("<div class='poster'>")
+							.append($('<a >').attr('href','${pageContext.request.contextPath}/movieDetail?rowtitle='+data.list[i].rowtitle)
+							.append($('<img>').css('width','170.4px').css('height','240px').attr('src',data.list[i].img)))
+							.append($('<div>')
+							.append($('<span>').text("평점: "+data.list[i].reservation+"%").css('color','#fff')).append($('<br>')).append($('<strong>').text(data.list[i].title).css('color','#fff'))));
+						
+				}
 
-							$("#movieChart_list")
-									.append(
-											$("<div class='poster'>")
-													.append(
-															$('<a >')
-																	.attr(
-																			'href',
-																			'${pageContext.request.contextPath}/movieDetail?rowtitle='
-																					+ data.list[i].rowtitle)
-																	.append(
-																			$(
-																					'<img>')
-																					.css(
-																							'width',
-																							'170.4px')
-																					.css(
-																							'height',
-																							'240px')
-																					.attr(
-																							'src',
-																							data.list[i].img)))
-													.append(
-															$('<div>')
-																	.append(
-																			$(
-																					'<span>')
-																					.text(
-																							"평점: "
-																									+ data.list[i].reservation
-																									+ "%")
-																					.css(
-																							'color',
-																							'#fff'))
-																	.append(
-																			$('<br>'))
-																	.append(
-																			$(
-																					'<strong>')
-																					.text(
-																							data.list[i].title)
-																					.css(
-																							'color',
-																							'#fff'))));
-						}
+				}
+		})
+	});
+				
+	$('#mbtn2').click(function(){
+		$.ajax({
+			url:"../main?param=ajaxmchart",
+			type:"get",
+			datatype:'json',
+			error:function(xhr,status,msg){
+				alert(xhr+"상태값 :"+status+"http에러메세지: "+msg)
+			},
+			success:function(data){
+				$("#movieChart_list").empty();
+				for(let i=0;i<data.list.length;i++){
+					
 
-					}
-				})
-		$('#mbtn1')
-				.click(
-						function() {
-							$
-									.ajax({
-										url : "../main?param=ajaxchart",
-										type : "get",
-										datatype : 'json',
-										error : function(xhr, status, msg) {
-											alert(xhr + "상태값 :" + status
-													+ "http에러메세지: " + msg)
-										},
-										success : function(data) {
-											$("#movieChart_list").empty();
-											for (let i = 0; i < data.list.length; i++) {
-
-												$("#movieChart_list")
-														.append(
-																$(
-																		"<div class='poster'>")
-																		.append(
-																				$(
-																						'<a >')
-																						.attr(
-																								'href',
-																								'${pageContext.request.contextPath}/movieDetail?title='
-																										+ data.list[i].title)
-																						.append(
-																								$(
-																										'<img>')
-																										.css(
-																												'width',
-																												'170.4px')
-																										.css(
-																												'height',
-																												'240px')
-																										.attr(
-																												'src',
-																												data.list[i].img)))
-																		.append(
-																				$(
-																						'<div>')
-																						.append(
-																								$(
-																										'<span>')
-																										.text(
-																												"평점: "
-																														+ data.list[i].reservation
-																														+ "%")
-																										.css(
-																												'color',
-																												'#fff'))
-																						.append(
-																								$('<br>'))
-																						.append(
-																								$(
-																										'<strong>')
-																										.text(
-																												data.list[i].title)
-																										.css(
-																												'color',
-																												'#fff'))));
-
-											}
-
-										}
-									})
-						});
-
-		$('#mbtn2')
-				.click(
-						function() {
-							$
-									.ajax({
-										url : "../main?param=ajaxmchart",
-										type : "get",
-										datatype : 'json',
-										error : function(xhr, status, msg) {
-											alert(xhr + "상태값 :" + status
-													+ "http에러메세지: " + msg)
-										},
-										success : function(data) {
-											$("#movieChart_list").empty();
-											for (let i = 0; i < data.list.length; i++) {
-
-												$("#movieChart_list")
-														.append(
-																$(
-																		"<div class='poster'>")
-																		.append(
-																				$(
-																						'<a>')
-																						.attr(
-																								'href',
-																								'/movieDetail?title='
-																										+ data.list[i].title)
-																						.append(
-																								$(
-																										'<img>')
-																										.css(
-																												'width',
-																												'170.4px')
-																										.css(
-																												'height',
-																												'240px')
-																										.attr(
-																												'src',
-																												data.list[i].img)))
-																		.append(
-																				$(
-																						'<div>')
-																						.append(
-																								$(
-																										'<span>')
-																										.text(
-																												"평점: "
-																														+ data.list[i].reservation
-																														+ "%")
-																										.css(
-																												'color',
-																												'#fff'))
-																						.append(
-																								$('<br>'))
-																						.append(
-																								$(
-																										'<strong>')
-																										.text(
-																												data.list[i].title)
-																										.css(
-																												'color',
-																												'#fff'))));
-
-											}
-										}
-									})
-						});
-
+				
+					$("#movieChart_list").append($("<div class='poster'>")
+							.append($('<a>').attr('href','${pageContext.request.contextPath}/movieDetail?rowtitle='+data.list[i].rowtitle)
+							.append($('<img>').css('width','170.4px').css('height','240px').attr('src',data.list[i].img)))
+							.append($('<div>')
+							.append($('<span>').text("평점: "+data.list[i].reservation+"%").css('color','#fff')).append($('<br>')).append($('<strong>').text(data.list[i].title).css('color','#fff'))));
+						
+				}
+			}
+		})
 	});
 </script>
 
