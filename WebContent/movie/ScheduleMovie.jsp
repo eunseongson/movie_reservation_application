@@ -58,7 +58,7 @@ String sort = String.valueOf(request.getAttribute("sort"));
         <!-- Sorting -->
         <div class="sect-sorting" style="padding : 20px;">
             <div class="nowshow">
-                <label for="chk_nowshow">상영예정작</label>                
+                <label for="chk_nowshow"></label>                
             </div>
             <div class="movielist-sort">
             	<%
